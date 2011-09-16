@@ -1,0 +1,8 @@
+out
+__history
+*.local
+*.identcache
+*.tvsconfig
+*.dsk
+*.bak
+*.~*
