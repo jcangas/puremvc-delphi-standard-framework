@@ -174,10 +174,10 @@ type
 {$ENDREGION}
 {$REGION 'INotifier Members'}
   public
-    procedure SendNotification(NotificationName: string); overload;
-    procedure SendNotification(NotificationName: string;
+    procedure SendNotification(Sender: TObject; NotificationName: string); overload;
+    procedure SendNotification(Sender: TObject; NotificationName: string;
         Body: TValue); overload;
-    procedure SendNotification(NotificationName: string; Body: TValue;
+    procedure SendNotification(Sender: TObject; NotificationName: string; Body: TValue;
         Kind: TValue); overload;virtual;
 {$ENDREGION}
 {$REGION 'Accessors'}
@@ -381,20 +381,20 @@ begin
 end;
 {$ENDREGION}
 
-procedure TFacade.SendNotification(NotificationName: string; Body: TValue;
+procedure TFacade.SendNotification(Sender: TObject; NotificationName: string; Body: TValue;
     Kind: TValue);
 begin
-  NotifyObservers(TNotification.Create(NotificationName, Body, Kind))
+  NotifyObservers(TNotification.Create(Sender, NotificationName, Body, Kind))
 end;
 
-procedure TFacade.SendNotification(NotificationName: string; Body: TValue);
+procedure TFacade.SendNotification(Sender: TObject; NotificationName: string; Body: TValue);
 begin
-  SendNotification(NotificationName, Body, TValue.Empty);
+  SendNotification(Sender, NotificationName, Body, TValue.Empty);
 end;
 
-procedure TFacade.SendNotification(NotificationName: string);
+procedure TFacade.SendNotification(Sender: TObject; NotificationName: string);
 begin
-  SendNotification(NotificationName, nil, TValue.Empty);
+  SendNotification(Sender, NotificationName, nil, TValue.Empty);
 end;
 
 procedure TFacade.NotifyObservers(Notification: INotification);

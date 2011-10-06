@@ -7,6 +7,7 @@ uses Rtti,
 type
   TNotification = class(TInterfacedObject, INotification)
   private
+    FSender: TObject;
     FBody: TValue;
     FKind: TValue;
     FName: string;
@@ -15,9 +16,11 @@ type
     function GetName: string;
     function GetKind: TValue;
     procedure SetKind(const Value: TValue);
+    function GetSender: TObject;
   public
-    constructor Create(Name: string; Body: TValue; Kind: TValue);
+    constructor Create(Sender: TObject; Name: string; Body: TValue; Kind: TValue);
     function ToString: string;override;
+    property Sender: TObject read GetSender;
     property Name: string read GetName;
     property Body: TValue read GetBody write SetBody;
     property Kind: TValue read GetKind write SetKind;
@@ -26,9 +29,10 @@ type
 implementation
 uses SysUtils;
 
-constructor TNotification.Create(Name: string; Body: TValue ; Kind: TValue);
+constructor TNotification.Create(Sender: TObject; Name: string; Body: TValue ; Kind: TValue);
 begin
   inherited Create;
+  FSender := Sender;
   FName := Name;
   FBody := Body;
   FKind := Kind;
@@ -47,6 +51,11 @@ end;
 function TNotification.GetName: string;
 begin
   Result := FName
+end;
+
+function TNotification.GetSender: TObject;
+begin
+  Result := Sender;
 end;
 
 procedure TNotification.SetBody(Value: TValue);

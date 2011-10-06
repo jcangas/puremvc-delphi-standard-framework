@@ -9,9 +9,9 @@ uses
 type
   TNotifier = class(TInterfacedObject, INotifier)
   public
-    procedure SendNotification(name: string); overload;
-    procedure SendNotification(name: string; Body: TValue); overload;
-    procedure SendNotification(name: string; Body: TValue; Kind: TValue); overload;
+    procedure SendNotification(Sender: TObject; Name: string); overload;
+    procedure SendNotification(Sender: TObject; Name: string; Body: TValue); overload;
+    procedure SendNotification(Sender: TObject; Name: string; Body: TValue; Kind: TValue); overload;
   end;
 
 implementation
@@ -19,19 +19,19 @@ implementation
 uses
   PureMVC.Patterns.Facade;
 
-procedure TNotifier.SendNotification(name: string);
+procedure TNotifier.SendNotification(Sender: TObject; Name: string);
 begin
-  SendNotification(name, nil, TValue.Empty);
+  SendNotification(Sender, Name, nil, TValue.Empty);
 end;
 
-procedure TNotifier.SendNotification(name: string; Body: TValue);
+procedure TNotifier.SendNotification(Sender: TObject; Name: string; Body: TValue);
 begin
-  SendNotification(name, Body, TValue.Empty);
+  SendNotification(Sender, Name, Body, TValue.Empty);
 end;
 
-procedure TNotifier.SendNotification(name: string; Body: TValue; Kind: TValue);
+procedure TNotifier.SendNotification(Sender: TObject; Name: string; Body: TValue; Kind: TValue);
 begin
-  TFacade.Instance.SendNotification(name, Body, Kind);
+  TFacade.Instance.SendNotification(Sender, Name, Body, Kind);
 end;
 
 end.

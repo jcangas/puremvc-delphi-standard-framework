@@ -29,6 +29,14 @@ type
     function GetKind: TValue;
     procedure SetKind(const Value: TValue);
     function GetName: string;
+    function GetSender: TObject;
+
+    /// <summary>
+    /// The Sender of the <c>INotification</c> instance. Introduced to be
+    ///  more "Delphi idiomatic"
+    /// </summary>
+    /// <remarks>No setter, should be set by constructor only</remarks>
+    property Sender: TObject read GetSender;
     /// <summary>
     /// The name of the <c>INotification</c> instance
     /// </summary>
