@@ -55,7 +55,7 @@ end;
 
 function TNotification.GetSender: TObject;
 begin
-  Result := Sender;
+  Result := FSender;
 end;
 
 procedure TNotification.SetBody(Value: TValue);
