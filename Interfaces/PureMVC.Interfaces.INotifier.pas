@@ -1,3 +1,9 @@
+{
+ PureMVC Delphi Port by Jorge L. Cangas <jorge.cangas@puremvc.org>
+ PureMVC - Copyright(c) 2006-11 Futurescale, Inc., Some rights reserved.
+ Your reuse is governed by the Creative Commons Attribution 3.0 License
+}
+
 unit PureMVC.Interfaces.INotifier;
 
 interface
@@ -17,6 +23,7 @@ type
   /// <see cref="PureMVC.Interfaces.IFacade"/>
   /// <see cref="PureMVC.Interfaces.INotification"/>
   INotifier = interface
+  ['{7D004307-4A98-4E58-AC61-BE4F3AD634A2}']
 
     /// <summary>
     /// Send a <c>INotification</c>

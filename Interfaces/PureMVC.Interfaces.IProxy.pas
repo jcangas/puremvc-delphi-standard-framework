@@ -1,6 +1,13 @@
+{
+ PureMVC Delphi Port by Jorge L. Cangas <jorge.cangas@puremvc.org>
+ PureMVC - Copyright(c) 2006-11 Futurescale, Inc., Some rights reserved.
+ Your reuse is governed by the Creative Commons Attribution 3.0 License
+}
+
 unit PureMVC.Interfaces.IProxy;
 
 interface
+uses RTTI;
 
 type
 
@@ -32,9 +39,9 @@ type
     /// <summary>
     /// The data of the proxy
     /// </summary>
-    function GetData: TObject;
-    procedure SetData(Value: TObject);
-    property Data: TObject read GetData write SetData;
+    function GetData: TValue;
+    procedure SetData(Value: TValue);
+    property Data: TValue read GetData write SetData;
 
     /// <summary>
     /// Called by the Model when the Proxy is registered

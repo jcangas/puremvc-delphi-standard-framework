@@ -1,12 +1,12 @@
 ﻿	<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 		<PropertyGroup>
-			<ProjectGuid>{3769A7DA-3099-4475-B7D4-5DC5543FD3F0}</ProjectGuid>
-			<MainSource>PureMVC.dpk</MainSource>
+			<ProjectGuid>{6A0562DE-8039-4870-97F5-D2D13C3DB571}</ProjectGuid>
+			<MainSource>EmployeeAdmin.dpr</MainSource>
 			<ProjectVersion>12.3</ProjectVersion>
 			<Base>True</Base>
 			<Config Condition="'$(Config)'==''">Debug</Config>
 			<Platform>Win32</Platform>
-			<AppType>Package</AppType>
+			<AppType>Application</AppType>
 			<FrameworkType>VCL</FrameworkType>
 			<DCC_DCCCompiler>DCC32</DCC_DCCCompiler>
 		</PropertyGroup>
@@ -24,22 +24,21 @@
 			<Base>true</Base>
 		</PropertyGroup>
 		<PropertyGroup Condition="'$(Base)'!=''">
-			<DCC_UnitSearchPath>$(BDSPROJECTGROUPDIR)\out\$(Config)\lib;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
-			<DCC_DcpOutput>$(BDSPROJECTGROUPDIR)\out\$(Config)\lib</DCC_DcpOutput>
-			<DCC_BplOutput>$(BDSPROJECTGROUPDIR)\out\$(Config)\bin</DCC_BplOutput>
-			<GenPackage>true</GenPackage>
-			<DCC_DcuOutput>$(BDSPROJECTGROUPDIR)\out\$(Config)\lib</DCC_DcuOutput>
+			<DCC_UsePackage>vcl;CodeSiteExpressVcl;rtl;vclx;vclactnband;xmlrtl;VclSmp;vclimg;svnui;svn;bdertl;TeeUI;TeeDB;Tee;vcldb;dbrtl;vcldbx;vcltouch;dsnap;dsnapcon;vclib;ibxpress;adortl;IndyCore;IndySystem;IndyProtocols;inet;intrawebdb_110_150;Intraweb_110_150;vclie;websnap;webdsnap;inetdb;inetdbbde;inetdbxpress;soaprtl;vclribbon;dbexpress;DbxCommonDriver;DataSnapIndy10ServerTransport;DataSnapProviderClient;DataSnapClient;dbxcds;DbxClientDriver;DataSnapServer;AzureCloud;DBXInterBaseDriver;DBXMySQLDriver;DBXFirebirdDriver;DBXSybaseASEDriver;DBXSybaseASADriver;DBXOracleDriver;DBXMSSQLDriver;DBXInformixDriver;DBXDb2Driver</DCC_UsePackage>
+			<DCC_UnitSearchPath>$(BDSPROJECTGROUPDIR)\out\$(Config)\lib;$(BDSPROJECTGROUPDIR)\vendor\XE;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
 			<DCC_ImageBase>00400000</DCC_ImageBase>
+			<DCC_DcuOutput>$(BDSPROJECTGROUPDIR)\out\$(Config)\temp</DCC_DcuOutput>
 			<DCC_UnitAlias>WinTypes=Windows;WinProcs=Windows;DbiTypes=BDE;DbiProcs=BDE;$(DCC_UnitAlias)</DCC_UnitAlias>
+			<DCC_ExeOutput>$(BDSPROJECTGROUPDIR)\out\$(Config)\bin</DCC_ExeOutput>
 			<DCC_E>false</DCC_E>
-			<DCC_S>false</DCC_S>
-			<GenDll>true</GenDll>
 			<DCC_N>false</DCC_N>
+			<DCC_S>false</DCC_S>
 			<DCC_F>false</DCC_F>
 			<DCC_K>false</DCC_K>
 		</PropertyGroup>
 		<PropertyGroup Condition="'$(Cfg_1)'!=''">
-			<DCC_DefaultNamespace>PureMVC</DCC_DefaultNamespace>
+			<DCC_DebugInfoInExe>true</DCC_DebugInfoInExe>
+			<DCC_DebugDCUs>true</DCC_DebugDCUs>
 			<DCC_Define>DEBUG;$(DCC_Define)</DCC_Define>
 			<DCC_Optimize>false</DCC_Optimize>
 			<DCC_GenerateStackFrames>true</DCC_GenerateStackFrames>
@@ -51,30 +50,39 @@
 			<DCC_DebugInformation>false</DCC_DebugInformation>
 		</PropertyGroup>
 		<ItemGroup>
-			<DelphiCompile Include="PureMVC.dpk">
+			<DelphiCompile Include="EmployeeAdmin.dpr">
 				<MainSource>MainSource</MainSource>
 			</DelphiCompile>
-			<DCCReference Include="rtl.dcp"/>
-			<DCCReference Include="vcl.dcp"/>
-			<DCCReference Include="SummerFW.Utils.dcp"/>
-			<DCCReference Include="Interfaces\PureMVC.Interfaces.ICommand.pas"/>
-			<DCCReference Include="Interfaces\PureMVC.Interfaces.IController.pas"/>
-			<DCCReference Include="Interfaces\PureMVC.Interfaces.IFacade.pas"/>
-			<DCCReference Include="Interfaces\PureMVC.Interfaces.IMediator.pas"/>
-			<DCCReference Include="Interfaces\PureMVC.Interfaces.IModel.pas"/>
-			<DCCReference Include="Interfaces\PureMVC.Interfaces.INotification.pas"/>
-			<DCCReference Include="Interfaces\PureMVC.Interfaces.IObserver.pas"/>
-			<DCCReference Include="Interfaces\PureMVC.Interfaces.IView.pas"/>
-			<DCCReference Include="Patterns\PureMVC.Patterns.Command.pas"/>
-			<DCCReference Include="Patterns\PureMVC.Patterns.Facade.pas"/>
-			<DCCReference Include="Patterns\PureMVC.Patterns.Mediator.pas"/>
-			<DCCReference Include="Patterns\PureMVC.Patterns.Observer.pas"/>
-			<DCCReference Include="Core\PureMVC.Core.Controller.pas"/>
-			<DCCReference Include="Core\PureMVC.Core.View.pas"/>
-			<DCCReference Include="Interfaces\PureMVC.Interfaces.INotifier.pas"/>
-			<DCCReference Include="Interfaces\PureMVC.Interfaces.IProxy.pas"/>
-			<DCCReference Include="Patterns\PureMVC.Patterns.Notification.pas"/>
-			<DCCReference Include="Patterns\PureMVC.Patterns.Notifier.pas"/>
+			<DCCReference Include="..\View\MainWin.pas">
+				<Form>MainWindow</Form>
+			</DCCReference>
+			<DCCReference Include="..\Controller\AddRoleResultCommand.pas"/>
+			<DCCReference Include="..\Controller\DeleteUserCommand.pas"/>
+			<DCCReference Include="..\Model\VO\UserVO.pas"/>
+			<DCCReference Include="..\Model\RoleProxy.pas"/>
+			<DCCReference Include="..\Model\UserProxy.pas"/>
+			<DCCReference Include="..\ApplicationFacade.pas"/>
+			<DCCReference Include="..\Model\Enum\DeptEnum.pas"/>
+			<DCCReference Include="..\Model\Enum\RoleEnum.pas"/>
+			<DCCReference Include="..\Model\VO\RoleVO.pas"/>
+			<DCCReference Include="..\Controller\StartupCommand.pas"/>
+			<DCCReference Include="..\View\UserFormMediator.pas"/>
+			<DCCReference Include="..\View\UserListMediator.pas"/>
+			<DCCReference Include="..\View\RolePanelMediator.pas"/>
+			<DCCReference Include="..\View\Components\UserFrm.pas">
+				<Form>UserForm</Form>
+				<DesignClass>TFrame</DesignClass>
+			</DCCReference>
+			<DCCReference Include="..\View\Components\UserLst.pas">
+				<Form>UserList</Form>
+				<DesignClass>TFrame</DesignClass>
+			</DCCReference>
+			<DCCReference Include="..\View\Components\RolePanl.pas">
+				<Form>RolePanel</Form>
+				<DesignClass>TFrame</DesignClass>
+			</DCCReference>
+			<None Include="..\version.txt"/>
+			<None Include="..\license.txt"/>
 			<BuildConfiguration Include="Release">
 				<Key>Cfg_2</Key>
 				<CfgParent>Base</CfgParent>
@@ -91,14 +99,11 @@
 		<Import Condition="Exists('$(APPDATA)\Embarcadero\$(BDSAPPDATABASEDIR)\$(PRODUCTVERSION)\UserTools.proj')" Project="$(APPDATA)\Embarcadero\$(BDSAPPDATABASEDIR)\$(PRODUCTVERSION)\UserTools.proj"/>
 		<ProjectExtensions>
 			<Borland.Personality>Delphi.Personality.12</Borland.Personality>
-			<Borland.ProjectType>Package</Borland.ProjectType>
+			<Borland.ProjectType/>
 			<BorlandProject>
 				<Delphi.Personality>
-					<Source>
-						<Source Name="MainSource">PureMVC.dpk</Source>
-					</Source>
 					<VersionInfo>
-						<VersionInfo Name="IncludeVerInfo">True</VersionInfo>
+						<VersionInfo Name="IncludeVerInfo">False</VersionInfo>
 						<VersionInfo Name="AutoIncBuild">False</VersionInfo>
 						<VersionInfo Name="MajorVer">1</VersionInfo>
 						<VersionInfo Name="MinorVer">0</VersionInfo>
@@ -124,6 +129,9 @@
 						<VersionInfoKeys Name="ProductVersion">1.0.0.0</VersionInfoKeys>
 						<VersionInfoKeys Name="Comments"/>
 					</VersionInfoKeys>
+					<Source>
+						<Source Name="MainSource">EmployeeAdmin.dpr</Source>
+					</Source>
 					<Excluded_Packages>
 						<Excluded_Packages Name="$(BDSBIN)\bcboffice2k150.bpl">Embarcadero C++Builder Office 2000 Servers Package</Excluded_Packages>
 						<Excluded_Packages Name="$(BDSBIN)\bcbofficexp150.bpl">Embarcadero C++Builder Office XP Servers Package</Excluded_Packages>
@@ -134,6 +142,7 @@
 				<Platforms>
 					<Platform value="Win32">True</Platform>
 				</Platforms>
+				<ModelSupport>False</ModelSupport>
 			</BorlandProject>
 			<ProjectFileVersion>12</ProjectFileVersion>
 		</ProjectExtensions>

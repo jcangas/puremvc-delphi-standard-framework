@@ -1,3 +1,9 @@
+{
+ PureMVC Delphi Port by Jorge L. Cangas <jorge.cangas@puremvc.org>
+ PureMVC - Copyright(c) 2006-11 Futurescale, Inc., Some rights reserved.
+ Your reuse is governed by the Creative Commons Attribution 3.0 License
+}
+
 unit PureMVC.Interfaces.IFacade;
 
 interface
@@ -22,6 +28,7 @@ type
   /// <see cref="PureMVC.Interfaces.ICommand"/>
   /// <see cref="PureMVC.Interfaces.INotification"/>
   IFacade = interface(INotifier)
+  ['{7FFB8968-33D6-4636-9CD7-93EF9E3FB734}']
 
 {$REGION 'Proxy'}
     /// <summary>

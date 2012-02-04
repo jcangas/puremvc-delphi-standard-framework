@@ -1,3 +1,9 @@
+{
+ PureMVC Delphi Port by Jorge L. Cangas <jorge.cangas@puremvc.org>
+ PureMVC - Copyright(c) 2006-11 Futurescale, Inc., Some rights reserved.
+ Your reuse is governed by the Creative Commons Attribution 3.0 License
+}
+
 unit PureMVC.Patterns.Mediator;
 
 interface
@@ -18,7 +24,7 @@ type
   public
     function GetMediatorName: string;
     function GetViewComponent: TObject;
-    procedure SetViewComponent(Value: TObject);
+    procedure SetViewComponent(Value: TObject);virtual;
     procedure OnRemove; virtual;
     procedure OnRegister; virtual;
     function ListNotificationInterests: IList<string>; virtual;
@@ -39,7 +45,7 @@ constructor TMediator.Create(Name: string; AViewComponent: TObject);
 begin
   inherited Create;
   FMediatorName := Name;
-  FViewComponent := AViewComponent;
+  ViewComponent := AViewComponent;
 end;
 
 constructor TMediator.Create(View: TObject);

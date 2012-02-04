@@ -1,3 +1,9 @@
+{
+ PureMVC Delphi Port by Jorge L. Cangas <jorge.cangas@puremvc.org>
+ PureMVC - Copyright(c) 2006-11 Futurescale, Inc., Some rights reserved.
+ Your reuse is governed by the Creative Commons Attribution 3.0 License
+}
+
 unit PureMVC.Interfaces.IModel;
 
 interface

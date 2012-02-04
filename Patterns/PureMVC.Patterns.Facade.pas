@@ -1,3 +1,9 @@
+{
+ PureMVC Delphi Port by Jorge L. Cangas <jorge.cangas@puremvc.org>
+ PureMVC - Copyright(c) 2006-11 Futurescale, Inc., Some rights reserved.
+ Your reuse is governed by the Creative Commons Attribution 3.0 License
+}
+
 unit PureMVC.Patterns.Facade;
 
 interface
@@ -135,16 +141,16 @@ type
   /// <see cref="PureMVC.Patterns.MacroCommand"/>
 
   TFacadeClass = class of TFacade;
-  TOnGetFacadeClassEvent = procedure(var FacadeClass: TFacadeClass) of object;
+  TOnGetFacadeClassEvent = reference to procedure(var FacadeClass: TFacadeClass);
 
   TFacade = class(TInterfacedObject, IFacade)
   private
     class var FOnGetFacadeClass: TOnGetFacadeClassEvent;
   protected
     constructor Create;
+  public
     class property OnGetFacadeClass: TOnGetFacadeClassEvent
         read FOnGetFacadeClass write FOnGetFacadeClass;
-  public
     destructor Destroy; override;
 
 {$REGION 'Proxy'}
@@ -185,7 +191,7 @@ type
     /// <summary>
     /// Facade Singleton Factory method.  This method is thread safe.
     /// </summary>
-    class function Instance: IFacade; static;
+    class function Instance: IFacade;
 {$ENDREGION}
 {$REGION 'Protected & Internal Methods'}
   protected
@@ -296,7 +302,7 @@ begin
   if (FInstance = nil) then
     Sync.Lock(FStaticSyncRoot, procedure begin FacadeClass := nil;
         if Assigned(FOnGetFacadeClass) then FOnGetFacadeClass(FacadeClass);
-        if FacadeClass = nil then FacadeClass := TFacade;
+        if FacadeClass = nil then FacadeClass := Self;
         if (FInstance = nil) then begin FInstance := FacadeClass.Create; end;
 
     end);

@@ -1,0 +1,48 @@
+﻿	<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+		<PropertyGroup>
+			<ProjectGuid>{48DA70E3-3E30-47CE-9558-D9E63CD144D4}</ProjectGuid>
+		</PropertyGroup>
+		<ItemGroup>
+			<Projects Include="PureMVC.dproj">
+				<Dependencies/>
+			</Projects>
+			<Projects Include="..\EmployeeAdmin_1_0\XE\EmployeeAdmin.dproj">
+				<Dependencies/>
+			</Projects>
+		</ItemGroup>
+		<ProjectExtensions>
+			<Borland.Personality>Default.Personality.12</Borland.Personality>
+			<Borland.ProjectType/>
+			<BorlandProject>
+				<Default.Personality/>
+			</BorlandProject>
+		</ProjectExtensions>
+		<Target Name="PureMVC">
+			<MSBuild Projects="PureMVC.dproj"/>
+		</Target>
+		<Target Name="PureMVC:Clean">
+			<MSBuild Projects="PureMVC.dproj" Targets="Clean"/>
+		</Target>
+		<Target Name="PureMVC:Make">
+			<MSBuild Projects="PureMVC.dproj" Targets="Make"/>
+		</Target>
+		<Target Name="EmployeeAdmin">
+			<MSBuild Projects="..\EmployeeAdmin_1_0\XE\EmployeeAdmin.dproj"/>
+		</Target>
+		<Target Name="EmployeeAdmin:Clean">
+			<MSBuild Projects="..\EmployeeAdmin_1_0\XE\EmployeeAdmin.dproj" Targets="Clean"/>
+		</Target>
+		<Target Name="EmployeeAdmin:Make">
+			<MSBuild Projects="..\EmployeeAdmin_1_0\XE\EmployeeAdmin.dproj" Targets="Make"/>
+		</Target>
+		<Target Name="Build">
+			<CallTarget Targets="PureMVC;EmployeeAdmin"/>
+		</Target>
+		<Target Name="Clean">
+			<CallTarget Targets="PureMVC:Clean;EmployeeAdmin:Clean"/>
+		</Target>
+		<Target Name="Make">
+			<CallTarget Targets="PureMVC:Make;EmployeeAdmin:Make"/>
+		</Target>
+		<Import Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')" Project="$(BDS)\Bin\CodeGear.Group.Targets"/>
+	</Project>
