@@ -46,6 +46,8 @@
 			<DCC_K>false</DCC_K>
 		</PropertyGroup>
 		<PropertyGroup Condition="'$(Cfg_1)'!=''">
+			<DCC_DebugDCUs>true</DCC_DebugDCUs>
+			<DCC_DebugInfoInExe>true</DCC_DebugInfoInExe>
 			<DCC_DefaultNamespace>PureMVC</DCC_DefaultNamespace>
 			<DCC_Define>DEBUG;$(DCC_Define)</DCC_Define>
 			<DCC_Optimize>false</DCC_Optimize>
@@ -83,6 +85,7 @@
 			<DCCReference Include="..\Patterns\PureMVC.Patterns.Notification.pas"/>
 			<DCCReference Include="..\Patterns\PureMVC.Patterns.Notifier.pas"/>
 			<DCCReference Include="..\Patterns\PureMVC.Patterns.Proxy.pas"/>
+			<DCCReference Include="..\Core\PureMVC.Core.Model.pas"/>
 			<None Include="..\version.txt"/>
 			<None Include="..\license.txt"/>
 			<BuildConfiguration Include="Release">

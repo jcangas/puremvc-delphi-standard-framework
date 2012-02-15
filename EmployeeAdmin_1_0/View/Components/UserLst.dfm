@@ -10,8 +10,16 @@ object UserList: TUserList
     Width = 623
     Height = 298
     Align = alClient
+    BorderStyle = bsNone
+    ColCount = 6
+    Ctl3D = False
+    DoubleBuffered = True
+    Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goColSizing, goRowSelect]
+    ParentCtl3D = False
+    ParentDoubleBuffered = False
+    ScrollBars = ssVertical
     TabOrder = 0
-    ExplicitHeight = 141
+    OnClick = UserGridClick
   end
   object ButtonBar: TPanel
     Left = 0
@@ -31,15 +39,17 @@ object UserList: TUserList
       Anchors = [akTop, akRight]
       Caption = 'New'
       TabOrder = 0
+      OnClick = NewBtnClick
     end
     object DeleteBtn: TButton
-      Left = 537
+      Left = 541
       Top = 6
       Width = 75
       Height = 25
       Anchors = [akTop, akRight]
       Caption = 'Delete'
       TabOrder = 1
+      OnClick = DeleteBtnClick
     end
   end
 end

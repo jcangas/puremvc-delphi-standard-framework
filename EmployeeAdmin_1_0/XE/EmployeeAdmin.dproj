@@ -37,6 +37,7 @@
 			<DCC_K>false</DCC_K>
 		</PropertyGroup>
 		<PropertyGroup Condition="'$(Cfg_1)'!=''">
+			<DCC_RunTimeTypeInfo>true</DCC_RunTimeTypeInfo>
 			<DCC_DebugInfoInExe>true</DCC_DebugInfoInExe>
 			<DCC_DebugDCUs>true</DCC_DebugDCUs>
 			<DCC_Define>DEBUG;$(DCC_Define)</DCC_Define>
@@ -81,6 +82,7 @@
 				<Form>RolePanel</Form>
 				<DesignClass>TFrame</DesignClass>
 			</DCCReference>
+			<DCCReference Include="..\Model\Enum\Enum.pas"/>
 			<None Include="..\version.txt"/>
 			<None Include="..\license.txt"/>
 			<BuildConfiguration Include="Release">

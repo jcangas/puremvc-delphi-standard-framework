@@ -55,7 +55,8 @@ contains
   PureMVC.Interfaces.IProxy in '..\Interfaces\PureMVC.Interfaces.IProxy.pas',
   PureMVC.Patterns.Notification in '..\Patterns\PureMVC.Patterns.Notification.pas',
   PureMVC.Patterns.Notifier in '..\Patterns\PureMVC.Patterns.Notifier.pas',
-  PureMVC.Patterns.Proxy in '..\Patterns\PureMVC.Patterns.Proxy.pas';
+  PureMVC.Patterns.Proxy in '..\Patterns\PureMVC.Patterns.Proxy.pas',
+  PureMVC.Core.Model in '..\Core\PureMVC.Core.Model.pas';
 
 end.
 

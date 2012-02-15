@@ -173,10 +173,13 @@ end;
 
 procedure TView.RegisterObserver(NotificationName: string; Observer: IObserver);
 begin
-  Sync.Lock(FSyncRoot, procedure begin if not FObserverMap.ContainsKey
-      (NotificationName) then FObserverMap.Add(NotificationName,
-      TList<IObserver>.Create);
-      FObserverMap[NotificationName].Add(Observer); end);
+  Sync.Lock(FSyncRoot, procedure begin
+
+    if not FObserverMap.ContainsKey(NotificationName) then
+      FObserverMap.Add(NotificationName, TList<IObserver>.Create);
+    FObserverMap[NotificationName].Add(Observer);
+  end);
+
 end;
 
 procedure TView.RemoveObserver(NotificationName: string;

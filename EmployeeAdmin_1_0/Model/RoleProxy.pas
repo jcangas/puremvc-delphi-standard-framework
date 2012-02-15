@@ -18,6 +18,7 @@ uses SummerFW.Utils.Collections,
 type
   TRoleProxy = class(TProxy, IProxy)
   private
+    FRoles: IList<TRoleVO>;
     function GetRoles: IList<TRoleVO>;
   public const
     NAME = 'RoleProxy';
@@ -51,7 +52,7 @@ type
     /// </summary>
     /// <param name="user"></param>
     /// <param name="role"></param>
-    procedure AddRoleToUser(User: TUserVO; Role: TRoleEnum);
+    function AddRoleToUser(User: TUserVO; Role: TRoleEnum): Boolean;
     /// <summary>
     /// remove a role from the user
     /// </summary>
@@ -66,7 +67,7 @@ type
 
 implementation
 
-uses ApplicationFacade;
+uses RTTI, ApplicationFacade;
 
 { TRoleProxy }
 
@@ -75,30 +76,11 @@ begin
   Roles.Add(Role);
 end;
 
-procedure TRoleProxy.AddRoleToUser(User: TUserVO; Role: TRoleEnum);
-var
-  Result: Boolean;
-  R: TRoleVO;
-  UserRoles: IList<TRoleEnum>;
-begin
-  Result := False;
-
-  if not DoesUserHaveRole(User, Role) then
-    for R in Roles do begin
-      if (R.Username <> User.Username) then Continue;
-      UserRoles := R.Roles;
-      UserRoles.Add(Role);
-      Result := True;
-      Break;
-    end;
-
-  SendNotification(Self, CMD.ADD_ROLE_RESULT, Result);
-end;
-
 constructor TRoleProxy.Create;
 begin
   // TODO: : base(NAME, new ObservableCollection<RoleVO>())
-  inherited Create(NAME, TList<TRoleVO>.Create);
+  FRoles := TList<TRoleVO>.Create;
+  inherited Create(NAME, TValue.From(FRoles));
   // generate some test data
   AddItem(TRoleVO.Create('lstooge', [TRoleEnum.PAYROLL,
     TRoleEnum.EMP_BENEFITS]));
@@ -121,25 +103,9 @@ begin
     end;
 end;
 
-function TRoleProxy.DoesUserHaveRole(User: TUserVO; Role: TRoleEnum): Boolean;
-var
-  R: TRoleVO;
-  UserRoles: IList<TRoleEnum>;
-  curRole: TRoleEnum;
-
-begin
-  for R in Roles do begin
-    if (R.Username <> User.Username) then Continue;
-    UserRoles := R.Roles;
-    for curRole in UserRoles do
-      if (curRole.Equals(Role)) then Exit(True);
-  end;
-  Result := false;
-end;
-
 function TRoleProxy.GetRoles: IList<TRoleVO>;
 begin
-  Result := FData.AsType<IList<TRoleVO>>;
+  Result := FRoles;
 end;
 
 function TRoleProxy.GetUserRoles(Username: string): IList<TRoleEnum>;
@@ -153,11 +119,40 @@ begin
   Result := TList<TRoleEnum>.Create;
 end;
 
+function TRoleProxy.DoesUserHaveRole(User: TUserVO; Role: TRoleEnum): Boolean;
+var
+  R: TRoleVO;
+  UserRoles: IList<TRoleEnum>;
+begin
+ for R in Roles do begin
+    if (R.Username <> User.Username) then Continue;
+    UserRoles := R.Roles;
+    if UserRoles.Contains(Role) then Exit(True);
+  end;
+  Result := False;
+end;
+
+function TRoleProxy.AddRoleToUser(User: TUserVO; Role: TRoleEnum): Boolean;
+var
+  R: TRoleVO;
+  UserRoles: IList<TRoleEnum>;
+begin
+  Result := False;
+  if not DoesUserHaveRole(User, Role) then
+    for R in Roles do begin
+      if (R.Username <> User.Username) then Continue;
+      UserRoles := R.Roles;
+      UserRoles.Add(Role);
+      Result := True;
+      Break;
+    end;
+end;
+
 procedure TRoleProxy.RemoveRoleFromUser(User: TUserVO; Role: TRoleEnum);
 var
   R: TRoleVO;
   UserRoles: IList<TRoleEnum>;
-  curRole: TRoleEnum;
+  CurRole: TRoleEnum;
 begin
   if not DoesUserHaveRole(User, Role) then Exit;
   for R in Roles do begin

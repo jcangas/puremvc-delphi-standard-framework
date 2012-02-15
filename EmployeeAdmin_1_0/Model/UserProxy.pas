@@ -8,7 +8,8 @@ unit UserProxy;
 
 interface
 
-uses SummerFW.Utils.Collections,
+uses Generics.Collections,
+  SummerFW.Utils.Collections,
   PureMVC.Interfaces.IProxy,
   PureMVC.Patterns.Proxy,
   DeptEnum,
@@ -18,9 +19,10 @@ uses SummerFW.Utils.Collections,
 type
   TUserProxy = class(TProxy, IProxy)
   private
+    FUsers: IList<TUserVO>;
     function GetUsers: IList<TUserVO>;
-  public const
-    NAME = 'UserProxy';
+  public
+  const NAME = 'UserProxy';
     constructor Create;
     /// <summary>
     /// Return data property cast to proper type
@@ -44,8 +46,7 @@ type
   end;
 
 implementation
-
-{ TUserProxy }
+uses RTTI;
 
 { TUserProxy }
 
@@ -57,7 +58,8 @@ end;
 constructor TUserProxy.Create;
 begin
   // TODO: : base(NAME, new ObservableCollection<RoleVO>())
-  inherited Create(NAME, TList<TRoleVO>.Create);
+  FUsers := TList<TUserVO>.Create;
+  inherited Create(NAME, TValue.From(FUsers));
 
   // generate some test data
   AddItem(TUserVO.Create('lstooge', 'Larry', 'Stooge', 'larry@stooges.com',
@@ -71,29 +73,23 @@ end;
 
 function TUserProxy.GetUsers: IList<TUserVO>;
 begin
-  Result := Data.AsType<IList<TUserVO>>;
+  Result := FUsers
 end;
 
 procedure TUserProxy.UpdateItem(User: TUserVO);
 var
   i: Integer;
 begin
-  for i := 0 to Users.Count - 1 do
-    if (Users[i].UserName = User.UserName) then begin
-      Users[i] := User;
-      Break;
-    end;
+  if Users.BinarySearch(User, i) then
+    Users[i] := User;
 end;
 
 procedure TUserProxy.DeleteItem(User: TUserVO);
 var
   i: Integer;
 begin
-  for i := 0 to Users.Count - 1 do
-    if (Users[i].UserName = User.UserName) then begin
+  if Users.BinarySearch(User, i) then
       Users.Delete(i);
-      Break;
-    end;
 end;
 
 end.

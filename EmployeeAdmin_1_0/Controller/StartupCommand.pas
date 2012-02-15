@@ -22,10 +22,9 @@ type
   end;
 
 implementation
-uses UserProxy, RoleProxy, MainWin,
+uses
+  UserProxy, RoleProxy, MainWin,
   UserFormMediator, UserListMediator, RolePanelMediator;
-  //Demo.PureMVC.EmployeeAdmin.Model;
-  //Demo.PureMVC.EmployeeAdmin.View;
 
 { TStartupCommand }
 
@@ -38,9 +37,9 @@ begin
 
   Window := Note.Body.AsType<TMainWindow>;
 
-  Facade.RegisterMediator(TUserFormMediator.Create(Window.userForm));
-  Facade.RegisterMediator(TUserListMediator.Create(Window.userList));
-  Facade.RegisterMediator(TRolePanelMediator.Create(Window.rolePanel));
+  Facade.RegisterMediator(TUserFormMediator.Create(Window.UserForm));
+  Facade.RegisterMediator(TUserListMediator.Create(Window.UserList));
+  Facade.RegisterMediator(TRolePanelMediator.Create(Window.RolePanel));
 
 end;
 

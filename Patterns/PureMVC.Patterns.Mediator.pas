@@ -69,14 +69,8 @@ begin
 end;
 
 procedure TMediator.HandleNotification(Notification: INotification);
-var
-  M: TMethod;
 begin
-  M.Code := MethodAddress(Notification.Name);
-  if M.Code = nil then
-    Exit;
-  M.Data := Self;
-  TNotifyHandler(M)(Notification);
+  HandlePureMVCNotification(Notification);
 end;
 
 function TMediator.ListNotificationInterests: IList<string>;

@@ -259,6 +259,7 @@ implementation
 uses
   Windows,
   SummerFW.Utils.RTL,
+  PureMVC.Core.Model,
   PureMVC.Core.View,
   PureMVC.Core.Controller,
   PureMVC.Patterns.Notification;
@@ -278,7 +279,9 @@ end;
 
 procedure TFacade.InitializeModel;
 begin
-
+  if (FModel <> nil) then
+    Exit;
+  FModel := TModel.Instance;
 end;
 
 procedure TFacade.InitializeController;
@@ -318,7 +321,9 @@ begin
 end;
 
 procedure TFacade.RegisterProxy(Proxy: IProxy);
+var a: string;
 begin
+  a := Proxy.ProxyName;
   FModel.RegisterProxy(Proxy);
 end;
 

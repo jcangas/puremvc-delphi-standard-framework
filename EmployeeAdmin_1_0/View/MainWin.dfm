@@ -1,9 +1,9 @@
-﻿object MainWindow: TMainWindow
+object MainWindow: TMainWindow
   Left = 0
   Top = 0
   Caption = 'MainWindow'
-  ClientHeight = 416
-  ClientWidth = 643
+  ClientHeight = 576
+  ClientWidth = 671
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -15,63 +15,132 @@
   TextHeight = 13
   object BottomArea: TPanel
     Left = 0
-    Top = 208
-    Width = 643
-    Height = 208
+    Top = 297
+    Width = 671
+    Height = 279
     Align = alBottom
     TabOrder = 0
-    ExplicitWidth = 706
     inline UserForm: TUserForm
       Left = 1
       Top = 1
-      Width = 321
-      Height = 206
+      Width = 376
+      Height = 277
       Align = alClient
       TabOrder = 0
-      ExplicitLeft = 272
-      ExplicitTop = -21
+      ExplicitLeft = 1
+      ExplicitTop = 1
+      ExplicitWidth = 376
+      ExplicitHeight = 277
+      DesignSize = (
+        376
+        277)
+      inherited PasswordCtl: TLabeledEdit [1]
+        Left = 97
+        Width = 270
+        EditLabel.ExplicitLeft = 46
+        ExplicitLeft = 97
+        ExplicitWidth = 270
+      end
+      inherited ConfirmPasswordCtl: TLabeledEdit [2]
+        Left = 97
+        Width = 270
+        EditLabel.ExplicitLeft = 6
+        ExplicitLeft = 97
+        ExplicitWidth = 270
+      end
+      inherited DepartmentCtl: TComboBox [3]
+        Left = 97
+        Width = 270
+        ExplicitLeft = 97
+        ExplicitWidth = 270
+      end
+      inherited UserNameCtl: TLabeledEdit
+        Left = 97
+        Width = 270
+        EditLabel.ExplicitLeft = 44
+        ExplicitLeft = 97
+        ExplicitWidth = 270
+      end
+      inherited EmailCtl: TLabeledEdit [5]
+        Left = 97
+        Width = 270
+        EditLabel.ExplicitLeft = 68
+        ExplicitLeft = 97
+        ExplicitWidth = 270
+      end
+      inherited LastNameCtl: TLabeledEdit [6]
+        Left = 97
+        Width = 270
+        EditLabel.ExplicitLeft = 42
+        ExplicitLeft = 97
+        ExplicitWidth = 270
+      end
+      inherited CancelBtn: TButton [7]
+        Left = 302
+        Width = 65
+        ExplicitLeft = 302
+        ExplicitWidth = 65
+      end
+      inherited FirstNameCtl: TLabeledEdit [9]
+        Left = 97
+        Width = 270
+        EditLabel.ExplicitLeft = 41
+        ExplicitLeft = 97
+        ExplicitWidth = 270
+      end
     end
     inline RolePanel: TRolePanel
-      Left = 322
-      Top = 1
-      Width = 320
-      Height = 206
+      AlignWithMargins = True
+      Left = 380
+      Top = 4
+      Width = 287
+      Height = 271
       Align = alRight
+      Padding.Left = 5
+      Padding.Top = 5
+      Padding.Right = 5
+      Padding.Bottom = 5
       TabOrder = 1
-      ExplicitTop = -32
-      inherited ºº: TListBox
-        Height = 206
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 320
-        ExplicitHeight = 240
+      ExplicitLeft = 380
+      ExplicitTop = 4
+      ExplicitHeight = 271
+      inherited UserRolesCtl: TListBox
+        Height = 231
+        ExplicitHeight = 231
+      end
+      inherited BottomPanel: TPanel
+        Top = 236
+        ExplicitTop = 236
       end
     end
   end
   inline UserList: TUserList
     Left = 0
     Top = 0
-    Width = 643
-    Height = 208
+    Width = 671
+    Height = 297
     Align = alClient
     TabOrder = 1
-    ExplicitLeft = 83
-    ExplicitTop = 56
+    ExplicitWidth = 671
+    ExplicitHeight = 297
     inherited UserGrid: TStringGrid
-      Width = 643
-      Height = 169
-      ExplicitHeight = 288
+      Width = 671
+      Height = 258
+      ExplicitWidth = 671
+      ExplicitHeight = 258
     end
     inherited ButtonBar: TPanel
-      Top = 169
-      Width = 643
+      Top = 258
+      Width = 671
+      ExplicitTop = 258
+      ExplicitWidth = 671
       inherited NewBtn: TButton
-        Left = 441
-        ExplicitLeft = 434
+        Left = 474
+        ExplicitLeft = 474
       end
       inherited DeleteBtn: TButton
-        Left = 550
-        ExplicitLeft = 543
+        Left = 587
+        ExplicitLeft = 587
       end
     end
   end

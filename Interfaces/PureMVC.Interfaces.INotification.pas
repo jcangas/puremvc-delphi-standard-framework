@@ -68,6 +68,28 @@ type
 
   TNotifyHandler = procedure(Notification: INotification) of object;
 
+  TNotificationHelper = class Helper for TObject
+  public
+    procedure HandlePureMVCNotification(MethodName: string; Notification: INotification);overload;
+    procedure HandlePureMVCNotification(Notification: INotification);overload;
+  end;
+
 implementation
+
+procedure TNotificationHelper.HandlePureMVCNotification(Notification: INotification);
+begin
+  HandlePureMVCNotification(Notification.Name, Notification);
+end;
+
+procedure TNotificationHelper.HandlePureMVCNotification(MethodName: string; Notification: INotification);
+var
+  M: TMethod;
+begin
+  M.Code := MethodAddress(MethodName);
+  if M.Code = nil then
+    Exit;
+  M.Data := Self;
+  TNotifyHandler(M)(Notification);
+end;
 
 end.

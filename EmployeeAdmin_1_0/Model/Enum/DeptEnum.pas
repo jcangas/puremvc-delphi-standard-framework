@@ -8,83 +8,74 @@ unit DeptEnum;
 
 interface
 
-uses SummerFW.Utils.Collections;
+uses Classes,
+  SummerFW.Utils.Collections,
+  Enum;
 
 type
-
-  TDeptEnum = class(TObject)
+  TDeptEnum = class(TEnum)
   private
-    FOrdinal: Integer;
-    FValue: string;
+    class var FItems: array of TDeptEnum;
+    class function GetItems(Index: Integer): TDeptEnum; static;
+    class procedure SetItems(Index: Integer; Value: TDeptEnum); static;
+public
+    class function Count: Integer; override;
+    class procedure Fill(L: TStrings); override;
+    class property Items[Index: Integer]: TDeptEnum read GetItems write SetItems;
+    constructor Create(Value: string; Ordinal: Integer);override;
 
-  class var
-    FNONE_SELECTED: TDeptEnum;
-    FACCT: TDeptEnum;
-    FSALES: TDeptEnum;
-    FPLANT: TDeptEnum;
-    FSHIPPING: TDeptEnum;
-    FQC: TDeptEnum;
-  public
-    class property NONE_SELECTED: TDeptEnum read FNONE_SELECTED;
-    class property ACCT: TDeptEnum read FACCT;
-    class property SALES: TDeptEnum read FSALES;
-    class property PLANT: TDeptEnum read FPLANT;
-    class property SHIPPING: TDeptEnum read FSHIPPING;
-    class property QC: TDeptEnum read FQC;
-
-    class function List: IList<TDeptEnum>;
-    class function ComboList: IList<TDeptEnum>;
-
-    constructor Create(Value: string; Ordinal: Integer);
-    function Equals(Other: TObject): Boolean; override;
-    function ToString: string; override;
-    property Ordinal: Integer read FOrdinal;
-    property Value: string read FValue;
+    class property NONE_SELECTED: TDeptEnum index 0 read GetItems;
+    class property ACCT: TDeptEnum index 1 read GetItems;
+    class property SALES: TDeptEnum index 2 read GetItems;
+    class property PLANT: TDeptEnum index 3 read GetItems;
+    class property SHIPPING: TDeptEnum index 4 read GetItems;
+    class property QC: TDeptEnum index 5 read GetItems;
   end;
 
 implementation
 
 { TDeptEnum }
 
-class function TDeptEnum.ComboList: IList<TDeptEnum>;
+class function TDeptEnum.Count: Integer;
 begin
-  Result := List;
-  Result.Insert(0, NONE_SELECTED);
+  Result := Length(FItems);
 end;
 
 constructor TDeptEnum.Create(Value: string; Ordinal: Integer);
 begin
-  inherited Create;
-  FValue := Value;
-  FOrdinal := Ordinal;
+  inherited;
+  SetItems(Count, Self);
 end;
 
-function TDeptEnum.Equals(Other: TObject): Boolean;
+class procedure TDeptEnum.Fill(L: TStrings);
+var
+  Item: TEnum;
 begin
-  Result := (Other is TDeptEnum) and (Ordinal = TDeptEnum(Other).Ordinal) and
-    (Value = TDeptEnum(Other).Value);
+  for Item in FItems do
+    L.AddObject(Item.Value, Item)
 end;
 
-class function TDeptEnum.List: IList<TDeptEnum>;
+class function TDeptEnum.GetItems(Index: Integer): TDeptEnum;
 begin
-  Result := TList<TDeptEnum>.Create;
-  Result.Add(ACCT);
-  Result.Add(SALES);
-  Result.Add(PLANT);
+  Result := FItems[Index];
 end;
 
-function TDeptEnum.ToString: string;
+class procedure TDeptEnum.SetItems(Index: Integer; Value: TDeptEnum);
 begin
-  Result := Value;
+  if Index >= Count then begin
+    SetLength(FItems, 1 + Index);
+  end;
+  FItems[Index] := Value;
+  Value.FIndex := Index;
 end;
 
 initialization
 
-TDeptEnum.FNONE_SELECTED := TDeptEnum.Create('-None Selected--', -1);
-TDeptEnum.FACCT := TDeptEnum.Create('Accounting', 0);
-TDeptEnum.FSALES := TDeptEnum.Create('Sales', 1);
-TDeptEnum.FPLANT := TDeptEnum.Create('Plant', 2);
-TDeptEnum.FSHIPPING := TDeptEnum.Create('Shipping', 3);
-TDeptEnum.FQC := TDeptEnum.Create('Quality Control', 4);
+TDeptEnum.Create('-None Selected--', -1);
+TDeptEnum.Create('Accounting', 0);
+TDeptEnum.Create('Sales', 1);
+TDeptEnum.Create('Plant', 2);
+TDeptEnum.Create('Shipping', 3);
+TDeptEnum.Create('Quality Control', 4);
 
 end.

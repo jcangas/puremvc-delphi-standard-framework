@@ -46,13 +46,8 @@ begin
 end;
 
 procedure TObserver.NotifyObserver(Notification: INotification);
-var
-  M: TMethod;
 begin
-  M.Code := FNotifyContext.MethodAddress(FNotifyMethod);
-  if M.Code = nil then Exit;
-  M.Data := FNotifyContext;
-  TNotifyHandler(M)(Notification);
+  FNotifyContext.HandlePureMVCNotification(FNotifyMethod, Notification);
 end;
 
 procedure TObserver.SetNotifyContext(Value: TObject);

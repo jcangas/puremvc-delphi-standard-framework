@@ -14,34 +14,40 @@ type
 		private
       FuserProxy: TUserProxy;
     function GetUserForm: TUserForm;
+  published
+    procedure NewUser(Note: INotification);
+    procedure UserSelected(Note: INotification);
+    procedure UserDeleted(Note: INotification);
   public
 		const NAME = 'UserFormMediator';
 		procedure OnRegister;override;
 		constructor Create(ViewComponent: TUserForm);
 		function ListNotificationInterests(): IList<string>;override;
 
-		procedure UserForm_AddUser(Sender: TObject);
-		procedure UserForm_UpdateUser(Sender: TObject);
-		procedure UserForm_CancelUser(Sender: TObject);
+		procedure UserFormOnAddUser(Sender: TObject);
+		procedure UserFormOnUpdateUser(Sender: TObject);
+		procedure UserFormOnCancelUser(Sender: TObject);
 
-		procedure HandleNotification(Note: INotification);override;
 		property UserForm: TUserForm read GetUserForm;
   end;
 
-
 implementation
 uses
- UserVO,
- ApplicationFacade;
+  Types,
+  DeptEnum,
+  UserVO,
+  ApplicationFacade;
 
 { TUserFormMediator }
 
 constructor TUserFormMediator.Create(ViewComponent: TUserForm);
 begin
   inherited Create(NAME, ViewComponent);
-  UserForm.AddUser := UserForm_AddUser;
-  UserForm.UpdateUser := UserForm_UpdateUser;
-  UserForm.CancelUser := UserForm_CancelUser;
+  UserForm.UpdateCombo(TDeptEnum, TDeptEnum.NONE_SELECTED);
+
+  UserForm.OnAddUser := UserFormOnAddUser;
+  UserForm.OnUpdateUser := UserFormOnUpdateUser;
+  UserForm.OnCancelUser := UserFormOnCancelUser;
 end;
 
 function TUserFormMediator.GetUserForm: TUserForm;
@@ -49,28 +55,31 @@ begin
   Result := ViewComponent as TUserForm;
 end;
 
-procedure TUserFormMediator.HandleNotification(Note: INotification);
+procedure TUserFormMediator.NewUser(Note: INotification);
 var
   User: TUserVO;
 begin
-  if Note.Name = CMD.NEW_USER then begin
-    User := Note.Body.AsType<TUserVO>;
-    UserForm.ShowUser(User, TUserFormMode.ADD);
-  end
-  else if Note.Name= CMD.USER_DELETED then
-    UserForm.ClearForm()
-  else if Note.Name = CMD.USER_SELECTED then begin
-    User := Note.Body.AsType<TUserVO>;
-    UserForm.ShowUser(User, TUserFormMode.EDIT);
-  end;
+  User := Note.Body.AsType<TUserVO>;
+  UserForm.ShowUser(User, TUserFormMode.ADD);
+end;
+
+procedure TUserFormMediator.UserSelected(Note: INotification);
+var
+  User: TUserVO;
+begin
+  User := Note.Body.AsType<TUserVO>;
+  UserForm.ShowUser(User, TUserFormMode.EDIT);
+end;
+
+procedure TUserFormMediator.UserDeleted(Note: INotification);
+begin
+  UserForm.ClearForm;
 end;
 
 function TUserFormMediator.ListNotificationInterests: IList<string>;
 begin
   Result := TList<string>.Create;
-  Result.Add(CMD.NEW_USER);
-  Result.Add(CMD.USER_DELETED);
-  Result.Add(CMD.USER_SELECTED);
+  Result.AddRange(TStringDynArray.Create(CMD.NEW_USER, CMD.USER_DELETED, CMD.USER_SELECTED));
 end;
 
 procedure TUserFormMediator.OnRegister;
@@ -79,7 +88,7 @@ begin
   FUserProxy := (Facade.RetrieveProxy(TUserProxy.NAME) as TUserProxy);
 end;
 
-procedure TUserFormMediator.UserForm_AddUser(Sender: TObject);
+procedure TUserFormMediator.UserFormOnAddUser(Sender: TObject);
 var
   User: TUserVO;
 begin
@@ -89,13 +98,13 @@ begin
   UserForm.ClearForm();
 end;
 
-procedure TUserFormMediator.UserForm_CancelUser(Sender: TObject);
+procedure TUserFormMediator.UserFormOnCancelUser(Sender: TObject);
 begin
   SendNotification(Self, CMD.CANCEL_SELECTED);
   UserForm.ClearForm();
 end;
 
-procedure TUserFormMediator.UserForm_UpdateUser(Sender: TObject);
+procedure TUserFormMediator.UserFormOnUpdateUser(Sender: TObject);
 var
   User: TUserVO;
 begin

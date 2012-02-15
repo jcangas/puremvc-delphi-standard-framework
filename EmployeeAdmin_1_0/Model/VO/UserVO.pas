@@ -11,7 +11,7 @@ uses DeptEnum;
 
 type
 
-  TUserVO = class
+  TUserVO = class(TObject)
   private
     FEmail: string;
     FLastName: string;
@@ -24,6 +24,7 @@ type
   public
     constructor Create;overload;
     constructor Create(UName:string; FName: string; LName: string; Email: string; Password: string; Department: TDeptEnum);overload;
+    function Equals(Other: TObject): Boolean;override;
 		property UserName: string read FUserName;
     property FirstName: string read FFirstName;
     property LastName: string read FLastName;
@@ -54,6 +55,11 @@ begin
 	FEmail := Email;
 	FPassword := Password;
   FDepartment := Department;
+end;
+
+function TUserVO.Equals(Other: TObject): Boolean;
+begin
+  Result := (Other is TUserVO) and (Self.UserName = TUserVO(Other).UserName)
 end;
 
 function TUserVO.GetGivenName: string;

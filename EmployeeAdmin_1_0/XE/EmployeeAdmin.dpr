@@ -19,7 +19,8 @@ uses
   RolePanelMediator in '..\View\RolePanelMediator.pas',
   UserFrm in '..\View\Components\UserFrm.pas' {UserForm: TFrame},
   UserLst in '..\View\Components\UserLst.pas' {UserList: TFrame},
-  RolePanl in '..\View\Components\RolePanl.pas' {RolePanel: TFrame};
+  RolePanl in '..\View\Components\RolePanl.pas' {RolePanel: TFrame},
+  Enum in '..\Model\Enum\Enum.pas';
 
 {$R *.res}
 var

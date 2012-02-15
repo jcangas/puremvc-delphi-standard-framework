@@ -211,15 +211,18 @@ procedure TController.RegisterCommand(NotificationName: string;
 begin
   Assert(CommandType.InheritsFrom(TCommand));
 
-  Sync.Lock(FSyncRoot, procedure begin if FCommandMap.ContainsKey
-      (NotificationName) then Exit;
+  Sync.Lock(FSyncRoot, procedure begin
+
+    if FCommandMap.ContainsKey(NotificationName) then Exit;
 
       // This call needs to be monitored carefully. Have to make sure that RegisterObserver
       // doesn't call back into the controller, or a dead lock could happen.
 
       FView.RegisterObserver(NotificationName,
       TObserver.Create('ExecuteCommand', Self));
-      FCommandMap.Add(NotificationName, TCommandClass(CommandType)); end);
+      FCommandMap.Add(NotificationName, TCommandClass(CommandType));
+
+    end);
 
 end;
 
