@@ -79,7 +79,7 @@ end;
 function TUserListMediator.ListNotificationInterests: IList<string>;
 begin
   Result := Tlist<string>.Create;
-  Result.AddRange(TStringDynArray.Create(CMD.CANCEL_SELECTED, CMD.USER_ADDED, CMD.USER_UPDATED, CMD.USER_DELETED));
+  Result.AddRange(TStringDynArray.Create(MSG.CANCEL_SELECTED, MSG.USER_ADDED, MSG.USER_UPDATED, MSG.USER_DELETED));
 end;
 
 procedure TUserListMediator.OnRegister;
@@ -91,17 +91,17 @@ end;
 
 procedure TUserListMediator.UserListNewUser(Sender: TObject);
 begin
-  SendNotification(Self, CMD.NEW_USER, TUserVO.Create);
+  SendNotification(Self, MSG.NEW_USER, TUserVO.Create);
 end;
 
 procedure TUserListMediator.UserListDeleteUser(Sender: TObject);
 begin
-  SendNotification(Self, CMD.DELETE_USER, UserList.SelectedUser);
+  SendNotification(Self, MSG.DELETE_USER, UserList.SelectedUser);
 end;
 
 procedure TUserListMediator.UserListSelectUser(Sender: TObject);
 begin
-  SendNotification(Self, CMD.USER_SELECTED, UserList.SelectedUser);
+  SendNotification(Self, MSG.USER_SELECTED, UserList.SelectedUser);
 end;
 
 end.

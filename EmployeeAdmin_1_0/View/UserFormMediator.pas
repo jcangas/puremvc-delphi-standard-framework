@@ -79,7 +79,7 @@ end;
 function TUserFormMediator.ListNotificationInterests: IList<string>;
 begin
   Result := TList<string>.Create;
-  Result.AddRange(TStringDynArray.Create(CMD.NEW_USER, CMD.USER_DELETED, CMD.USER_SELECTED));
+  Result.AddRange(TStringDynArray.Create(MSG.NEW_USER, MSG.USER_DELETED, MSG.USER_SELECTED));
 end;
 
 procedure TUserFormMediator.OnRegister;
@@ -94,13 +94,13 @@ var
 begin
   User := UserForm.User;
   FUserProxy.AddItem(user);
-  SendNotification(Self, CMD.USER_ADDED, User);
+  SendNotification(Self, MSG.USER_ADDED, User);
   UserForm.ClearForm();
 end;
 
 procedure TUserFormMediator.UserFormOnCancelUser(Sender: TObject);
 begin
-  SendNotification(Self, CMD.CANCEL_SELECTED);
+  SendNotification(Self, MSG.CANCEL_SELECTED);
   UserForm.ClearForm();
 end;
 
@@ -110,7 +110,7 @@ var
 begin
   User := UserForm.User;
   FUserProxy.UpdateItem(User);
-  SendNotification(Self, CMD.USER_UPDATED, User);
+  SendNotification(Self, MSG.USER_UPDATED, User);
   UserForm.ClearForm();
 end;
 

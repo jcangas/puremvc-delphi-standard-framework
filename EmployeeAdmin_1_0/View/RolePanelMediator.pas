@@ -139,8 +139,8 @@ function TRolePanelMediator.ListNotificationInterests: IList<string>;
 begin
   Result := TList<string>.Create;
   Result.AddRange(TStringDynArray.Create(
-  CMD.NEW_USER, CMD.USER_ADDED, CMD.USER_DELETED, CMD.USER_SELECTED,
-  CMD.USER_UPDATED, CMD.CANCEL_SELECTED, CMD.ADD_ROLE_RESULT, CMD.DELETE_ROLE));
+  MSG.NEW_USER, MSG.USER_ADDED, MSG.USER_DELETED, MSG.USER_SELECTED,
+  MSG.USER_UPDATED, MSG.CANCEL_SELECTED, MSG.ADD_ROLE_RESULT, MSG.DELETE_ROLE));
 end;
 
 procedure TRolePanelMediator.OnRegister;
@@ -154,12 +154,12 @@ var
   Result: Boolean;
 begin
   Result := RoleProxy.AddRoleToUser(RolePanel.User, RolePanel.SelectedRole);
-  SendNotification(Self, CMD.ADD_ROLE_RESULT, Result);
+  SendNotification(Self, MSG.ADD_ROLE_RESULT, Result);
 end;
 
 procedure TRolePanelMediator.RolePanel_RemoveRole(Sender: TObject);
 begin
-  SendNotification(Self, CMD.DELETE_ROLE, RolePanel.SelectedRole);
+  SendNotification(Self, MSG.DELETE_ROLE, RolePanel.SelectedRole);
   //self.send_notification(NotificationName::SHOW_DELETE_ROLE_COFIRMATION, [self.view.selected_role, self.view.user])
 end;
 

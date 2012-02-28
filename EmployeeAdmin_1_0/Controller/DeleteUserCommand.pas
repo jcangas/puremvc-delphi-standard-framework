@@ -42,7 +42,7 @@ begin
   RoleProxy := Facade.RetrieveProxy(RoleProxy.NAME) as TRoleProxy;
   UserProxy.DeleteItem(User);
   RoleProxy.DeleteItem(User);
-  SendNotification(Self, CMD.USER_DELETED);
+  SendNotification(Self, MSG.USER_DELETED);
 
 end;
 

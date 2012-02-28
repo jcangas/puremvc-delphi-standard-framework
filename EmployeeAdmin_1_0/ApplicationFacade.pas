@@ -11,9 +11,10 @@ type
     procedure Startup(App: TObject);
   end;
 
+
 {$REGION 'Notification name constants'}
 
-  CMD = class
+  MSG = class
   const
     Startup = 'Startup';
 
@@ -79,15 +80,15 @@ type
 
 procedure TApplicationFacade.Startup(App: TObject);
 begin
-  SendNotification(Self, CMD.Startup, App);
+  SendNotification(Self, MSG.Startup, App);
 end;
 
 procedure TApplicationFacade.InitializeController();
 begin
   inherited;
-  RegisterCommand(CMD.Startup, TStartupCommand);
-  RegisterCommand(CMD.DELETE_USER, TDeleteUserCommand);
-  RegisterCommand(CMD.ADD_ROLE_RESULT, TAddRoleResultCommand);
+  RegisterCommand(MSG.Startup, TStartupCommand);
+  RegisterCommand(MSG.DELETE_USER, TDeleteUserCommand);
+  RegisterCommand(MSG.ADD_ROLE_RESULT, TAddRoleResultCommand);
 end;
 
 initialization
