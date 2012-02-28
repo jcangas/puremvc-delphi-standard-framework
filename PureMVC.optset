@@ -1,0 +1,18 @@
+﻿	<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+		<PropertyGroup>
+			<DCC_ExeOutput>$(BDSPROJECTGROUPDIR)\out\$(IDEVersion)\$(Config)\bin</DCC_ExeOutput>
+			<DCC_BplOutput>$(BDSPROJECTGROUPDIR)\out\$(IDEVersion)\$(Config)\bin</DCC_BplOutput>
+			<DCC_UnitSearchPath>$(BDSPROJECTGROUPDIR)\out\$(IDEVersion)\$(Config)\lib;$(BDSPROJECTGROUPDIR)\vendor\$(IDEVersion)\$(Config)\lib;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
+			<DCC_UnitAlias>WinTypes=Windows;WinProcs=Windows;DbiTypes=BDE;DbiProcs=BDE;$(DCC_UnitAlias)</DCC_UnitAlias>
+			<DCC_DcpOutput>$(BDSPROJECTGROUPDIR)\out\$(IDEVersion)\$(Config)\lib</DCC_DcpOutput>
+			<DCC_DcuOutput>$(BDSPROJECTGROUPDIR)\out\$(IDEVersion)\$(Config)\lib</DCC_DcuOutput>
+		</PropertyGroup>
+		<ProjectExtensions>
+			<Borland.Personality>Delphi.Personality.12</Borland.Personality>
+			<Borland.ProjectType>OptionSet</Borland.ProjectType>
+			<BorlandProject>
+				<Delphi.Personality/>
+			</BorlandProject>
+			<ProjectFileVersion>12</ProjectFileVersion>
+		</ProjectExtensions>
+	</Project>
