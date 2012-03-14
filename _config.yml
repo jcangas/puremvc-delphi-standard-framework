@@ -9,7 +9,7 @@ pygments: true
 # Themes are encouraged to use these universal variables 
 # so be sure to set them if your theme uses them.
 #
-title : Web personal de Jorge L. Cangas
+title : PureMVC for Delphi
 tagline: Site Tagline
 author :
   name : Jorge L. Cangas
@@ -81,7 +81,7 @@ JB :
   comments :
     provider : disqus
     disqus :
-      short_name : jekyllbootstrap
+      short_name : puremvc4d
     livefyre :
       site_id : 123
     intensedebate :
@@ -97,7 +97,7 @@ JB :
   # Set 'provider' to false to turn analytics off globally.
   #        
   analytics :
-    provider : google
+    provider : false
     google : 
         tracking_id : 'UA-123-12'
     getclicky :
