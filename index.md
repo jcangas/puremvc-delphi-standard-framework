@@ -1,9 +1,7 @@
 ---
-layout: page
+layout: default
 title: Welcome to PureMVC for Delphi
 ---
-{% include JB/setup %}
-
 
 <a href="https://github.com/jcangas/PureMVC4D"><img style="position: absolute; top: 25px; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub" /></a>
 

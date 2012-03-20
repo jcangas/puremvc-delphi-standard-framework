@@ -73,6 +73,7 @@ JB :
   archive_path: /archive.html
   categories_path : /categories.html
   tags_path : /tags.html
+  pages_path : /pages.html
 
   # Settings for comments helper
   # Set 'provider' to the comment provider you want to use.
@@ -81,7 +82,7 @@ JB :
   comments :
     provider : disqus
     disqus :
-      short_name : puremvc4d
+      short_name : puremvcfw4dsite
     livefyre :
       site_id : 123
     intensedebate :

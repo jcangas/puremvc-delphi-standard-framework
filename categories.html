@@ -4,7 +4,6 @@ title: Categories
 header: Posts By Category
 group: navigation
 ---
-{% include JB/setup %}
 
 <ul class="tag_box inline">
   {% assign categories_list = site.categories %}
@@ -20,3 +19,9 @@ group: navigation
   </ul>
 {% endfor %}
 
+
+<h2>All pages</h2>
+<ul>
+{% assign pages_list = site.pages %}
+{% include JB/pages_list %}
+</ul>

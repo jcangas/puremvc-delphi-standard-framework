@@ -4,7 +4,6 @@ title: "Overview"
 header: Overview
 group: navigation
 ---
-{% include JB/setup %}
 
 PureMVC is a lightweight framework for creating applications based upon the classic Model-View-Controller design meta-pattern.
 
