@@ -3,7 +3,6 @@ layout: page
 title: "Download"
 group: navigation
 ---
-{% include JB/setup %}
 
 ## Latest stable version
 
