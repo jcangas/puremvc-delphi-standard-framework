@@ -6,3 +6,7 @@ __history
 *.dsk
 *.bak
 *.~*
+temp
+ship
+/vendor/cache
+/vendor/imports

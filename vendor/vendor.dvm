@@ -1,0 +1,10 @@
+
+source 'http://home.jcangas.info/ship'
+
+idever 'D150' do
+  import "SummerFW4D", "0.4.6", config: '*'
+end
+
+idever 'D160' do
+  import "SummerFW4D", "0.4.6", config: '*'
+end

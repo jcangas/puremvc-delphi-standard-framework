@@ -3,10 +3,10 @@
 			<ProjectGuid>{48DA70E3-3E30-47CE-9558-D9E63CD144D4}</ProjectGuid>
 		</PropertyGroup>
 		<ItemGroup>
-			<Projects Include="..\PureMVC\D160-XE2\PureMVC.dproj">
+			<Projects Include="\\psf\Home\Documents\prj\jcb\github\PureMVC4D\src\D160-XE2\PureMVC.dproj">
 				<Dependencies/>
 			</Projects>
-			<Projects Include="..\EmployeeAdmin_1_0\D160-XE2\EmployeeAdmin.dproj">
+			<Projects Include="\\psf\Home\Documents\prj\jcb\github\PureMVC4D\samples\EmployeeAdminVCL\D160-XE2\EmployeeAdmin.dproj">
 				<Dependencies/>
 			</Projects>
 		</ItemGroup>
@@ -18,22 +18,22 @@
 			</BorlandProject>
 		</ProjectExtensions>
 		<Target Name="PureMVC">
-			<MSBuild Projects="..\PureMVC\D160-XE2\PureMVC.dproj"/>
+			<MSBuild Projects="\\psf\Home\Documents\prj\jcb\github\PureMVC4D\src\D160-XE2\PureMVC.dproj"/>
 		</Target>
 		<Target Name="PureMVC:Clean">
-			<MSBuild Projects="..\PureMVC\D160-XE2\PureMVC.dproj" Targets="Clean"/>
+			<MSBuild Projects="\\psf\Home\Documents\prj\jcb\github\PureMVC4D\src\D160-XE2\PureMVC.dproj" Targets="Clean"/>
 		</Target>
 		<Target Name="PureMVC:Make">
-			<MSBuild Projects="..\PureMVC\D160-XE2\PureMVC.dproj" Targets="Make"/>
+			<MSBuild Projects="\\psf\Home\Documents\prj\jcb\github\PureMVC4D\src\D160-XE2\PureMVC.dproj" Targets="Make"/>
 		</Target>
 		<Target Name="EmployeeAdmin">
-			<MSBuild Projects="..\EmployeeAdmin_1_0\D160-XE2\EmployeeAdmin.dproj"/>
+			<MSBuild Projects="\\psf\Home\Documents\prj\jcb\github\PureMVC4D\samples\EmployeeAdminVCL\D160-XE2\EmployeeAdmin.dproj"/>
 		</Target>
 		<Target Name="EmployeeAdmin:Clean">
-			<MSBuild Projects="..\EmployeeAdmin_1_0\D160-XE2\EmployeeAdmin.dproj" Targets="Clean"/>
+			<MSBuild Projects="\\psf\Home\Documents\prj\jcb\github\PureMVC4D\samples\EmployeeAdminVCL\D160-XE2\EmployeeAdmin.dproj" Targets="Clean"/>
 		</Target>
 		<Target Name="EmployeeAdmin:Make">
-			<MSBuild Projects="..\EmployeeAdmin_1_0\D160-XE2\EmployeeAdmin.dproj" Targets="Make"/>
+			<MSBuild Projects="\\psf\Home\Documents\prj\jcb\github\PureMVC4D\samples\EmployeeAdminVCL\D160-XE2\EmployeeAdmin.dproj" Targets="Make"/>
 		</Target>
 		<Target Name="Build">
 			<CallTarget Targets="PureMVC;EmployeeAdmin"/>

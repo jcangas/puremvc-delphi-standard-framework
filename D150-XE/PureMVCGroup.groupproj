@@ -3,10 +3,10 @@
 			<ProjectGuid>{48DA70E3-3E30-47CE-9558-D9E63CD144D4}</ProjectGuid>
 		</PropertyGroup>
 		<ItemGroup>
-			<Projects Include="..\PureMVC\D150-XE\PureMVC.dproj">
+			<Projects Include="..\src\D150-XE\PureMVC.dproj">
 				<Dependencies/>
 			</Projects>
-			<Projects Include="..\EmployeeAdmin_1_0\D150-XE\EmployeeAdmin.dproj">
+			<Projects Include="..\samples\EmployeeAdminVCL\D150-XE\EmployeeAdmin.dproj">
 				<Dependencies/>
 			</Projects>
 		</ItemGroup>
@@ -18,22 +18,22 @@
 			</BorlandProject>
 		</ProjectExtensions>
 		<Target Name="PureMVC">
-			<MSBuild Projects="..\PureMVC\D150-XE\PureMVC.dproj"/>
+			<MSBuild Projects="..\src\D150-XE\PureMVC.dproj"/>
 		</Target>
 		<Target Name="PureMVC:Clean">
-			<MSBuild Projects="..\PureMVC\D150-XE\PureMVC.dproj" Targets="Clean"/>
+			<MSBuild Projects="..\src\D150-XE\PureMVC.dproj" Targets="Clean"/>
 		</Target>
 		<Target Name="PureMVC:Make">
-			<MSBuild Projects="..\PureMVC\D150-XE\PureMVC.dproj" Targets="Make"/>
+			<MSBuild Projects="..\src\D150-XE\PureMVC.dproj" Targets="Make"/>
 		</Target>
 		<Target Name="EmployeeAdmin">
-			<MSBuild Projects="..\EmployeeAdmin_1_0\D150-XE\EmployeeAdmin.dproj"/>
+			<MSBuild Projects="..\samples\EmployeeAdminVCL\D150-XE\EmployeeAdmin.dproj"/>
 		</Target>
 		<Target Name="EmployeeAdmin:Clean">
-			<MSBuild Projects="..\EmployeeAdmin_1_0\D150-XE\EmployeeAdmin.dproj" Targets="Clean"/>
+			<MSBuild Projects="..\samples\EmployeeAdminVCL\D150-XE\EmployeeAdmin.dproj" Targets="Clean"/>
 		</Target>
 		<Target Name="EmployeeAdmin:Make">
-			<MSBuild Projects="..\EmployeeAdmin_1_0\D150-XE\EmployeeAdmin.dproj" Targets="Make"/>
+			<MSBuild Projects="..\samples\EmployeeAdminVCL\D150-XE\EmployeeAdmin.dproj" Targets="Make"/>
 		</Target>
 		<Target Name="Build">
 			<CallTarget Targets="PureMVC;EmployeeAdmin"/>
