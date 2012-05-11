@@ -47,11 +47,13 @@ procedure TObserverHelper.InvokeByRTTI(MethodName: string; Args: array of TValue
 var
   RC: TRttiContext;
   RType: TRttiInstanceType;
+  RMethod: TRttiMethod;
 begin
   RC := TRttiContext.Create;
   try
     RType := RC.GetType(Self.ClassType) as TRttiInstanceType;
-    RType.GetMethod(MethodName).Invoke(Self, Args);
+    RMethod := RType.GetMethod(MethodName);
+    if Assigned(RMethod) then RMethod.Invoke(Self, Args);
   finally
     RC.Free;
   end;
