@@ -1,4 +1,7 @@
 out
+profiling
+LibrarySupport
+ModelSupport_*
 __history
 *.local
 *.identcache
@@ -7,6 +10,6 @@ __history
 *.bak
 *.~*
 temp
-ship
+/ship
 /vendor/cache
 /vendor/imports
