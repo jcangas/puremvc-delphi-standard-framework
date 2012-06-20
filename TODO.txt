@@ -8,13 +8,13 @@
 
 2) DONE: version.txt in "changlog" style
 
-3) PENDING: Demos. I'm already working to port the official
+3) DONE: Demos. I'm already working to port the official
 EmployeeAdmin sample.
 
 4) Test: Maybe :), Delphi don't have a great testing ecosystem, you
 konw, but after 1) - 3) are done I'm considring try DUnit frameowrk
 for the task.
 
-5) Doc: I ported also the code comments, but it need a review in order
+5) DONE Doc: I ported also the code comments, but it need a review in order
 to adapt to Delphi.
 

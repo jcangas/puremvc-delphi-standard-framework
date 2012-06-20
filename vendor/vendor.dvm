@@ -2,9 +2,9 @@
 source 'http://home.jcangas.info/ship'
 
 idever 'D150' do
-  import "SummerFW4D", "0.4.6", config: '*'
+  import "SummerFW4D", "0.6.0"
 end
 
 idever 'D160' do
-  import "SummerFW4D", "0.4.6", config: '*'
+  import "SummerFW4D", "0.6.0"
 end
