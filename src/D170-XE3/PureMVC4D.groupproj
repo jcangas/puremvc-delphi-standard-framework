@@ -6,7 +6,7 @@
 			<Projects Include="PureMVC.dproj">
 				<Dependencies/>
 			</Projects>
-						<Projects Include="..\..\samples\EmployeeAdminVCL\D160-XE2\EmployeeAdmin.dproj">
+						<Projects Include="..\..\samples\EmployeeAdminVCL\D170-XE3\EmployeeAdmin.dproj">
 				<Dependencies/>
 			</Projects>
 		</ItemGroup>
@@ -27,13 +27,13 @@
 			<MSBuild Projects="PureMVC.dproj" Targets="Make"/>
 		</Target>
 		<Target Name="EmployeeAdmin">
-			<MSBuild Projects="..\..\samples\EmployeeAdminVCL\D160-XE2\EmployeeAdmin.dproj"/>
+			<MSBuild Projects="..\..\samples\EmployeeAdminVCL\D170-XE3\EmployeeAdmin.dproj"/>
 		</Target>
 		<Target Name="EmployeeAdmin:Clean">
-			<MSBuild Projects="..\..\samples\EmployeeAdminVCL\D160-XE2\EmployeeAdmin.dproj" Targets="Clean"/>
+			<MSBuild Projects="..\..\samples\EmployeeAdminVCL\D170-XE3\EmployeeAdmin.dproj" Targets="Clean"/>
 		</Target>
 		<Target Name="EmployeeAdmin:Make">
-			<MSBuild Projects="..\..\samples\EmployeeAdminVCL\D160-XE2\EmployeeAdmin.dproj" Targets="Make"/>
+			<MSBuild Projects="..\..\samples\EmployeeAdminVCL\D170-XE3\EmployeeAdmin.dproj" Targets="Make"/>
 		</Target>
 		<Target Name="Build">
 			<CallTarget Targets="PureMVC;EmployeeAdmin"/>
