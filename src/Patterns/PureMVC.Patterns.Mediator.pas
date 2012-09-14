@@ -185,7 +185,7 @@ begin
     end);
     Comparer := TAttributedMethodComparer.Create;
     Sort(Comparer);
-    Comparer.Free;
+    Comparer := nil;;
     Invoke(Args);
   finally
     Free;
