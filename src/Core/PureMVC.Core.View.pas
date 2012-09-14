@@ -308,13 +308,13 @@ end;
 /// <remarks>This method is thread safe and needs to be thread safe in all implementations.</remarks>
 
 function TView.RemoveMediator(MediatorName: string): IMediator;
-var
-  Mediator: IMediator;
-  Interests: IList<string>;
 
 begin
-  Sync.Lock<IMediator>(FSyncRoot, function: IMediator var Interest
-      : string; begin
+  Result := Sync.Lock<IMediator>(FSyncRoot, function: IMediator
+      var
+        Interests: IList<string>;
+        Mediator: IMediator; Interest: string;
+      begin
 
       // Retrieve the named mediator
       if not(FMediatorMap.ContainsKey(MediatorName)) then Exit(nil);
@@ -330,11 +330,11 @@ begin
 
       // remove the mediator from the map
       FMediatorMap.Remove(MediatorName);
-
+      Result := Mediator;
   end);
   // alert the mediator that it has been removed
-  Mediator.OnRemove();
-  Result := Mediator;
+  if Assigned(Result) then
+    Result.OnRemove();
 end;
 
 function TView.RemoveMediator(Mediator: IMediator): IMediator;

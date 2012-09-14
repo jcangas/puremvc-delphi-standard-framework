@@ -157,7 +157,7 @@ var
 begin
   Result := Self;
   try
-    for RMethod in RType.GetDeclaredMethods do begin
+    for RMethod in RType.GetMethods do begin
       for Atr in RMethod.GetAttributes do begin
         if AP(Atr) then begin
           Add(TAttributedMethod.Create(RMethod, Atr));
@@ -174,6 +174,8 @@ end;
 { TMediatorHelper }
 
 procedure TPureMVCNotifyHelper.InvokeByPureMVCNotify(NotificationName: string; Args: array of TValue);
+var
+  Comparer: IComparer<TAttributedMethod>;
 begin
   with TAttributedMethods.Create(Self) do
   try
@@ -181,7 +183,9 @@ begin
         Result := Atr.InheritsFrom(PureMVCNotifyAttribute) and
         (PureMVCNotifyAttribute(Atr).NotificationName = NotificationName);
     end);
-    Sort(TAttributedMethodComparer.Create);
+    Comparer := TAttributedMethodComparer.Create;
+    Sort(Comparer);
+    Comparer.Free;
     Invoke(Args);
   finally
     Free;

@@ -70,7 +70,7 @@ end;
 procedure TNotifier.SendNotification(Sender: TObject; Name: string;
   Body: TValue; Kind: TValue);
 begin
-  TFacade.Instance.SendNotification(Sender, Name, Body, Kind);
+  Facade.SendNotification(Sender, Name, Body, Kind);
 end;
 
 function TNotifier.Facade: IFacade;
