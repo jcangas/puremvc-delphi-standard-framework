@@ -7,7 +7,7 @@
 unit EmployeeAdmin.Model.VO.RoleVO;
 
 interface
-uses SummerFW.Utils.Collections,
+uses PureMVC.Utils,
   EmployeeAdmin.Model.Enum.RoleEnum;
 
 type

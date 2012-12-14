@@ -6,7 +6,7 @@
 			<Projects Include="PureMVC.dproj">
 				<Dependencies/>
 			</Projects>
-						<Projects Include="..\..\samples\EmployeeAdminVCL\D160-XE2\EmployeeAdmin.dproj">
+			<Projects Include="..\..\samples\EmployeeAdminVCL\D160-XE2\EmployeeAdmin.dproj">
 				<Dependencies/>
 			</Projects>
 		</ItemGroup>
@@ -45,4 +45,18 @@
 			<CallTarget Targets="PureMVC:Make;EmployeeAdmin:Make"/>
 		</Target>
 		<Import Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')" Project="$(BDS)\Bin\CodeGear.Group.Targets"/>
+		<ItemGroup Condition="'$(BuildGroup)'=='All'">
+			<BuildGroupProject Include="..\..\samples\EmployeeAdminVCL\D160-XE2\EmployeeAdmin.dproj">
+				<ProjectGuid>{50867C30-DC69-414A-9236-0A136A8440EC}</ProjectGuid>
+				<Configurations>Debug;Release</Configurations>
+				<Platforms>Win32;Win64</Platforms>
+				<Enabled>True</Enabled>
+			</BuildGroupProject>
+			<BuildGroupProject Include="PureMVC.dproj">
+				<ProjectGuid>{3769A7DA-3099-4475-B7D4-5DC5543FD3F0}</ProjectGuid>
+				<Configurations>Debug;Release</Configurations>
+				<Platforms>Win32;Win64</Platforms>
+				<Enabled>True</Enabled>
+			</BuildGroupProject>
+		</ItemGroup>
 	</Project>

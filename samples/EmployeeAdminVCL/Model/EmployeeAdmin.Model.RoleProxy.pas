@@ -8,7 +8,7 @@ unit EmployeeAdmin.Model.RoleProxy;
 
 interface
 
-uses SummerFW.Utils.Collections,
+uses PureMVC.Utils,
   PureMVC.Interfaces.IProxy,
   PureMVC.Patterns.Proxy,
   EmployeeAdmin.Model.Enum.RoleEnum,

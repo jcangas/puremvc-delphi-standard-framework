@@ -9,7 +9,7 @@ unit EmployeeAdmin.Model.UserProxy;
 interface
 
 uses Generics.Collections,
-  SummerFW.Utils.Collections,
+  PureMVC.Utils,
   PureMVC.Interfaces.IProxy,
   PureMVC.Patterns.Proxy,
   EmployeeAdmin.Model.Enum.DeptEnum,

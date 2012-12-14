@@ -6,7 +6,7 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls,
   ExtCtrls, ActnList,
-  SummerFW.Utils.Collections,
+  PureMVC.Utils,
   EmployeeAdmin.Model.Enum.Enum,
   EmployeeAdmin.Model.Enum.RoleEnum,
   EmployeeAdmin.Model.VO.UserVO;

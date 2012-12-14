@@ -5,8 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, ExtCtrls, Grids,
-  Generics.Collections,
-  SummerFW.Utils.Collections,
+  PureMVC.Utils,
   EmployeeAdmin.Model.VO.UserVO;
 
 type

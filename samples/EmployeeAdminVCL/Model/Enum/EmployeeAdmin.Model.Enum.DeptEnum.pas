@@ -9,7 +9,7 @@ unit EmployeeAdmin.Model.Enum.DeptEnum;
 interface
 
 uses Classes,
-  SummerFW.Utils.Collections,
+  PureMVC.Utils,
   EmployeeAdmin.Model.Enum.Enum;
 
 type

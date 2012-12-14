@@ -45,4 +45,18 @@
 			<CallTarget Targets="PureMVC:Make;EmployeeAdmin:Make"/>
 		</Target>
 		<Import Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')" Project="$(BDS)\Bin\CodeGear.Group.Targets"/>
+		<ItemGroup Condition="'$(BuildGroup)'=='All'">
+			<BuildGroupProject Include="..\..\samples\EmployeeAdminVCL\D150-XE\EmployeeAdmin.dproj">
+				<ProjectGuid>{6A0562DE-8039-4870-97F5-D2D13C3DB571}</ProjectGuid>
+				<Configurations>Debug;Release</Configurations>
+				<Platforms>Win32</Platforms>
+				<Enabled>True</Enabled>
+			</BuildGroupProject>
+			<BuildGroupProject Include="PureMVC.dproj">
+				<ProjectGuid>{CD1C59E4-C556-4D4F-BA5C-6E2AC30D37C6}</ProjectGuid>
+				<Configurations>Debug;Release</Configurations>
+				<Platforms>Win32</Platforms>
+				<Enabled>True</Enabled>
+			</BuildGroupProject>
+		</ItemGroup>
 	</Project>

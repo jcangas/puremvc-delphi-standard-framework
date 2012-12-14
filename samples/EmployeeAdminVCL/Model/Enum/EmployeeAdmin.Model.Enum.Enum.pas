@@ -8,7 +8,7 @@ unit EmployeeAdmin.Model.Enum.Enum;
 
 interface
 
-uses Classes, SummerFW.Utils.Collections;
+uses Classes, PureMVC.Utils;
 
 type
   TEnumClass = class of TEnum;

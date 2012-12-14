@@ -9,7 +9,7 @@ unit PureMVC.Patterns.Facade;
 interface
 
 uses
-  SysUtils, RTTI, Controls,
+  SysUtils, RTTI,
   PureMVC.Interfaces.IModel,
   PureMVC.Interfaces.IController,
   PureMVC.Interfaces.IProxy,

@@ -2,7 +2,7 @@ unit EmployeeAdmin.View.UserFormMediator;
 
 interface
 uses
-  SummerFW.Utils.Collections,
+  PureMvc.Utils,
   PureMVC.Patterns.Mediator,
   PureMVC.Interfaces.INotification,
   EmployeeAdmin.Facade,
