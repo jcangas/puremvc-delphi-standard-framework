@@ -2,7 +2,7 @@
     <PropertyGroup>
         <DCC_ExeOutput>$(BDSPROJECTGROUPDIR)\out\$(IDEVersion)\$(Platform)\$(Config)\bin</DCC_ExeOutput>
         <DCC_BplOutput>$(BDSPROJECTGROUPDIR)\out\$(IDEVersion)\$(Platform)\$(Config)\bin</DCC_BplOutput>
-        <DCC_UnitSearchPath>$(BDSPROJECTGROUPDIR)\out\$(IDEVersion)\$(Platform)\$(Config)\lib;$(BDSPROJECTGROUPDIR)\vendor\imports\$(IDEVersion)\$(Platform)\$(Config)\lib;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
+        <DCC_UnitSearchPath>$(BDSPROJECTGROUPDIR)\out\$(IDEVersion)\$(Platform)\$(Config)\lib;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
         <DCC_UnitAlias>WinTypes=Windows;WinProcs=Windows;DbiTypes=BDE;DbiProcs=BDE;$(DCC_UnitAlias)</DCC_UnitAlias>
         <DCC_DcpOutput>$(BDSPROJECTGROUPDIR)\out\$(IDEVersion)\$(Platform)\$(Config)\lib</DCC_DcpOutput>
         <DCC_DcuOutput>$(BDSPROJECTGROUPDIR)\out\$(IDEVersion)\$(Platform)\$(Config)\lib</DCC_DcuOutput>
