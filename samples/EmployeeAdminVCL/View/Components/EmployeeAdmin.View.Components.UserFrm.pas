@@ -7,7 +7,7 @@ uses
   Dialogs, StdCtrls, ExtCtrls, ActnList,
   EmployeeAdmin.Model.Enum.Enum,
   EmployeeAdmin.Model.Enum.DeptEnum,
-  EmployeeAdmin.Model.VO.UserVO;
+  EmployeeAdmin.Model.VO.UserVO, System.Actions;
 type
   TUserFormMode = (ADD, EDIT);
 
