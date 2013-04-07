@@ -10,13 +10,14 @@ program TestPureMVC;
 
 }
 
-{$IFDEF CONSOLE_TESTRUNNER}
+{$IFDEF __CONSOLE_TESTRUNNER}
 {$APPTYPE CONSOLE}
 {$ENDIF}
 
 uses
   DUnitTestRunner,
-  Test.PureMVC.Core.Controller in '..\Core\Test.PureMVC.Core.Controller.pas';
+  Test.PureMVC.Core.Controller in '..\Core\Test.PureMVC.Core.Controller.pas',
+  Test.PureMVC.Core.Model in '..\Core\Test.PureMVC.Core.Model.pas';
 
 {$R *.RES}
 

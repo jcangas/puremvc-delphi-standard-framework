@@ -10,7 +10,7 @@
             <Dependencies/>
         </Projects>
         <Projects Include="..\..\Test\D!70-XE3\TestPureMVC.dproj">
-            <Dependencies/>
+            <Dependencies>PureMVC.dproj</Dependencies>
         </Projects>
     </ItemGroup>
     <ProjectExtensions>
@@ -38,13 +38,13 @@
     <Target Name="EmployeeAdmin:Make">
         <MSBuild Projects="..\..\samples\EmployeeAdminVCL\D170-XE3\EmployeeAdmin.dproj" Targets="Make"/>
     </Target>
-    <Target Name="TestPureMVC">
+    <Target Name="TestPureMVC" DependsOnTargets="PureMVC">
         <MSBuild Projects="..\..\Test\D!70-XE3\TestPureMVC.dproj"/>
     </Target>
-    <Target Name="TestPureMVC:Clean">
+    <Target Name="TestPureMVC:Clean" DependsOnTargets="PureMVC:Clean">
         <MSBuild Projects="..\..\Test\D!70-XE3\TestPureMVC.dproj" Targets="Clean"/>
     </Target>
-    <Target Name="TestPureMVC:Make">
+    <Target Name="TestPureMVC:Make" DependsOnTargets="PureMVC:Make">
         <MSBuild Projects="..\..\Test\D!70-XE3\TestPureMVC.dproj" Targets="Make"/>
     </Target>
     <Target Name="Build">

@@ -78,7 +78,6 @@ end;
 
 constructor TRoleProxy.Create;
 begin
-  // TODO: : base(NAME, new ObservableCollection<RoleVO>())
   FRoles := TList<TRoleVO>.Create;
   inherited Create(NAME, TValue.From(FRoles));
   // generate some test data
@@ -115,7 +114,6 @@ begin
   for R in Roles do
     if (R.Username = Username) then Exit(R.Roles);
 
-  // TODO: UserRoles = new ObservableCollection<RoleEnum>();
   Result := TList<TRoleEnum>.Create;
 end;
 
