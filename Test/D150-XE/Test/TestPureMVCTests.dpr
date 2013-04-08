@@ -1,4 +1,4 @@
-program TestPureMVC;
+program TestPureMVCTests;
 {
 
   Delphi DUnit Test Project
@@ -10,19 +10,24 @@ program TestPureMVC;
 
 }
 
-{$IFDEF __CONSOLE_TESTRUNNER}
+{$IFDEF CONSOLE_TESTRUNNER}
 {$APPTYPE CONSOLE}
 {$ENDIF}
 
 uses
-  DUnitTestRunner,
-  Test.PureMVC.Core.Controller in '..\Core\Test.PureMVC.Core.Controller.pas',
-  Test.PureMVC.Core.Model in '..\Core\Test.PureMVC.Core.Model.pas';
+  Forms,
+  TestFramework,
+  GUITestRunner,
+  TextTestRunner;
 
 {$R *.RES}
 
 begin
-  ReportMemoryLeaksOnShutdown := True;
-  DUnitTestRunner.RunRegisteredTests;
+  Application.Initialize;
+  if IsConsole then
+    with TextTestRunner.RunRegisteredTests do
+      Free
+  else
+    GUITestRunner.RunRegisteredTests;
 end.
 

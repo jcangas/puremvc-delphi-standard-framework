@@ -62,7 +62,7 @@
         <Cfg_2>true</Cfg_2>
         <Base>true</Base>
     </PropertyGroup>
-    <Import Project="..\..\PureMVC.optset" Condition="'$(Base)'!='' And Exists('..\..\PureMVC.optset')"/>
+    <Import Project="..\source.optset" Condition="'$(Base)'!='' And Exists('..\source.optset')"/>
     <PropertyGroup Condition="'$(Base)'!=''">
         <DllSuffix>170</DllSuffix>
         <DCC_OutputNeverBuildDcps>true</DCC_OutputNeverBuildDcps>
@@ -76,7 +76,7 @@
         <DCC_S>false</DCC_S>
         <DCC_F>false</DCC_F>
         <DCC_K>false</DCC_K>
-        <CfgDependentOn>..\..\PureMVC.optset</CfgDependentOn>
+        <CfgDependentOn>..\source.optset</CfgDependentOn>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_OSX32)'!=''">
         <Icns_MainIcns>$(BDS)\bin\delphi_PROJECTICNS.icns</Icns_MainIcns>
@@ -159,7 +159,7 @@
         </BuildConfiguration>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
-            <DependentOn>..\..\PureMVC.optset</DependentOn>
+            <DependentOn>..\source.optset</DependentOn>
         </BuildConfiguration>
         <BuildConfiguration Include="Debug">
             <Key>Cfg_1</Key>

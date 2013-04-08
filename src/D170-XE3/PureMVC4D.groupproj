@@ -6,12 +6,6 @@
         <Projects Include="PureMVC.dproj">
             <Dependencies/>
         </Projects>
-        <Projects Include="..\..\samples\EmployeeAdminVCL\D170-XE3\EmployeeAdmin.dproj">
-            <Dependencies/>
-        </Projects>
-        <Projects Include="..\..\Test\D!70-XE3\TestPureMVC.dproj">
-            <Dependencies>PureMVC.dproj</Dependencies>
-        </Projects>
     </ItemGroup>
     <ProjectExtensions>
         <Borland.Personality>Default.Personality.12</Borland.Personality>
@@ -29,51 +23,21 @@
     <Target Name="PureMVC:Make">
         <MSBuild Projects="PureMVC.dproj" Targets="Make"/>
     </Target>
-    <Target Name="EmployeeAdmin">
-        <MSBuild Projects="..\..\samples\EmployeeAdminVCL\D170-XE3\EmployeeAdmin.dproj"/>
-    </Target>
-    <Target Name="EmployeeAdmin:Clean">
-        <MSBuild Projects="..\..\samples\EmployeeAdminVCL\D170-XE3\EmployeeAdmin.dproj" Targets="Clean"/>
-    </Target>
-    <Target Name="EmployeeAdmin:Make">
-        <MSBuild Projects="..\..\samples\EmployeeAdminVCL\D170-XE3\EmployeeAdmin.dproj" Targets="Make"/>
-    </Target>
-    <Target Name="TestPureMVC" DependsOnTargets="PureMVC">
-        <MSBuild Projects="..\..\Test\D!70-XE3\TestPureMVC.dproj"/>
-    </Target>
-    <Target Name="TestPureMVC:Clean" DependsOnTargets="PureMVC:Clean">
-        <MSBuild Projects="..\..\Test\D!70-XE3\TestPureMVC.dproj" Targets="Clean"/>
-    </Target>
-    <Target Name="TestPureMVC:Make" DependsOnTargets="PureMVC:Make">
-        <MSBuild Projects="..\..\Test\D!70-XE3\TestPureMVC.dproj" Targets="Make"/>
-    </Target>
     <Target Name="Build">
-        <CallTarget Targets="PureMVC;EmployeeAdmin;TestPureMVC"/>
+        <CallTarget Targets="PureMVC"/>
     </Target>
     <Target Name="Clean">
-        <CallTarget Targets="PureMVC:Clean;EmployeeAdmin:Clean;TestPureMVC:Clean"/>
+        <CallTarget Targets="PureMVC:Clean"/>
     </Target>
     <Target Name="Make">
-        <CallTarget Targets="PureMVC:Make;EmployeeAdmin:Make;TestPureMVC:Make"/>
+        <CallTarget Targets="PureMVC:Make"/>
     </Target>
     <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
     <ItemGroup Condition="'$(BuildGroup)'=='All'">
-        <BuildGroupProject Include="..\..\Test\D!70-XE3\TestPureMVC.dproj">
-            <ProjectGuid>{AD097A7F-2D47-44EC-9C44-AD99AE9A5701}</ProjectGuid>
-            <Configurations>Test</Configurations>
-            <Platforms>Win32</Platforms>
-            <Enabled>False</Enabled>
-        </BuildGroupProject>
         <BuildGroupProject Include="PureMVC.dproj">
             <ProjectGuid>{25811770-0120-4D90-ABD3-A47020842BE6}</ProjectGuid>
             <Configurations>Debug;Release</Configurations>
             <Platforms>OSX32;Win32;Win64</Platforms>
-            <Enabled>True</Enabled>
-        </BuildGroupProject>
-        <BuildGroupProject Include="..\..\samples\EmployeeAdminVCL\D170-XE3\EmployeeAdmin.dproj">
-            <ProjectGuid>{50867C30-DC69-414A-9236-0A136A8440EC}</ProjectGuid>
-            <Configurations>Debug;Release</Configurations>
-            <Platforms>Win32;Win64</Platforms>
             <Enabled>True</Enabled>
         </BuildGroupProject>
     </ItemGroup>
