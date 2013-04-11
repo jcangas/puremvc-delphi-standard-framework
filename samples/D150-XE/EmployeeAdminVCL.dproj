@@ -1,10 +1,10 @@
 ﻿	<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 		<PropertyGroup>
 			<ProjectGuid>{6A0562DE-8039-4870-97F5-D2D13C3DB571}</ProjectGuid>
-			<MainSource>EmployeeAdmin.dpr</MainSource>
+			<MainSource>EmployeeAdminVCL.dpr</MainSource>
 			<ProjectVersion>12.3</ProjectVersion>
 			<Base>True</Base>
-			<Config Condition="'$(Config)'==''">Debug</Config>
+			<Config Condition="'$(Config)'==''">Samples</Config>
 			<Platform>Win32</Platform>
 			<AppType>Application</AppType>
 			<FrameworkType>VCL</FrameworkType>
@@ -13,17 +13,12 @@
 		<PropertyGroup Condition="'$(Config)'=='Base' or '$(Base)'!=''">
 			<Base>true</Base>
 		</PropertyGroup>
-		<PropertyGroup Condition="'$(Config)'=='Debug' or '$(Cfg_1)'!=''">
+		<PropertyGroup Condition="'$(Config)'=='Samples' or '$(Cfg_1)'!=''">
 			<Cfg_1>true</Cfg_1>
 			<CfgParent>Base</CfgParent>
 			<Base>true</Base>
 		</PropertyGroup>
-		<PropertyGroup Condition="'$(Config)'=='Release' or '$(Cfg_2)'!=''">
-			<Cfg_2>true</Cfg_2>
-			<CfgParent>Base</CfgParent>
-			<Base>true</Base>
-		</PropertyGroup>
-		<Import Condition="'$(Base)'!='' And Exists('..\..\samples.optset')" Project="..\..\samples.optset"/>
+		<Import Condition="'$(Base)'!='' And Exists('..\samples.optset')" Project="..\samples.optset"/>
 		<PropertyGroup Condition="'$(Base)'!=''">
 			<DCC_UsePackage>vcl;rtl;vclx;vclactnband;xmlrtl;VclSmp;vclimg;svnui;svn;vcldb;dbrtl;vcldbx;vcltouch;dsnap;dsnapcon;vclib;ibxpress;adortl;IndyCore;IndySystem;IndyProtocols;inet;intrawebdb_110_150;Intraweb_110_150;vclie;websnap;webdsnap;inetdb;inetdbbde;inetdbxpress;soaprtl;vclribbon;dbexpress;DbxCommonDriver;DataSnapIndy10ServerTransport;DataSnapProviderClient;DbxClientDriver;DataSnapClient;dbxcds;DataSnapServer;AzureCloud;DBXInterBaseDriver;DBXMySQLDriver;DBXFirebirdDriver;DBXSybaseASEDriver;DBXSybaseASADriver;DBXOracleDriver;DBXMSSQLDriver;DBXInformixDriver;DBXDb2Driver;SummerFW.Utils</DCC_UsePackage>
 			<DCC_ImageBase>00400000</DCC_ImageBase>
@@ -33,66 +28,55 @@
 			<DCC_S>false</DCC_S>
 			<DCC_F>false</DCC_F>
 			<DCC_K>false</DCC_K>
-			<CfgDependentOn>..\..\samples.optset</CfgDependentOn>
+			<CfgDependentOn>..\samples.optset</CfgDependentOn>
 		</PropertyGroup>
 		<PropertyGroup Condition="'$(Cfg_1)'!=''">
 			<DCC_RunTimeTypeInfo>true</DCC_RunTimeTypeInfo>
 			<DCC_DebugInfoInExe>true</DCC_DebugInfoInExe>
 			<DCC_DebugDCUs>true</DCC_DebugDCUs>
-			<DCC_Define>DEBUG;$(DCC_Define)</DCC_Define>
 			<DCC_Optimize>false</DCC_Optimize>
 			<DCC_GenerateStackFrames>true</DCC_GenerateStackFrames>
 		</PropertyGroup>
-		<PropertyGroup Condition="'$(Cfg_2)'!=''">
-			<DCC_LocalDebugSymbols>false</DCC_LocalDebugSymbols>
-			<DCC_Define>RELEASE;$(DCC_Define)</DCC_Define>
-			<DCC_SymbolReferenceInfo>0</DCC_SymbolReferenceInfo>
-			<DCC_DebugInformation>false</DCC_DebugInformation>
-		</PropertyGroup>
 		<ItemGroup>
-			<DelphiCompile Include="EmployeeAdmin.dpr">
+			<DelphiCompile Include="EmployeeAdminVCL.dpr">
 				<MainSource>MainSource</MainSource>
 			</DelphiCompile>
-			<DCCReference Include="..\Controller\EmployeeAdmin.Controller.AddRoleResultCommand.pas"/>
-			<DCCReference Include="..\Controller\EmployeeAdmin.Controller.DeleteUserCommand.pas"/>
-			<DCCReference Include="..\Model\VO\EmployeeAdmin.Model.VO.UserVO.pas"/>
-			<DCCReference Include="..\Model\EmployeeAdmin.Model.RoleProxy.pas"/>
-			<DCCReference Include="..\Model\EmployeeAdmin.Model.UserProxy.pas"/>
-			<DCCReference Include="..\Model\Enum\EmployeeAdmin.Model.Enum.DeptEnum.pas"/>
-			<DCCReference Include="..\Model\Enum\EmployeeAdmin.Model.Enum.RoleEnum.pas"/>
-			<DCCReference Include="..\Model\VO\EmployeeAdmin.Model.VO.RoleVO.pas"/>
-			<DCCReference Include="..\Controller\EmployeeAdmin.Controller.StartupCommand.pas"/>
-			<DCCReference Include="..\View\EmployeeAdmin.View.UserFormMediator.pas"/>
-			<DCCReference Include="..\View\EmployeeAdmin.View.UserListMediator.pas"/>
-			<DCCReference Include="..\View\EmployeeAdmin.View.RolePanelMediator.pas"/>
-			<DCCReference Include="..\View\Components\EmployeeAdmin.View.Components.UserFrm.pas">
+			<DCCReference Include="..\EmployeeAdminVCL\Controller\EmployeeAdmin.Controller.AddRoleResultCommand.pas"/>
+			<DCCReference Include="..\EmployeeAdminVCL\Controller\EmployeeAdmin.Controller.DeleteUserCommand.pas"/>
+			<DCCReference Include="..\EmployeeAdminVCL\Model\VO\EmployeeAdmin.Model.VO.UserVO.pas"/>
+			<DCCReference Include="..\EmployeeAdminVCL\Model\EmployeeAdmin.Model.RoleProxy.pas"/>
+			<DCCReference Include="..\EmployeeAdminVCL\Model\EmployeeAdmin.Model.UserProxy.pas"/>
+			<DCCReference Include="..\EmployeeAdminVCL\Model\Enum\EmployeeAdmin.Model.Enum.DeptEnum.pas"/>
+			<DCCReference Include="..\EmployeeAdminVCL\Model\Enum\EmployeeAdmin.Model.Enum.RoleEnum.pas"/>
+			<DCCReference Include="..\EmployeeAdminVCL\Model\VO\EmployeeAdmin.Model.VO.RoleVO.pas"/>
+			<DCCReference Include="..\EmployeeAdminVCL\Controller\EmployeeAdmin.Controller.StartupCommand.pas"/>
+			<DCCReference Include="..\EmployeeAdminVCL\View\EmployeeAdmin.View.UserFormMediator.pas"/>
+			<DCCReference Include="..\EmployeeAdminVCL\View\EmployeeAdmin.View.UserListMediator.pas"/>
+			<DCCReference Include="..\EmployeeAdminVCL\View\EmployeeAdmin.View.RolePanelMediator.pas"/>
+			<DCCReference Include="..\EmployeeAdminVCL\View\Components\EmployeeAdmin.View.Components.UserFrm.pas">
 				<Form>UserForm</Form>
 				<DesignClass>TFrame</DesignClass>
 			</DCCReference>
-			<DCCReference Include="..\View\Components\EmployeeAdmin.View.Components.UserLst.pas">
+			<DCCReference Include="..\EmployeeAdminVCL\View\Components\EmployeeAdmin.View.Components.UserLst.pas">
 				<Form>UserList</Form>
 				<DesignClass>TFrame</DesignClass>
 			</DCCReference>
-			<DCCReference Include="..\View\Components\EmployeeAdmin.View.Components.RolePanl.pas">
+			<DCCReference Include="..\EmployeeAdminVCL\View\Components\EmployeeAdmin.View.Components.RolePanl.pas">
 				<Form>RolePanel</Form>
 				<DesignClass>TFrame</DesignClass>
 			</DCCReference>
-			<DCCReference Include="..\Model\Enum\EmployeeAdmin.Model.Enum.Enum.pas"/>
-			<DCCReference Include="..\App\EmployeeAdmin.Facade.pas"/>
-			<DCCReference Include="..\App\EmployeeAdmin.MainWin.pas">
+			<DCCReference Include="..\EmployeeAdminVCL\Model\Enum\EmployeeAdmin.Model.Enum.Enum.pas"/>
+			<DCCReference Include="..\EmployeeAdminVCL\App\EmployeeAdmin.Facade.pas"/>
+			<DCCReference Include="..\EmployeeAdminVCL\App\EmployeeAdmin.MainWin.pas">
 				<Form>MainWindow</Form>
 			</DCCReference>
-			<None Include="..\version.txt"/>
-			<None Include="..\license.txt"/>
-			<BuildConfiguration Include="Release">
-				<Key>Cfg_2</Key>
-				<CfgParent>Base</CfgParent>
-			</BuildConfiguration>
+			<None Include="..\EmployeeAdminVCL\version.txt"/>
+			<None Include="..\EmployeeAdminVCL\license.txt"/>
 			<BuildConfiguration Include="Base">
 				<Key>Base</Key>
-				<DependentOn>..\..\samples.optset</DependentOn>
+				<DependentOn>..\samples.optset</DependentOn>
 			</BuildConfiguration>
-			<BuildConfiguration Include="Debug">
+			<BuildConfiguration Include="Samples">
 				<Key>Cfg_1</Key>
 				<CfgParent>Base</CfgParent>
 			</BuildConfiguration>
@@ -132,7 +116,7 @@
 						<VersionInfoKeys Name="Comments"/>
 					</VersionInfoKeys>
 					<Source>
-						<Source Name="MainSource">EmployeeAdmin.dpr</Source>
+						<Source Name="MainSource">EmployeeAdminVCL.dpr</Source>
 					</Source>
 					<Excluded_Packages>
 						<Excluded_Packages Name="$(BDSBIN)\bcboffice2k150.bpl">Embarcadero C++Builder Office 2000 Servers Package</Excluded_Packages>

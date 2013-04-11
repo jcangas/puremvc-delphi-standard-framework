@@ -42,7 +42,7 @@
 			<Cfg_2>true</Cfg_2>
 			<Base>true</Base>
 		</PropertyGroup>
-		<Import Condition="'$(Base)'!='' And Exists('..\..\PureMVC.optset')" Project="..\..\PureMVC.optset"/>
+		<Import Condition="'$(Base)'!='' And Exists('..\source.optset')" Project="..\source.optset"/>
 		<PropertyGroup Condition="'$(Base)'!=''">
 			<DllSuffix>160</DllSuffix>
 			<RuntimeOnlyPackage>true</RuntimeOnlyPackage>
@@ -58,7 +58,7 @@
 			<DCC_N>false</DCC_N>
 			<DCC_F>false</DCC_F>
 			<DCC_K>false</DCC_K>
-			<CfgDependentOn>..\..\PureMVC.optset</CfgDependentOn>
+			<CfgDependentOn>..\source.optset</CfgDependentOn>
 		</PropertyGroup>
 		<PropertyGroup Condition="'$(Base_Win64)'!=''">
 			<DCC_Namespace>System.Win;Data.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;$(DCC_Namespace)</DCC_Namespace>
@@ -118,7 +118,7 @@
 			</BuildConfiguration>
 			<BuildConfiguration Include="Base">
 				<Key>Base</Key>
-				<DependentOn>..\..\PureMVC.optset</DependentOn>
+				<DependentOn>..\source.optset</DependentOn>
 			</BuildConfiguration>
 			<BuildConfiguration Include="Debug">
 				<Key>Cfg_1</Key>

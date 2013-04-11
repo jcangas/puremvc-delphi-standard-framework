@@ -8,6 +8,7 @@ uses
   EmployeeAdmin.Model.Enum.Enum,
   EmployeeAdmin.Model.Enum.DeptEnum,
   EmployeeAdmin.Model.VO.UserVO;
+
 type
   TUserFormMode = (ADD, EDIT);
 

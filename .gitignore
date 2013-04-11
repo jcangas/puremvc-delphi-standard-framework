@@ -13,3 +13,6 @@ temp
 /ship
 /vendor/cache
 /vendor/imports
+Thumbs.db
+
+.DS_Store
