@@ -21,6 +21,7 @@ type
   public
     procedure SetUp; override;
     procedure TearDown; override;
+    function Subject: TModel;
   published
     procedure TestIsNotRegisteredProxy;
     procedure TestRegisterProxy;
@@ -29,6 +30,14 @@ type
     procedure TestInstance;
     procedure TestOnRegister;
     procedure TestOnRemove;
+  end;
+
+  TestRegisteredModel = class(TestTModel)
+  public
+    procedure SetUp; override;
+    procedure TearDown; override;
+  published
+
   end;
 
 implementation
@@ -50,6 +59,11 @@ type
 procedure TestTModel.SetUp;
 begin
   FModel := TTestableModel.Create;
+end;
+
+function TestTModel.Subject: TModel;
+begin
+  Result := FModel;
 end;
 
 procedure TestTModel.TearDown;
@@ -129,6 +143,20 @@ end;
 procedure TTestableProxy.OnRemove;
 begin
   Data := ON_REMOVE_CALLED;
+end;
+
+{ TestRegisteredModel }
+
+procedure TestRegisteredModel.SetUp;
+begin
+  inherited;
+  Subject.RegisterProxy(TProxy.Create('colors' ));
+end;
+
+procedure TestRegisteredModel.TearDown;
+begin
+  Subject.RemoveProxy('colors');
+  inherited;
 end;
 
 initialization

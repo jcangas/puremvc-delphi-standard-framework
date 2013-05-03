@@ -3,6 +3,9 @@
         <ProjectGuid>{48DA70E3-3E30-47CE-9558-D9E63CD144D4}</ProjectGuid>
     </PropertyGroup>
     <ItemGroup>
+        <Projects Include="..\..\src\D170-XE3\PureMVC.dproj">
+            <Dependencies/>
+        </Projects>
         <Projects Include="TestPureMVC.dproj">
             <Dependencies/>
         </Projects>
@@ -14,6 +17,15 @@
             <Default.Personality/>
         </BorlandProject>
     </ProjectExtensions>
+    <Target Name="PureMVC">
+        <MSBuild Projects="..\..\src\D170-XE3\PureMVC.dproj"/>
+    </Target>
+    <Target Name="PureMVC:Clean">
+        <MSBuild Projects="..\..\src\D170-XE3\PureMVC.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="PureMVC:Make">
+        <MSBuild Projects="..\..\src\D170-XE3\PureMVC.dproj" Targets="Make"/>
+    </Target>
     <Target Name="TestPureMVC">
         <MSBuild Projects="TestPureMVC.dproj"/>
     </Target>
@@ -24,13 +36,13 @@
         <MSBuild Projects="TestPureMVC.dproj" Targets="Make"/>
     </Target>
     <Target Name="Build">
-        <CallTarget Targets="TestPureMVC"/>
+        <CallTarget Targets="PureMVC;TestPureMVC"/>
     </Target>
     <Target Name="Clean">
-        <CallTarget Targets="TestPureMVC:Clean"/>
+        <CallTarget Targets="PureMVC:Clean;TestPureMVC:Clean"/>
     </Target>
     <Target Name="Make">
-        <CallTarget Targets="TestPureMVC:Make"/>
+        <CallTarget Targets="PureMVC:Make;TestPureMVC:Make"/>
     </Target>
     <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
     <ItemGroup Condition="'$(BuildGroup)'=='All'">
@@ -39,6 +51,12 @@
             <Configurations>Test</Configurations>
             <Platforms>Win32</Platforms>
             <Enabled>True</Enabled>
+        </BuildGroupProject>
+        <BuildGroupProject Include="..\..\src\D170-XE3\PureMVC.dproj">
+            <ProjectGuid>{25811770-0120-4D90-ABD3-A47020842BE6}</ProjectGuid>
+            <Configurations>Debug</Configurations>
+            <Platforms>Win32</Platforms>
+            <Enabled>False</Enabled>
         </BuildGroupProject>
     </ItemGroup>
 </Project>
