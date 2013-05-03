@@ -4,7 +4,6 @@ interface
 
 uses
   TestFramework,
-  SysUtils,
   PureMVC.Interfaces.IController, PureMVC.Interfaces.IView,
   PureMVC.Interfaces.INotification,
   PureMVC.Interfaces.ICommand,
@@ -31,7 +30,9 @@ type
 
 implementation
 
-uses Classes;
+uses
+  SysUtils,
+  Classes;
 
 type
   TControllerTestCommand = class(TSimpleCommand)
@@ -71,11 +72,11 @@ end;
 
 procedure TestTController.TestGetInstance;
 var
-  ReturnValue: IController;
+  Controller: IController;
 begin
-  ReturnValue := TController.Instance;
-  CheckNotNull(ReturnValue, 'Controller.Instance is null');
-  CheckTrue(Supports(ReturnValue, IController),
+  Controller := TController.Instance;
+  CheckNotNull(Controller, 'Controller.Instance is null');
+  CheckTrue(Supports(Controller, IController),
     'Expecting instance implements IController');
 end;
 

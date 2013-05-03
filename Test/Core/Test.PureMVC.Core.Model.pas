@@ -8,159 +8,140 @@ uses
   PureMVC.Interfaces.IProxy,
   PureMVC.Interfaces.IModel,
   PureMVC.Patterns.Proxy,
-  PureMVC.Utils
-  ;
+  PureMVC.Utils;
 
 type
   // Test methods for class TModel
 
   TestTModel = class(TTestCase)
-  strict private
-    FModel: TModel;
   private
   public
-    procedure SetUp; override;
-    procedure TearDown; override;
-    function Subject: TModel;
   published
-    procedure TestIsNotRegisteredProxy;
-    procedure TestRegisterProxy;
-    procedure TestRetrieveProxy;
-    procedure TestRemoveProxy;
-    procedure TestInstance;
-    procedure TestOnRegister;
-    procedure TestOnRemove;
-  end;
-
-  TestRegisteredModel = class(TestTModel)
-  public
-    procedure SetUp; override;
-    procedure TearDown; override;
-  published
-
+    procedure TestGetInstance;
+    procedure TestRegisterAndRetrieveProxy;
+    procedure TestRegisterAndRemoveProxy;
+    procedure TestHasProxy;
+    procedure TestOnRegisterAndOnRemove;
   end;
 
 implementation
 
+uses
+  SysUtils,
+  Classes;
+
 type
-  TTestableModel = class(TModel);
-  TTestableProxy = class(TProxy)
-  public
-  const
+
+  TModelTestProxy = class(TProxy)
+  public const
     NAME = 'ModelTestProxy';
     ON_REGISTER_CALLED = 'onRegister Called';
     ON_REMOVE_CALLED = 'onRemove Called';
   public
     constructor Create;
-    procedure OnRegister;override;
-    procedure OnRemove;override;
+    procedure OnRegister; override;
+    procedure OnRemove; override;
   end;
 
-procedure TestTModel.SetUp;
-begin
-  FModel := TTestableModel.Create;
-end;
-
-function TestTModel.Subject: TModel;
-begin
-  Result := FModel;
-end;
-
-procedure TestTModel.TearDown;
-begin
-  FModel.Free;
-  FModel := nil;
-end;
-
-procedure TestTModel.TestInstance;
+procedure TestTModel.TestGetInstance;
 var
-  ReturnValue: IModel;
+  Model: IModel;
 begin
-  ReturnValue := TModel.Instance;
-  CheckNotNull(ReturnValue, 'Model.Instance is null');
+  Model := TModel.Instance;
+  CheckNotNull(Model, 'Model.Instance is null');
+  CheckTrue(Supports(Model, IModel),
+    'Expecting instance implements IController');
 end;
 
-procedure TestTModel.TestIsNotRegisteredProxy;
-begin
-  CheckFalse(FModel.HasProxy('colors'));
-end;
-
-procedure TestTModel.TestRegisterProxy;
-begin
-  FModel.RegisterProxy(TProxy.Create('colors' ));
-  CheckTrue(FModel.HasProxy('colors'));
-end;
-
-procedure TestTModel.TestRetrieveProxy;
+procedure TestTModel.TestRegisterAndRetrieveProxy;
 const
   Color = 'Red';
 var
+  Model: IModel;
   Proxy: IProxy;
+  Name: string;
 begin
-  FModel.RegisterProxy(TProxy.Create('colors',  Color ));
-  Proxy := FModel.RetrieveProxy('colors');
-  CheckEquals(Color, Proxy.Data.ToString);
+  Name := 'colors' + IntToStr(TThread.CurrentThread.ThreadID);
+  Model := TModel.Instance;
+
+  Model.RegisterProxy(TProxy.Create(Name, Color));
+  Proxy := Model.RetrieveProxy(Name);
+  CheckEquals(Proxy.Data.AsString, Color);
+
 end;
 
-procedure TestTModel.TestRemoveProxy;
+procedure TestTModel.TestRegisterAndRemoveProxy;
+const
+  Sizes = '1,2,3';
+var
+  Model: IModel;
+  Proxy: IProxy;
+  RemovedProxy: IProxy;
+  Name: string;
 begin
-  FModel.RegisterProxy(TProxy.Create('colors' ));
-  FModel.RemoveProxy('colors');
-  CheckFalse(FModel.HasProxy('colors'));
+  Name := 'sizes' + IntToStr(TThread.CurrentThread.ThreadID);
+  Model := TModel.Instance;
+  Model.RegisterProxy(TProxy.Create(Name, Sizes));
+
+  Proxy := Model.RetrieveProxy(Name);
+  RemovedProxy := Model.RemoveProxy(Name);
+
+  CheckEquals(RemovedProxy.ProxyName, Name);
+  Proxy := Model.RetrieveProxy(Name);
+  CheckNull(Proxy);
+
 end;
 
-procedure TestTModel.TestOnRegister;
+procedure TestTModel.TestHasProxy;
+const
+  Aces = 'clubs,spades,hearts,diamonds';
+var
+  Model: IModel;
+  Name: string;
+begin
+  Name := 'aces' + IntToStr(TThread.CurrentThread.ThreadID);
+  Model := TModel.Instance;
+  Model.RegisterProxy(TProxy.Create(Name, Aces));
+  CheckTrue(Model.HasProxy(Name));
+
+  Model.RemoveProxy(name);
+  CheckFalse(Model.HasProxy(Name));
+end;
+
+procedure TestTModel.TestOnRegisterAndOnRemove;
 var
   Proxy: IProxy;
+  Model: IModel;
 begin
-  Proxy := TTestableProxy.Create;
-  FModel.RegisterProxy(Proxy);
-  CheckEquals(TTestableProxy.ON_REGISTER_CALLED, Proxy.data.ToString);
-end;
+  Model := TModel.Instance;
+  Proxy := TModelTestProxy.Create;
+  Model.RegisterProxy(Proxy);
+  CheckEquals(TModelTestProxy.ON_REGISTER_CALLED, Proxy.Data.ToString);
 
-procedure TestTModel.TestOnRemove;
-var
-  Proxy: IProxy;
-begin
-  Proxy := TTestableProxy.Create;
-  FModel.RegisterProxy(Proxy);
-  FModel.RemoveProxy(TTestableProxy.NAME);
-  CheckEquals(TTestableProxy.ON_REMOVE_CALLED, Proxy.data.ToString);
+  Model.RemoveProxy(TModelTestProxy.Name);
+  CheckEquals(TModelTestProxy.ON_REMOVE_CALLED, Proxy.Data.ToString);
 end;
 
 { TModelTestProxy }
 
-constructor TTestableProxy.Create;
+constructor TModelTestProxy.Create;
 begin
   inherited Create(Name);
 end;
 
-procedure TTestableProxy.OnRegister;
+procedure TModelTestProxy.OnRegister;
 begin
   Data := ON_REGISTER_CALLED;
 end;
 
-procedure TTestableProxy.OnRemove;
+procedure TModelTestProxy.OnRemove;
 begin
   Data := ON_REMOVE_CALLED;
 end;
 
-{ TestRegisteredModel }
-
-procedure TestRegisteredModel.SetUp;
-begin
-  inherited;
-  Subject.RegisterProxy(TProxy.Create('colors' ));
-end;
-
-procedure TestRegisteredModel.TearDown;
-begin
-  Subject.RemoveProxy('colors');
-  inherited;
-end;
-
 initialization
-  // Register any test cases with the test runner
-  RegisterTest(TestTModel.Suite);
-end.
 
+// Register any test cases with the test runner
+RegisterTest(TestTModel.Suite);
+
+end.
