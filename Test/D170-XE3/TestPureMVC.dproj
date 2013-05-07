@@ -85,6 +85,9 @@
         <DCCReference Include="..\Core\Test.PureMVC.Core.Controller.pas"/>
         <DCCReference Include="..\Core\Test.PureMVC.Core.Model.pas"/>
         <DCCReference Include="..\Core\Test.PureMVC.Core.View.pas"/>
+        <DCCReference Include="..\Patterns\Command\Test.PureMVC.Patterns.MacroCommand.pas"/>
+        <DCCReference Include="..\Patterns\Command\Test.PureMVC.Patterns.SimpleCommand.pas"/>
+        <DCCReference Include="..\Patterns\Facade\Test.PureMVC.Patterns.Facade.pas"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
             <DependentOn>..\test.optset</DependentOn>

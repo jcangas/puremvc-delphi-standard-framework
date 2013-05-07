@@ -17,7 +17,10 @@ uses
   DUnitTestRunner,
   Test.PureMVC.Core.Controller in '..\Core\Test.PureMVC.Core.Controller.pas',
   Test.PureMVC.Core.Model in '..\Core\Test.PureMVC.Core.Model.pas',
-  Test.PureMVC.Core.View in '..\Core\Test.PureMVC.Core.View.pas';
+  Test.PureMVC.Core.View in '..\Core\Test.PureMVC.Core.View.pas',
+  Test.PureMVC.Patterns.MacroCommand in '..\Patterns\Command\Test.PureMVC.Patterns.MacroCommand.pas',
+  Test.PureMVC.Patterns.SimpleCommand in '..\Patterns\Command\Test.PureMVC.Patterns.SimpleCommand.pas',
+  Test.PureMVC.Patterns.Facade in '..\Patterns\Facade\Test.PureMVC.Patterns.Facade.pas';
 
 {$R *.RES}
 
