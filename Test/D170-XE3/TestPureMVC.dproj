@@ -84,6 +84,7 @@
         </DelphiCompile>
         <DCCReference Include="..\Core\Test.PureMVC.Core.Controller.pas"/>
         <DCCReference Include="..\Core\Test.PureMVC.Core.Model.pas"/>
+        <DCCReference Include="..\Core\Test.PureMVC.Core.View.pas"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
             <DependentOn>..\test.optset</DependentOn>

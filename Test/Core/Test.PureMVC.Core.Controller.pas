@@ -75,7 +75,7 @@ var
   Controller: IController;
 begin
   Controller := TController.Instance;
-  CheckNotNull(Controller, 'Controller.Instance is null');
+  CheckNotNull(Controller, 'TController.Instance is null');
   CheckTrue(Supports(Controller, IController),
     'Expecting instance implements IController');
 end;
@@ -91,7 +91,7 @@ begin
   Controller := TController.Instance;
   Controller.RegisterCommand(Name, TControllerTestCommand);
   VO := TControllerTestVO.Create(12);
-  Note := TNotification.Create(Self, Name, VO, nil);
+  Note := TNotification.Create(Name, Self, VO);
   Controller.ExecuteCommand(Note);
   CheckEquals(24, VO.Result);
   VO.Free;
@@ -108,7 +108,7 @@ begin
   Controller := TController.Instance;
   Controller.RegisterCommand(Name, TControllerTestCommand);
   VO := TControllerTestVO.Create(12);
-  Note := TNotification.Create(Self, Name, VO, nil);
+  Note := TNotification.Create(Name, Self, VO);
   Controller.ExecuteCommand(Note);
   CheckEquals(24, VO.Result);
 
@@ -145,7 +145,7 @@ begin
 
   // Create a 'ControllerTest2' note
   VO := TControllerTestVO.Create(12);
-  Note := TNotification.Create(Self, Name, VO, nil);
+  Note := TNotification.Create(Name, Self, VO);
   // retrieve a reference to the View.
   View := TView.Instance;
   // send the Notification

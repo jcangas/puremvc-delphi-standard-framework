@@ -16,7 +16,8 @@ program TestPureMVC;
 uses
   DUnitTestRunner,
   Test.PureMVC.Core.Controller in '..\Core\Test.PureMVC.Core.Controller.pas',
-  Test.PureMVC.Core.Model in '..\Core\Test.PureMVC.Core.Model.pas';
+  Test.PureMVC.Core.Model in '..\Core\Test.PureMVC.Core.Model.pas',
+  Test.PureMVC.Core.View in '..\Core\Test.PureMVC.Core.View.pas';
 
 {$R *.RES}
 

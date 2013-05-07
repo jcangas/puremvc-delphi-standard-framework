@@ -23,7 +23,7 @@ type
     /// <param name="NotificationName">The name of the notiification to send</param>
     /// <remarks>Keeps us from having to construct new notification instances in our implementation code</remarks>
     /// <remarks>This method is thread safe</remarks>
-    procedure SendNotification(Sender: TObject; Name: string); overload;
+    procedure SendNotification(Name: string; Sender: TObject = nil);overload;
 
     /// <summary>
     /// Send an <c>INotification</c>
@@ -32,7 +32,7 @@ type
     /// <param name="Body">The body of the notification</param>
     /// <remarks>Keeps us from having to construct new notification instances in our implementation code</remarks>
     /// <remarks>This method is thread safe</remarks>
-    procedure SendNotification(Sender: TObject; Name: string; Body: TValue); overload;
+    procedure SendNotification(Name: string; Sender: TObject; Body: TValue);overload;
 
         /// <summary>
         /// Send an <c>INotification</c>
@@ -42,7 +42,7 @@ type
         /// <param name="Kind">The kind of the notification</param>
         /// <remarks>Keeps us from having to construct new notification instances in our implementation code</remarks>
 		/// <remarks>This method is thread safe</remarks>
-    procedure SendNotification(Sender: TObject; Name: string; Body: TValue; Kind: TValue); overload;
+    procedure SendNotification(Name: string; Sender: TObject; Body: TValue; Kind: TValue);overload;
 
 	protected
   	/// <summary>
@@ -56,21 +56,21 @@ implementation
 uses
   PureMVC.Patterns.Facade;
 
-procedure TNotifier.SendNotification(Sender: TObject; Name: string);
+procedure TNotifier.SendNotification(Name: string; Sender: TObject = nil);
 begin
-  SendNotification(Sender, Name, nil, TValue.Empty);
+  SendNotification(Name, Sender, nil, TValue.Empty);
 end;
 
-procedure TNotifier.SendNotification(Sender: TObject; Name: string;
+procedure TNotifier.SendNotification(Name: string; Sender: TObject;
   Body: TValue);
 begin
-  SendNotification(Sender, Name, Body, TValue.Empty);
+  SendNotification(Name, Sender, Body, TValue.Empty);
 end;
 
-procedure TNotifier.SendNotification(Sender: TObject; Name: string;
+procedure TNotifier.SendNotification(Name: string; Sender: TObject;
   Body: TValue; Kind: TValue);
 begin
-  Facade.SendNotification(Sender, Name, Body, Kind);
+  Facade.SendNotification(Name, Sender, Body, Kind);
 end;
 
 function TNotifier.Facade: IFacade;

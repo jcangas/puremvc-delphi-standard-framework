@@ -17,31 +17,56 @@ type
     FBody: TValue;
     FKind: TValue;
     FName: string;
-    function GetBody: TValue;
-    procedure SetBody(Value: TValue);
+  protected
     function GetName: string;
-    function GetKind: TValue;
-    procedure SetKind(const Value: TValue);
     function GetSender: TObject;
+    function GetBody: TValue;
+    function GetKind: TValue;
+    procedure SetName(Value: string);
+    procedure SetSender(const Value: TObject);
+    procedure SetBody(Value: TValue);
+    procedure SetKind(const Value: TValue);
   public
-    constructor Create(Sender: TObject; Name: string; Body: TValue; Kind: TValue);
+    constructor Create(Name: string; Sender: TObject; Body: TValue; Kind: TValue);overload;
+    constructor Create(Name: string; Sender: TObject; Body: TValue);overload;
+    constructor Create(Name: string; Sender: TObject = nil);overload;
     function ToString: string;override;
     property Sender: TObject read GetSender;
     property Name: string read GetName;
-    property Body: TValue read GetBody write SetBody;
-    property Kind: TValue read GetKind write SetKind;
+    property Body: TValue read GetBody;
+    property Kind: TValue read GetKind;
   end;
 
 implementation
 uses SysUtils;
 
-constructor TNotification.Create(Sender: TObject; Name: string; Body: TValue ; Kind: TValue);
+constructor TNotification.Create(Name: string; Sender: TObject; Body: TValue ; Kind: TValue);
 begin
   inherited Create;
-  FSender := Sender;
-  FName := Name;
-  FBody := Body;
-  FKind := Kind;
+  SetName(Name);
+  SetSender(Sender);
+  SetBody(Body);
+  SetKind(Kind);
+end;
+
+constructor TNotification.Create(Name: string; Sender: TObject; Body: TValue);
+begin
+  Create(Name, Sender, Body, nil);
+end;
+
+constructor TNotification.Create(Name: string; Sender: TObject = nil);
+begin
+  Create(Name, Sender, nil, nil);
+end;
+
+function TNotification.GetName: string;
+begin
+  Result := FName
+end;
+
+function TNotification.GetSender: TObject;
+begin
+  Result := FSender;
 end;
 
 function TNotification.GetBody: TValue;
@@ -54,14 +79,14 @@ begin
   Result := FKind;
 end;
 
-function TNotification.GetName: string;
+procedure TNotification.SetName(Value: string);
 begin
-  Result := FName
+  FName := Value;
 end;
 
-function TNotification.GetSender: TObject;
+procedure TNotification.SetSender(const Value: TObject);
 begin
-  Result := FSender;
+  FSender := Value;
 end;
 
 procedure TNotification.SetBody(Value: TValue);

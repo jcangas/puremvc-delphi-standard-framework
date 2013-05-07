@@ -35,6 +35,7 @@ type
     function GetKind: TValue;
     procedure SetKind(const Value: TValue);
     function GetName: string;
+    procedure SetSender(const Value: TObject);
     function GetSender: TObject;
 
     /// <summary>

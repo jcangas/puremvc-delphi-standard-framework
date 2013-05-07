@@ -48,9 +48,9 @@ var
   Model: IModel;
 begin
   Model := TModel.Instance;
-  CheckNotNull(Model, 'Model.Instance is null');
+  CheckNotNull(Model, 'TModel.Instance is null');
   CheckTrue(Supports(Model, IModel),
-    'Expecting instance implements IController');
+    'Expecting instance implements IModel');
 end;
 
 procedure TestTModel.TestRegisterAndRetrieveProxy;
@@ -68,6 +68,7 @@ begin
   Proxy := Model.RetrieveProxy(Name);
   CheckEquals(Proxy.Data.AsString, Color);
 
+  Model.RemoveProxy(Name);
 end;
 
 procedure TestTModel.TestRegisterAndRemoveProxy;
