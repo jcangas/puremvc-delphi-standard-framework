@@ -100,8 +100,10 @@ begin
 end;
 
 function TNotification.ToString: string;
+const
+  ToStrFmt = 'Notification{Name:%s\nSender:%p\nBody:%s\nType:%s}';
 begin
-  Result := Format('<#Notification{%s, %s, %s}>', [Name, Body.AsString, Kind.AsString]);
+  Result := Format(ToStrFmt, [Name, Pointer(Sender), Body.AsString, Kind.AsString]);
 end;
 
 end.

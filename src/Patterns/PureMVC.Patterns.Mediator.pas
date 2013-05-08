@@ -60,7 +60,7 @@ type
     procedure OnRegister; virtual;
     function ListNotificationInterests: IList<string>; virtual;
 
-    constructor Create(Name: string; AViewComponent: TObject);overload;
+    constructor Create(Name: string = ''; AViewComponent: TObject = nil);overload;
     constructor Create(View: TObject);overload;
 
     property MediatorName: string read GetMediatorName;
@@ -221,13 +221,15 @@ end;
 constructor TMediator.Create(Name: string; AViewComponent: TObject);
 begin
   inherited Create;
+  if Name = '' then
+    Name := ClassName;
   FMediatorName := Name;
   ViewComponent := AViewComponent;
 end;
 
 constructor TMediator.Create(View: TObject);
 begin
-  Create(ClassName, View);
+  Create('', View);
 end;
 
 function TMediator.GetMediatorName: string;
