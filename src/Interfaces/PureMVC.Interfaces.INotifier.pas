@@ -32,7 +32,7 @@ type
     /// <para>Convenience method to prevent having to construct new notification instances in our implementation code</para>
     /// </remarks>
     /// <param name="NotificationName">The name of the notification to send</param>
-    procedure SendNotification(Sender: TObject; NotificationName: string); overload;
+    procedure SendNotification(NotificationName: string; Sender: TObject = nil);overload;
 
     /// <summary>
     /// Send a <c>INotification</c>
@@ -42,8 +42,8 @@ type
     /// </remarks>
     /// <param name="NotificationName">The name of the notification to send</param>
     /// <param name="Body">The body of the notification</param>
-    procedure SendNotification(Sender: TObject; NotificationName: string;
-        Body: TValue); overload;
+    procedure SendNotification(NotificationName: string; Sender: TObject;
+        Body: TValue);overload;
 
     /// <summary>
     /// Send a <c>INotification</c>
@@ -54,8 +54,8 @@ type
     /// <param name="NotificationName">The name of the notification to send</param>
     /// <param name="Body">The body of the notification</param>
     /// <param name="Kind">The 'kind' of the notification</param>
-    procedure SendNotification(Sender: TObject; NotificationName: string; Body: TValue;
-        Kind: TValue); overload;
+    procedure SendNotification(NotificationName: string; Sender: TObject; Body: TValue;
+        Kind: TValue);overload;
   end;
 
 implementation

@@ -159,12 +159,12 @@ var
   Result: Boolean;
 begin
   Result := RoleProxy.AddRoleToUser(RolePanel.User, RolePanel.SelectedRole);
-  SendNotification(Self, MSG.ADD_ROLE_RESULT, Result);
+  SendNotification(MSG.ADD_ROLE_RESULT, Self, Result);
 end;
 
 procedure TRolePanelMediator.RolePanel_RemoveRole(Sender: TObject);
 begin
-  SendNotification(Self, MSG.DELETE_ROLE, RolePanel.SelectedRole);
+  SendNotification(MSG.DELETE_ROLE, Self, RolePanel.SelectedRole);
   //self.send_notification(NotificationName::SHOW_DELETE_ROLE_COFIRMATION, [self.view.selected_role, self.view.user])
 end;
 

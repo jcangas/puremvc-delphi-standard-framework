@@ -34,12 +34,7 @@ object MainWindow: TMainWindow
       DesignSize = (
         376
         277)
-      inherited PasswordCtl: TLabeledEdit [1]
-        Left = 97
-        Width = 270
-        EditLabel.ExplicitLeft = 46
-        ExplicitLeft = 97
-        ExplicitWidth = 270
+      inherited SaveBtn: TButton [1]
       end
       inherited UserNameCtl: TLabeledEdit [2]
         Left = 97
@@ -48,7 +43,12 @@ object MainWindow: TMainWindow
         ExplicitLeft = 97
         ExplicitWidth = 270
       end
-      inherited SaveBtn: TButton [3]
+      inherited PasswordCtl: TLabeledEdit [3]
+        Left = 97
+        Width = 270
+        EditLabel.ExplicitLeft = 46
+        ExplicitLeft = 97
+        ExplicitWidth = 270
       end
       inherited DepartmentCtl: TComboBox [4]
         Left = 97
@@ -70,23 +70,23 @@ object MainWindow: TMainWindow
         ExplicitLeft = 97
         ExplicitWidth = 270
       end
-      inherited CancelBtn: TButton [7]
+      inherited ConfirmPasswordCtl: TLabeledEdit [7]
+        Left = 97
+        Width = 270
+        EditLabel.ExplicitLeft = 6
+        ExplicitLeft = 97
+        ExplicitWidth = 270
+      end
+      inherited CancelBtn: TButton [8]
         Left = 302
         Width = 65
         ExplicitLeft = 302
         ExplicitWidth = 65
       end
-      inherited LastNameCtl: TLabeledEdit [8]
+      inherited LastNameCtl: TLabeledEdit [9]
         Left = 97
         Width = 270
         EditLabel.ExplicitLeft = 42
-        ExplicitLeft = 97
-        ExplicitWidth = 270
-      end
-      inherited ConfirmPasswordCtl: TLabeledEdit [9]
-        Left = 97
-        Width = 270
-        EditLabel.ExplicitLeft = 6
         ExplicitLeft = 97
         ExplicitWidth = 270
       end

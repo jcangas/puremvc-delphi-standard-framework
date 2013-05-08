@@ -3,9 +3,21 @@ unit EmployeeAdmin.View.Components.RolePanl;
 interface
 
 uses
-  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls,
-  ExtCtrls, ActnList,
+  Windows,
+  Messages,
+  SysUtils,
+  Variants,
+  Classes,
+  Graphics,
+  Controls,
+  Forms,
+  Dialogs,
+  StdCtrls,
+  ExtCtrls,
+  ActnList,
+  {$IF RTLVersion > 22}
+  System.Actions,
+ {$IFEND}
   PureMVC.Utils,
   EmployeeAdmin.Model.Enum.Enum,
   EmployeeAdmin.Model.Enum.RoleEnum,

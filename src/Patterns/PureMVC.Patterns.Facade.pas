@@ -74,10 +74,10 @@ type
 {$ENDREGION}
 {$REGION 'INotifier Members'}
   public
-    procedure SendNotification(Sender: TObject; NotificationName: string); overload;
-    procedure SendNotification(Sender: TObject; NotificationName: string;
+    procedure SendNotification(NotificationName: string; Sender: TObject = nil); overload;
+    procedure SendNotification(NotificationName: string; Sender: TObject;
         Body: TValue); overload;
-    procedure SendNotification(Sender: TObject; NotificationName: string; Body: TValue;
+    procedure SendNotification(NotificationName: string; Sender: TObject; Body: TValue;
         Kind: TValue); overload;virtual;
 {$ENDREGION}
 {$REGION 'Accessors'}
@@ -280,20 +280,20 @@ begin
 end;
 {$ENDREGION}
 
-procedure TFacade.SendNotification(Sender: TObject; NotificationName: string; Body: TValue;
+procedure TFacade.SendNotification(NotificationName: string; Sender: TObject; Body: TValue;
     Kind: TValue);
 begin
-  NotifyObservers(TNotification.Create(Sender, NotificationName, Body, Kind))
+  NotifyObservers(TNotification.Create(NotificationName, Sender, Body, Kind))
 end;
 
-procedure TFacade.SendNotification(Sender: TObject; NotificationName: string; Body: TValue);
+procedure TFacade.SendNotification(NotificationName: string; Sender: TObject; Body: TValue);
 begin
-  SendNotification(Sender, NotificationName, Body, TValue.Empty);
+  SendNotification(NotificationName, Sender, Body, TValue.Empty);
 end;
 
-procedure TFacade.SendNotification(Sender: TObject; NotificationName: string);
+procedure TFacade.SendNotification(NotificationName: string; Sender: TObject = nil);
 begin
-  SendNotification(Sender, NotificationName, nil, TValue.Empty);
+  SendNotification(NotificationName, Sender, nil, TValue.Empty);
 end;
 
 procedure TFacade.NotifyObservers(Notification: INotification);

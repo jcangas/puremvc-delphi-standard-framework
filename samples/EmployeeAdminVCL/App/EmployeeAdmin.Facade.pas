@@ -171,7 +171,7 @@ end;
 
 procedure TApplicationFacade.Startup(Info: TObject);
 begin
-  SendNotification(Self, MSG.Startup, Info);
+  SendNotification(MSG.Startup, Self, Info);
 end;
 
 constructor TApplicationFacade.Create;

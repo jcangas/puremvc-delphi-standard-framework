@@ -89,17 +89,17 @@ end;
 
 procedure TUserListMediator.UserListNewUser(Sender: TObject);
 begin
-  SendNotification(Self, MSG.NEW_USER, TUserVO.Create);
+  SendNotification(MSG.NEW_USER, Self, TUserVO.Create);
 end;
 
 procedure TUserListMediator.UserListDeleteUser(Sender: TObject);
 begin
-  SendNotification(Self, MSG.DELETE_USER, UserList.SelectedUser);
+  SendNotification(MSG.DELETE_USER, Self, UserList.SelectedUser);
 end;
 
 procedure TUserListMediator.UserListSelectUser(Sender: TObject);
 begin
-  SendNotification(Self, MSG.USER_SELECTED, UserList.SelectedUser);
+  SendNotification(MSG.USER_SELECTED, Self, UserList.SelectedUser);
 end;
 
 end.

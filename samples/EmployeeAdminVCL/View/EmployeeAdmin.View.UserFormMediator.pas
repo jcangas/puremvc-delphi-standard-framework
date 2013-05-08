@@ -92,14 +92,14 @@ var
 begin
   User := UserForm.User;
   FUserProxy.AddItem(user);
-  SendNotification(Self, MSG.USER_ADDED, User);
-  UserForm.ClearForm();
+  SendNotification(MSG.USER_ADDED, Self, User);
+  UserForm.ClearForm;
 end;
 
 procedure TUserFormMediator.UserFormOnCancelUser(Sender: TObject);
 begin
-  SendNotification(Self, MSG.CANCEL_SELECTED);
-  UserForm.ClearForm();
+  SendNotification(MSG.CANCEL_SELECTED, Self);
+  UserForm.ClearForm;
 end;
 
 procedure TUserFormMediator.UserFormOnUpdateUser(Sender: TObject);
@@ -108,8 +108,8 @@ var
 begin
   User := UserForm.User;
   FUserProxy.UpdateItem(User);
-  SendNotification(Self, MSG.USER_UPDATED, User);
-  UserForm.ClearForm();
+  SendNotification(MSG.USER_UPDATED, Self, User);
+  UserForm.ClearForm;
 end;
 
 end.
