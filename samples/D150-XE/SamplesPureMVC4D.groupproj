@@ -36,7 +36,7 @@
 		<ItemGroup Condition="'$(BuildGroup)'=='All'">
 			<BuildGroupProject Include="EmployeeAdminVCL.dproj">
 				<ProjectGuid>{6A0562DE-8039-4870-97F5-D2D13C3DB571}</ProjectGuid>
-				<Configurations/>
+				<Configurations>Samples</Configurations>
 				<Platforms>Win32</Platforms>
 				<Enabled>True</Enabled>
 			</BuildGroupProject>

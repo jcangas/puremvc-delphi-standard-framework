@@ -34,30 +34,25 @@ object MainWindow: TMainWindow
       DesignSize = (
         376
         277)
-      inherited CancelBtn: TButton [1]
-        Left = 302
-        Width = 65
-        ExplicitLeft = 302
-        ExplicitWidth = 65
+      inherited SaveBtn: TButton [1]
       end
-      inherited LastNameCtl: TLabeledEdit
+      inherited UserNameCtl: TLabeledEdit [2]
         Left = 97
         Width = 270
-        EditLabel.ExplicitLeft = 42
+        EditLabel.ExplicitLeft = 44
         ExplicitLeft = 97
         ExplicitWidth = 270
       end
-      inherited ConfirmPasswordCtl: TLabeledEdit [3]
+      inherited PasswordCtl: TLabeledEdit [3]
         Left = 97
         Width = 270
-        EditLabel.ExplicitLeft = 6
+        EditLabel.ExplicitLeft = 46
         ExplicitLeft = 97
         ExplicitWidth = 270
       end
-      inherited FirstNameCtl: TLabeledEdit [4]
+      inherited DepartmentCtl: TComboBox [4]
         Left = 97
         Width = 270
-        EditLabel.ExplicitLeft = 41
         ExplicitLeft = 97
         ExplicitWidth = 270
       end
@@ -68,25 +63,30 @@ object MainWindow: TMainWindow
         ExplicitLeft = 97
         ExplicitWidth = 270
       end
-      inherited DepartmentCtl: TComboBox [6]
+      inherited FirstNameCtl: TLabeledEdit [6]
         Left = 97
         Width = 270
+        EditLabel.ExplicitLeft = 41
         ExplicitLeft = 97
         ExplicitWidth = 270
       end
-      inherited SaveBtn: TButton [7]
-      end
-      inherited UserNameCtl: TLabeledEdit [8]
+      inherited ConfirmPasswordCtl: TLabeledEdit [7]
         Left = 97
         Width = 270
-        EditLabel.ExplicitLeft = 44
+        EditLabel.ExplicitLeft = 6
         ExplicitLeft = 97
         ExplicitWidth = 270
       end
-      inherited PasswordCtl: TLabeledEdit [9]
+      inherited CancelBtn: TButton [8]
+        Left = 302
+        Width = 65
+        ExplicitLeft = 302
+        ExplicitWidth = 65
+      end
+      inherited LastNameCtl: TLabeledEdit [9]
         Left = 97
         Width = 270
-        EditLabel.ExplicitLeft = 46
+        EditLabel.ExplicitLeft = 42
         ExplicitLeft = 97
         ExplicitWidth = 270
       end
