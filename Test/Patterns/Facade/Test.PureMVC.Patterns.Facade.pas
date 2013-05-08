@@ -165,7 +165,8 @@ var
   Proxy: IProxy;
 begin
   Facade := TFacade.Instance;
-  Facade.RegisterProxy(TProxy.Create('colors', TValue.FromArray(TypeInfo(TArray<string>), ['red', 'green', 'blue'])));
+  Facade.RegisterProxy(TProxy.Create('colors',
+    TValue.FromArray(TypeInfo(TArray<string>), ['red', 'green', 'blue'])));
   Proxy := Facade.RetrieveProxy('colors');
 
   // test assertions
@@ -187,7 +188,8 @@ var
   Proxy: IProxy;
 begin
   Facade := TFacade.Instance;
-  Facade.RegisterProxy(TProxy.Create('sizes', TValue.FromArray(TypeInfo(TArray<Integer>), [7, 13, 21])));
+  Facade.RegisterProxy(TProxy.Create('sizes',
+    TValue.FromArray(TypeInfo(TArray<Integer>), [7, 13, 21])));
   RemovedProxy := Facade.RemoveProxy('sizes');
   CheckEquals('sizes', RemovedProxy.ProxyName);
   Proxy := Facade.RetrieveProxy('sizes');
@@ -202,10 +204,11 @@ begin
   Facade := TFacade.Instance;
   Facade.RegisterMediator(TMediator.Create('Mediator', Self));
 
-  CheckNotNull(Facade.RetrieveMediator('Mediator'), 'Expecting mediator is not null');
+  CheckNotNull(Facade.RetrieveMediator('Mediator'),
+    'Expecting mediator is not null');
 
   // remove the mediator
-  RemovedMediator := facade.RemoveMediator('Mediator');
+  RemovedMediator := Facade.RemoveMediator('Mediator');
 
   // assert that we have removed the appropriate mediator
   CheckEquals('Mediator', RemovedMediator.MediatorName);
@@ -217,11 +220,11 @@ var
   Facade: IFacade;
 begin
   Facade := TFacade.Instance;
-  Facade.RegisterProxy(TProxy.Create('hasProxyTest', TValue.FromArray(TypeInfo(TArray<Integer>), [1, 2, 3])));
+  Facade.RegisterProxy(TProxy.Create('hasProxyTest',
+    TValue.FromArray(TypeInfo(TArray<Integer>), [1, 2, 3])));
   CheckTrue(Facade.HasProxy('hasProxyTest'));
   Facade.RemoveProxy('hasProxyTest');
 end;
-
 
 procedure TestTFacade.TestHasMediator;
 var

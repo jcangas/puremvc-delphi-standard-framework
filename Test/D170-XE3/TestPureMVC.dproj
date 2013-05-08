@@ -91,6 +91,7 @@
         <DCCReference Include="..\Patterns\Mediator\Test.PureMVC.Patterns.Mediator.pas"/>
         <DCCReference Include="..\Patterns\Observer\Test.PureMVC.Patterns.Observer.pas"/>
         <DCCReference Include="..\Patterns\Observer\Test.PureMVC.Patterns.Notification.pas"/>
+        <DCCReference Include="..\Patterns\Proxy\Test.PureMVC.Patterns.Proxy.pas"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
             <DependentOn>..\test.optset</DependentOn>

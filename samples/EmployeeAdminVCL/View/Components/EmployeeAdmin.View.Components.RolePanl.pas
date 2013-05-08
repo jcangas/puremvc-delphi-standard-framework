@@ -18,7 +18,7 @@ uses
   PureMVC.Utils,
   EmployeeAdmin.Model.Enum.Enum,
   EmployeeAdmin.Model.Enum.RoleEnum,
-  EmployeeAdmin.Model.VO.UserVO;
+  EmployeeAdmin.Model.VO.UserVO, System.Actions;
 
 type
   TRolePanel = class(TFrame)

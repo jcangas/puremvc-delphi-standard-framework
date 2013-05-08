@@ -79,7 +79,6 @@ end;
 procedure TestTObserver.TestCompareNotifyContext;
 var
   Observer: IObserver;
-  Note: INotification;
   NegTestObj: TObject;
 begin
   Observer := TObserver.Create('ObserverTestMethod', Self);
