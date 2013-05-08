@@ -17,7 +17,7 @@ uses
   PureMVC.Interfaces.IFacade;
 
 type
-  // Test methods for class TMacroCommand
+  // Test methods for class TFacade
 
   TestTFacade = class(TTestCase)
   strict private
@@ -177,6 +177,7 @@ begin
   CheckEquals('red', Data[0]);
   CheckEquals('green', Data[1]);
   CheckEquals('blue', Data[2]);
+  Facade.RemoveProxy('colors');
 end;
 
 procedure TestTFacade.TestRegisterAndRemoveProxy;
@@ -218,6 +219,7 @@ begin
   Facade := TFacade.Instance;
   Facade.RegisterProxy(TProxy.Create('hasProxyTest', TValue.FromArray(TypeInfo(TArray<Integer>), [1, 2, 3])));
   CheckTrue(Facade.HasProxy('hasProxyTest'));
+  Facade.RemoveProxy('hasProxyTest');
 end;
 
 
