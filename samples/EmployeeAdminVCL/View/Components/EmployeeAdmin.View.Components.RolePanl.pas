@@ -15,7 +15,7 @@ uses
   StdCtrls,
   ExtCtrls,
   ActnList,
-  {$IF RTLVersion > 22}
+  {$IF RTLVersion > 23}
   System.Actions,
  {$IFEND}
   PureMVC.Utils,

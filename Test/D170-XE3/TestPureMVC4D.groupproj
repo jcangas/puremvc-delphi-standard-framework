@@ -3,11 +3,8 @@
         <ProjectGuid>{48DA70E3-3E30-47CE-9558-D9E63CD144D4}</ProjectGuid>
     </PropertyGroup>
     <ItemGroup>
-        <Projects Include="..\..\src\D170-XE3\PureMVC.dproj">
-            <Dependencies/>
-        </Projects>
         <Projects Include="TestPureMVC.dproj">
-            <Dependencies>..\..\src\D170-XE3\PureMVC.dproj</Dependencies>
+            <Dependencies/>
         </Projects>
     </ItemGroup>
     <ProjectExtensions>
@@ -17,32 +14,23 @@
             <Default.Personality/>
         </BorlandProject>
     </ProjectExtensions>
-    <Target Name="PureMVC">
-        <MSBuild Projects="..\..\src\D170-XE3\PureMVC.dproj"/>
-    </Target>
-    <Target Name="PureMVC:Clean">
-        <MSBuild Projects="..\..\src\D170-XE3\PureMVC.dproj" Targets="Clean"/>
-    </Target>
-    <Target Name="PureMVC:Make">
-        <MSBuild Projects="..\..\src\D170-XE3\PureMVC.dproj" Targets="Make"/>
-    </Target>
-    <Target Name="TestPureMVC" DependsOnTargets="PureMVC">
+    <Target Name="TestPureMVC">
         <MSBuild Projects="TestPureMVC.dproj"/>
     </Target>
-    <Target Name="TestPureMVC:Clean" DependsOnTargets="PureMVC:Clean">
+    <Target Name="TestPureMVC:Clean">
         <MSBuild Projects="TestPureMVC.dproj" Targets="Clean"/>
     </Target>
-    <Target Name="TestPureMVC:Make" DependsOnTargets="PureMVC:Make">
+    <Target Name="TestPureMVC:Make">
         <MSBuild Projects="TestPureMVC.dproj" Targets="Make"/>
     </Target>
     <Target Name="Build">
-        <CallTarget Targets="PureMVC;TestPureMVC"/>
+        <CallTarget Targets="TestPureMVC"/>
     </Target>
     <Target Name="Clean">
-        <CallTarget Targets="PureMVC:Clean;TestPureMVC:Clean"/>
+        <CallTarget Targets="TestPureMVC:Clean"/>
     </Target>
     <Target Name="Make">
-        <CallTarget Targets="PureMVC:Make;TestPureMVC:Make"/>
+        <CallTarget Targets="TestPureMVC:Make"/>
     </Target>
     <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
     <ItemGroup Condition="'$(BuildGroup)'=='All'">
@@ -50,12 +38,6 @@
             <ProjectGuid>{AD097A7F-2D47-44EC-9C44-AD99AE9A5701}</ProjectGuid>
             <Configurations>Test</Configurations>
             <Platforms>Win32;Win64</Platforms>
-            <Enabled>True</Enabled>
-        </BuildGroupProject>
-        <BuildGroupProject Include="..\..\src\D170-XE3\PureMVC.dproj">
-            <ProjectGuid>{25811770-0120-4D90-ABD3-A47020842BE6}</ProjectGuid>
-            <Configurations>Debug;Release</Configurations>
-            <Platforms>OSX32;Win32;Win64</Platforms>
             <Enabled>True</Enabled>
         </BuildGroupProject>
     </ItemGroup>
