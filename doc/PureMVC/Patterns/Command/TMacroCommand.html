@@ -27,7 +27,7 @@
 <b >Help</b></font></a>&nbsp;</td></tr></table><td  align='right' valign='top' rowspan='3'>
 <em ></em></td></td></tr><tr >
 <td  class='NavBarCellPrevNext'>
-<font  size='-2'><a href="../../../PureMVC/Patterns/Command/TCommandClass.html" target="classFrame" onclick="doClick('../../../PureMVC/Patterns/Command/doc-files/default.txvpck.html')">PREV </a> &nbsp;&nbsp;<a href="../../../PureMVC/Patterns/Command/TSimpleCommand.html" target="classFrame" onclick="doClick('../../../PureMVC/Patterns/Command/doc-files/default.txvpck.html')">NEXT </a> </font></td><td  class='NavBarCellPrevNext'>
+<font  size='-2'><a href="../../../PureMVC/Patterns/Command/TCommandClass.html" target="classFrame" onclick="doClick('../../../PureMVC/Patterns/Command/doc-files/default.txvpck.html')">PREV </a> &nbsp;&nbsp;<a href="../../../PureMVC/Patterns/Command/globals Command.html" target="classFrame" onclick="doClick('../../../PureMVC/Patterns/Command/doc-files/default.txvpck.html')">NEXT </a> </font></td><td  class='NavBarCellPrevNext'>
 <font  size='-2'>
 <a  href='../../../index.html' target='_top'>
 <b >FRAMES</b></a>&nbsp;<a  href='../../../PureMVC/Patterns/Command/TMacroCommand.html' target='_top'>
@@ -36,21 +36,22 @@
 <font  size='-2'>SUMMARY:&nbsp;INNER&nbsp;|&nbsp;<a  href='#field_summary'>FIELD</a>&nbsp;|&nbsp;<a  href='#constructor_summary'>CONSTR</a>&nbsp;|&nbsp;DESTR&nbsp;|&nbsp;<a  href='#method_summary'>METHOD</a></font></td><td  valign='top' class='NavBarCell3'>
 <font  size='-2'>DETAIL:&nbsp;<a  href='#field_detail'>FIELD</a>&nbsp;|&nbsp;<a  href='#constructor_detail'>CONSTR</a>&nbsp;|&nbsp;DESTR&nbsp;|&nbsp;<a  href='#method_detail'>METHOD</a></font></td></tr></table><hr /><h2 >
 <font  size='-1'>
-<i >Namespace: </i>PureMVC.Patterns.Command<br /></font><br />Class TMacroCommand</h2><pre >
-<a href="../../../PureMVC/Patterns/Notifier/TNotifier.html" target="classFrame" onclick="doClick('../../../PureMVC/Patterns/Notifier/doc-files/default.txvpck.html')">PureMVC.Patterns.Notifier.TNotifier</a> 
+<i >Namespace: </i>PureMVC.Patterns.Command<br /></font><br />Class TMacroCommand</h2><pre >System.TInterfacedObject
   |
-  +-- <a href="../../../PureMVC/Patterns/Command/TCommand.html" target="classFrame" onclick="doClick('../../../PureMVC/Patterns/Command/doc-files/default.txvpck.html')">PureMVC.Patterns.Command.TCommand</a> 
+  +-- <a href="../../../PureMVC/Patterns/Notifier/TNotifier.html" target="classFrame" onclick="doClick('../../../PureMVC/Patterns/Notifier/doc-files/default.txvpck.html')">PureMVC.Patterns.Notifier.TNotifier</a> 
     |
-    +-- PureMVC.Patterns.Command.TMacroCommand
+    +-- <a href="../../../PureMVC/Patterns/Command/TCommand.html" target="classFrame" onclick="doClick('../../../PureMVC/Patterns/Command/doc-files/default.txvpck.html')">PureMVC.Patterns.Command.TCommand</a> 
+      |
+      +-- PureMVC.Patterns.Command.TMacroCommand
 </pre><dl >
 <dt /><b >All Implemented Interfaces: </b><dd ><a href="../../../PureMVC/Interfaces/ICommand/ICommand.html" target="classFrame" onclick="doClick('../../../PureMVC/Interfaces/ICommand/doc-files/default.txvpck.html')"><i>ICommand</i></a>    , <a href="../../../PureMVC/Interfaces/INotifier/INotifier.html" target="classFrame" onclick="doClick('../../../PureMVC/Interfaces/INotifier/doc-files/default.txvpck.html')"><i>INotifier</i></a>   </dd></dl><hr /><dl >
 <dt />public&nbsp;class <b >TMacroCommand</b> ( <a href="../../../PureMVC/Patterns/Command/TCommand.html" target="classFrame" onclick="doClick('../../../PureMVC/Patterns/Command/doc-files/default.txvpck.html')">TCommand</a>    , <a href="../../../PureMVC/Interfaces/ICommand/ICommand.html" target="classFrame" onclick="doClick('../../../PureMVC/Interfaces/ICommand/doc-files/default.txvpck.html')"><i>ICommand</i></a>    , <a href="../../../PureMVC/Interfaces/INotifier/INotifier.html" target="classFrame" onclick="doClick('../../../PureMVC/Interfaces/INotifier/doc-files/default.txvpck.html')"><i>INotifier</i></a>    ) </dl><p /><dl >
 <dt /><b >Abstract</b><dd >False</dd></dl><dl >
+<dt /><b >Sealed</b><dd >False</dd></dl><dl >
+<dt /><b >Persistent</b><dd >False</dd></dl><dl >
 <dt /><b >summary</b><dd > A base ICommand implementation that executes other ICommands<br /></dd></dl><dl >
 <dt /><b >remarks</b><dd >A MacroCommand maintains an list of ICommand Class references called SubCommandsWhen execute is called, the MacroCommand instantiates and calls execute on each of its SubCommands turn. Each SubCommand will be passed a reference to the original INotification that was passed to the MacroCommand's execute methodUnlike SimpleCommand, your subclass should not override execute, but instead, should override the initializeMacroCommand method, calling addSubCommand once for each SubCommand to be executed</dd></dl><dl >
-<dt /><b >see</b><dd ></dd></dl><dl >
-<dt /><b >Persistent</b><dd >False</dd></dl><dl >
-<dt /><b >Sealed</b><dd >False</dd></dl><hr /><p /><a  name='field_summary'/><table  border='1' cellpadding='3' cellspacing='0' width='100%'>
+<dt /><b >see</b><dd ></dd></dl><hr /><p /><a  name='field_summary'/><table  border='1' cellpadding='3' cellspacing='0' width='100%'>
 <tr  class='TableHeaderStyle'>
 <td  colspan='2'>
 <font  size='+2'>
@@ -96,27 +97,26 @@
 <b >Constructor Detail</b></font></td></tr></table><br /><a  name='Create()'>
 <h3 >Create</h3></a><pre >public&nbsp;constructor Create()</pre><dl >
 <dt /><b >Abstract</b><dd >False</dd></dl><dl >
-<dt /><b >summary</b><dd > Constructs a new macro command<br /></dd></dl><dl >
-<dt /><b >remarks</b><dd >You should not need to define a constructor, instead, override the initializeMacroCommand methodIf your subclass does define a constructor, be sure to call super()</dd></dl><dl >
-<dt /><b >Final</b><dd >False</dd></dl><dl >
 <dt /><b >Reintroduce</b><dd >False</dd></dl><dl >
-<dt /><b >Override</b><dd >True</dd></dl><dl >
 <dt /><b >Virtual</b><dd >False</dd></dl><dl >
-<dt /><b >Class</b><dd >False</dd></dl><hr /><a  name='method_detail'/><table  border='1' cellpadding='3' cellspacing='0' width='100%'>
+<dt /><b >Override</b><dd >True</dd></dl><dl >
+<dt /><b >Final</b><dd >False</dd></dl><dl >
+<dt /><b >summary</b><dd > Constructs a new macro command<br /></dd></dl><dl >
+<dt /><b >remarks</b><dd >You should not need to define a constructor, instead, override the initializeMacroCommand methodIf your subclass does define a constructor, be sure to call super()</dd></dl><hr /><a  name='method_detail'/><table  border='1' cellpadding='3' cellspacing='0' width='100%'>
 <tr  class='TableHeaderStyle'>
 <td  colspan='2'>
 <font  size='+2'>
 <b >Method Detail</b></font></td></tr></table><br /><a  name='Execute(INotification)'>
 <h3 >Execute</h3></a><pre >public&nbsp;procedure Execute(Notification: <a href="../../../PureMVC/Interfaces/INotification/INotification.html" target="classFrame" onclick="doClick('../../../PureMVC/Interfaces/INotification/doc-files/default.txvpck.html')">PureMVC.Interfaces.INotification.INotification</a> )</pre><dl >
 <dt /><b >Abstract</b><dd >False</dd></dl><dl >
+<dt /><b >Reintroduce</b><dd >False</dd></dl><dl >
+<dt /><b >Final</b><dd >True</dd></dl><dl >
+<dt /><b >Virtual</b><dd >False</dd></dl><dl >
+<dt /><b >Override</b><dd >True</dd></dl><dl >
 <dt /><b >summary</b><dd > Execute this MacroCommand's SubCommands</dd></dl><dl >
 <dt /><b >remarks</b><dd >The SubCommands will be called in First In/First Out (FIFO) order</dd></dl><dl >
 <dt /><b >param</b><dd >The INotification object to be passsed to each SubCommand</dd></dl><dl >
-<dt /><b >Reintroduce</b><dd >False</dd></dl><dl >
-<dt /><b >Class</b><dd >False</dd></dl><dl >
-<dt /><b >Override</b><dd >True</dd></dl><dl >
-<dt /><b >Virtual</b><dd >False</dd></dl><dl >
-<dt /><b >Final</b><dd >True</dd></dl><hr /><p /><table  border='0' cellpadding='0' cellspacing='0'>
+<dt /><b >Class</b><dd >False</dd></dl><hr /><p /><table  border='0' cellpadding='0' cellspacing='0'>
 <tr  class='TableHeaderStyle'>
 <td >
 <font  size='+0'>
@@ -136,9 +136,9 @@
 <font  size='+0'>
 <b >Association Link</b></font></td></tr></table><br />to Interface  <a href="../../../PureMVC/Utils/IList_T_(T).html" target="classFrame" onclick="doClick('../../../PureMVC/Utils/doc-files/default.txvpck.html')"></a><p /><dl >
 <dt /><b >Client</b><dd >FSubCommands</dd></dl><dl >
-<dt /><b >Supplier</b><dd >IList</dd></dl><dl >
 <dt /><b >Directed</b><dd >False</dd></dl><dl >
-<dt /><b >Type</b><dd >association</dd></dl><br /><hr /><table  border='0' width='100%' cellpadding='1' cellspacing='0'>
+<dt /><b >Type</b><dd >association</dd></dl><dl >
+<dt /><b >Supplier</b><dd >IList</dd></dl><br /><hr /><table  border='0' width='100%' cellpadding='1' cellspacing='0'>
 <tr >
 <td  colspan='2' class='NavBarCellCommon'>
 <table  border='0' cellpadding='0' cellspacing='3'>
@@ -161,7 +161,7 @@
 <b >Help</b></font></a>&nbsp;</td></tr></table><td  align='right' valign='top' rowspan='3'>
 <em ></em></td></td></tr><tr >
 <td  class='NavBarCellPrevNext'>
-<font  size='-2'><a href="../../../PureMVC/Patterns/Command/TCommandClass.html" target="classFrame" onclick="doClick('../../../PureMVC/Patterns/Command/doc-files/default.txvpck.html')">PREV </a> &nbsp;&nbsp;<a href="../../../PureMVC/Patterns/Command/TSimpleCommand.html" target="classFrame" onclick="doClick('../../../PureMVC/Patterns/Command/doc-files/default.txvpck.html')">NEXT </a> </font></td><td  class='NavBarCellPrevNext'>
+<font  size='-2'><a href="../../../PureMVC/Patterns/Command/TCommandClass.html" target="classFrame" onclick="doClick('../../../PureMVC/Patterns/Command/doc-files/default.txvpck.html')">PREV </a> &nbsp;&nbsp;<a href="../../../PureMVC/Patterns/Command/globals Command.html" target="classFrame" onclick="doClick('../../../PureMVC/Patterns/Command/doc-files/default.txvpck.html')">NEXT </a> </font></td><td  class='NavBarCellPrevNext'>
 <font  size='-2'>
 <a  href='../../../index.html' target='_top'>
 <b >FRAMES</b></a>&nbsp;<a  href='../../../PureMVC/Patterns/Command/TMacroCommand.html' target='_top'>

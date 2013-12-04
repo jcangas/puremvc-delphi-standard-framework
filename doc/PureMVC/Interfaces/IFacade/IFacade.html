@@ -27,7 +27,7 @@
 <b >Help</b></font></a>&nbsp;</td></tr></table><td  align='right' valign='top' rowspan='3'>
 <em ></em></td></td></tr><tr >
 <td  class='NavBarCellPrevNext'>
-<font  size='-2'> PREV&nbsp;&nbsp;<a href="../../../PureMVC/Interfaces/IFacade/globals IFacade.html" target="classFrame" onclick="doClick('../../../PureMVC/Interfaces/IFacade/doc-files/default.txvpck.html')">NEXT </a> </font></td><td  class='NavBarCellPrevNext'>
+<font  size='-2'><a href="../../../PureMVC/Interfaces/IFacade/globals IFacade.html" target="classFrame" onclick="doClick('../../../PureMVC/Interfaces/IFacade/doc-files/default.txvpck.html')">PREV </a> &nbsp;&nbsp;NEXT</font></td><td  class='NavBarCellPrevNext'>
 <font  size='-2'>
 <a  href='../../../index.html' target='_top'>
 <b >FRAMES</b></a>&nbsp;<a  href='../../../PureMVC/Interfaces/IFacade/IFacade.html' target='_top'>
@@ -40,10 +40,10 @@
 <dt /><b >All Superinterfaces: </b><dd ><a href="../../../PureMVC/Interfaces/INotifier/INotifier.html" target="classFrame" onclick="doClick('../../../PureMVC/Interfaces/INotifier/doc-files/default.txvpck.html')"><i>INotifier</i></a>   </dd></dl><dl >
 <dt /><b >All Known Implementing Classes: </b><dd ><a href="../../../PureMVC/Patterns/Facade/TFacade.html" target="classFrame" onclick="doClick('../../../PureMVC/Patterns/Facade/doc-files/default.txvpck.html')">TFacade</a>   </dd></dl><hr /><dl >
 <dt />public&nbsp;interface <b >IFacade</b> ( <a href="../../../PureMVC/Interfaces/INotifier/INotifier.html" target="classFrame" onclick="doClick('../../../PureMVC/Interfaces/INotifier/doc-files/default.txvpck.html')"><i>INotifier</i></a>   </dl><p /><dl >
+<dt /><b >Persistent</b><dd >False</dd></dl><dl >
 <dt /><b >see</b><dd ></dd></dl><dl >
 <dt /><b >remarks</b><dd >The Facade Pattern suggests providing a single class to act as a certal point of communication for subsystemsIn PureMVC, the Facade acts as an interface between the core MVC actors (Model, View, Controller) and the rest of your application</dd></dl><dl >
-<dt /><b >summary</b><dd > The interface definition for a PureMVC Facade<br /></dd></dl><dl >
-<dt /><b >Persistent</b><dd >False</dd></dl><hr /><p /><a  name='method_summary'/><table  border='1' cellpadding='3' cellspacing='0' width='100%'>
+<dt /><b >summary</b><dd > The interface definition for a PureMVC Facade<br /></dd></dl><hr /><p /><a  name='method_summary'/><table  border='1' cellpadding='3' cellspacing='0' width='100%'>
 <tr  class='TableHeaderStyle'>
 <td  colspan='2'>
 <font  size='+2'>
@@ -144,68 +144,68 @@
 <font  size='+2'>
 <b >Method Detail</b></font></td></tr></table><br /><a  name='HasCommand(string)'>
 <h3 >HasCommand</h3></a><pre >public&nbsp;function HasCommand(NotificationName: string): Boolean</pre><dl >
+<dt /><b >Reintroduce</b><dd >False</dd></dl><dl >
+<dt /><b >Returns</b><dd >Boolean</dd></dl><dl >
 <dt /><b >summary</b><dd > Check if a Command is registered for a given Notification<br /></dd></dl><dl >
 <dt /><b >returns</b><dd >whether a Command is currently registered for the given notificationName.</dd></dl><dl >
-<dt /><b >param</b><dd >The name of the INotification to check.</dd></dl><dl >
-<dt /><b >Reintroduce</b><dd >False</dd></dl><dl >
-<dt /><b >Returns</b><dd >Boolean</dd></dl><hr /><a  name='HasMediator(string)'>
+<dt /><b >param</b><dd >The name of the INotification to check.</dd></dl><hr /><a  name='HasMediator(string)'>
 <h3 >HasMediator</h3></a><pre >public&nbsp;function HasMediator(MediatorName: string): Boolean</pre><dl >
+<dt /><b >Reintroduce</b><dd >False</dd></dl><dl >
+<dt /><b >Returns</b><dd >Boolean</dd></dl><dl >
 <dt /><b >summary</b><dd > Check if a Mediator is registered or not<br /></dd></dl><dl >
 <dt /><b >returns</b><dd >whether a Mediator is registered with the given mediatorName.</dd></dl><dl >
-<dt /><b >param</b><dd >The name of the IMediator instance to check</dd></dl><dl >
-<dt /><b >Reintroduce</b><dd >False</dd></dl><dl >
-<dt /><b >Returns</b><dd >Boolean</dd></dl><hr /><a  name='HasProxy(string)'>
+<dt /><b >param</b><dd >The name of the IMediator instance to check</dd></dl><hr /><a  name='HasProxy(string)'>
 <h3 >HasProxy</h3></a><pre >public&nbsp;function HasProxy(ProxyName: string): Boolean</pre><dl >
+<dt /><b >Reintroduce</b><dd >False</dd></dl><dl >
+<dt /><b >Returns</b><dd >Boolean</dd></dl><dl >
 <dt /><b >summary</b><dd > Check if a Proxy is registered<br /></dd></dl><dl >
 <dt /><b >returns</b><dd >whether a Proxy is currently registered with the given proxyName.</dd></dl><dl >
-<dt /><b >param</b><dd >The name of the IProxy instance to check</dd></dl><dl >
-<dt /><b >Reintroduce</b><dd >False</dd></dl><dl >
-<dt /><b >Returns</b><dd >Boolean</dd></dl><hr /><a  name='NotifyObservers(INotification)'>
+<dt /><b >param</b><dd >The name of the IProxy instance to check</dd></dl><hr /><a  name='NotifyObservers(INotification)'>
 <h3 >NotifyObservers</h3></a><pre >public&nbsp;procedure NotifyObservers(Note: <a href="../../../PureMVC/Interfaces/INotification/INotification.html" target="classFrame" onclick="doClick('../../../PureMVC/Interfaces/INotification/doc-files/default.txvpck.html')">PureMVC.Interfaces.INotification.INotification</a> )</pre><dl >
-<dt /><b >summary</b><dd > Notify the IObservers for a particular INotification.<br /> All previously attached IObservers for this INotification's list are notified and are passed a reference to the INotification in the order in which they were registered.NOTE: Use this method only if you are sending custom Notifications. Otherwise use the sendNotification method which does not require you to create the Notification instance.</dd></dl><dl >
-<dt /><b >param</b><dd >the INotification to notify IObservers of.</dd></dl><dl >
-<dt /><b >Reintroduce</b><dd >False</dd></dl><hr /><a  name='RegisterCommand(string/TClass)'>
-<h3 >RegisterCommand</h3></a><pre >public&nbsp;procedure RegisterCommand(NotificationName: string; CommandType: TClass)</pre><dl >
-<dt /><b >summary</b><dd > Register an ICommand with the Controller</dd></dl><dl >
-<dt /><b >param</b><dd >The name of the INotification to associate the ICommand with.<br />A reference to the Type of the ICommand</dd></dl><dl >
-<dt /><b >Reintroduce</b><dd >False</dd></dl><hr /><a  name='RegisterMediator(IMediator)'>
-<h3 >RegisterMediator</h3></a><pre >public&nbsp;procedure RegisterMediator(Mediator: <a href="../../../PureMVC/Interfaces/IMediator/IMediator.html" target="classFrame" onclick="doClick('../../../PureMVC/Interfaces/IMediator/doc-files/default.txvpck.html')">PureMVC.Interfaces.IMediator.IMediator</a> )</pre><dl >
-<dt /><b >summary</b><dd > Register an IMediator instance with the View</dd></dl><dl >
-<dt /><b >param</b><dd >A reference to the IMediator instance</dd></dl><dl >
-<dt /><b >Reintroduce</b><dd >False</dd></dl><hr /><a  name='RegisterProxy(IProxy)'>
-<h3 >RegisterProxy</h3></a><pre >public&nbsp;procedure RegisterProxy(Proxy: <a href="../../../PureMVC/Interfaces/IProxy/IProxy.html" target="classFrame" onclick="doClick('../../../PureMVC/Interfaces/IProxy/doc-files/default.txvpck.html')">PureMVC.Interfaces.IProxy.IProxy</a> )</pre><dl >
-<dt /><b >summary</b><dd > Register an IProxy with the Model by name<br /></dd></dl><dl >
-<dt /><b >param</b><dd >The IProxy to be registered with the Model</dd></dl><dl >
-<dt /><b >Reintroduce</b><dd >False</dd></dl><hr /><a  name='RemoveCommand(string)'>
-<h3 >RemoveCommand</h3></a><pre >public&nbsp;procedure RemoveCommand(NotificationName: string)</pre><dl >
-<dt /><b >summary</b><dd > Remove a previously registered ICommand to INotification mapping from the Controller.<br /></dd></dl><dl >
-<dt /><b >param</b><dd >TRemove a previously registered ICommand to INotification mapping from the Controller.</dd></dl><dl >
-<dt /><b >Reintroduce</b><dd >False</dd></dl><hr /><a  name='RemoveMediator(string)'>
-<h3 >RemoveMediator</h3></a><pre >public&nbsp;function RemoveMediator(MediatorName: string): <a href="../../../PureMVC/Interfaces/IMediator/IMediator.html" target="classFrame" onclick="doClick('../../../PureMVC/Interfaces/IMediator/doc-files/default.txvpck.html')">PureMVC.Interfaces.IMediator.IMediator</a> </pre><dl >
-<dt /><b >summary</b><dd > Remove a IMediator instance from the View</dd></dl><dl >
-<dt /><b >param</b><dd >The name of the IMediator instance to be removed</dd></dl><dl >
 <dt /><b >Reintroduce</b><dd >False</dd></dl><dl >
-<dt /><b >Returns</b><dd >IMediator</dd></dl><hr /><a  name='RemoveMediator(IMediator)'>
+<dt /><b >summary</b><dd > Notify the IObservers for a particular INotification.<br /> All previously attached IObservers for this INotification's list are notified and are passed a reference to the INotification in the order in which they were registered.NOTE: Use this method only if you are sending custom Notifications. Otherwise use the sendNotification method which does not require you to create the Notification instance.</dd></dl><dl >
+<dt /><b >param</b><dd >the INotification to notify IObservers of.</dd></dl><hr /><a  name='RegisterCommand(string/TClass)'>
+<h3 >RegisterCommand</h3></a><pre >public&nbsp;procedure RegisterCommand(NotificationName: string; CommandType: TClass)</pre><dl >
+<dt /><b >Reintroduce</b><dd >False</dd></dl><dl >
+<dt /><b >summary</b><dd > Register an ICommand with the Controller</dd></dl><dl >
+<dt /><b >param</b><dd >The name of the INotification to associate the ICommand with.<br />A reference to the Type of the ICommand</dd></dl><hr /><a  name='RegisterMediator(IMediator)'>
+<h3 >RegisterMediator</h3></a><pre >public&nbsp;procedure RegisterMediator(Mediator: <a href="../../../PureMVC/Interfaces/IMediator/IMediator.html" target="classFrame" onclick="doClick('../../../PureMVC/Interfaces/IMediator/doc-files/default.txvpck.html')">PureMVC.Interfaces.IMediator.IMediator</a> )</pre><dl >
+<dt /><b >Reintroduce</b><dd >False</dd></dl><dl >
+<dt /><b >summary</b><dd > Register an IMediator instance with the View</dd></dl><dl >
+<dt /><b >param</b><dd >A reference to the IMediator instance</dd></dl><hr /><a  name='RegisterProxy(IProxy)'>
+<h3 >RegisterProxy</h3></a><pre >public&nbsp;procedure RegisterProxy(Proxy: <a href="../../../PureMVC/Interfaces/IProxy/IProxy.html" target="classFrame" onclick="doClick('../../../PureMVC/Interfaces/IProxy/doc-files/default.txvpck.html')">PureMVC.Interfaces.IProxy.IProxy</a> )</pre><dl >
+<dt /><b >Reintroduce</b><dd >False</dd></dl><dl >
+<dt /><b >summary</b><dd > Register an IProxy with the Model by name<br /></dd></dl><dl >
+<dt /><b >param</b><dd >The IProxy to be registered with the Model</dd></dl><hr /><a  name='RemoveCommand(string)'>
+<h3 >RemoveCommand</h3></a><pre >public&nbsp;procedure RemoveCommand(NotificationName: string)</pre><dl >
+<dt /><b >Reintroduce</b><dd >False</dd></dl><dl >
+<dt /><b >summary</b><dd > Remove a previously registered ICommand to INotification mapping from the Controller.<br /></dd></dl><dl >
+<dt /><b >param</b><dd >TRemove a previously registered ICommand to INotification mapping from the Controller.</dd></dl><hr /><a  name='RemoveMediator(string)'>
+<h3 >RemoveMediator</h3></a><pre >public&nbsp;function RemoveMediator(MediatorName: string): <a href="../../../PureMVC/Interfaces/IMediator/IMediator.html" target="classFrame" onclick="doClick('../../../PureMVC/Interfaces/IMediator/doc-files/default.txvpck.html')">PureMVC.Interfaces.IMediator.IMediator</a> </pre><dl >
+<dt /><b >Reintroduce</b><dd >False</dd></dl><dl >
+<dt /><b >Returns</b><dd >IMediator</dd></dl><dl >
+<dt /><b >summary</b><dd > Remove a IMediator instance from the View</dd></dl><dl >
+<dt /><b >param</b><dd >The name of the IMediator instance to be removed</dd></dl><hr /><a  name='RemoveMediator(IMediator)'>
 <h3 >RemoveMediator</h3></a><pre >public&nbsp;function RemoveMediator(Mediator: <a href="../../../PureMVC/Interfaces/IMediator/IMediator.html" target="classFrame" onclick="doClick('../../../PureMVC/Interfaces/IMediator/doc-files/default.txvpck.html')">PureMVC.Interfaces.IMediator.IMediator</a> ): <a href="../../../PureMVC/Interfaces/IMediator/IMediator.html" target="classFrame" onclick="doClick('../../../PureMVC/Interfaces/IMediator/doc-files/default.txvpck.html')">PureMVC.Interfaces.IMediator.IMediator</a> </pre><dl >
 <dt /><b >Reintroduce</b><dd >False</dd></dl><dl >
 <dt /><b >Returns</b><dd >IMediator</dd></dl><hr /><a  name='RemoveProxy(string)'>
 <h3 >RemoveProxy</h3></a><pre >public&nbsp;function RemoveProxy(ProxyName: string): <a href="../../../PureMVC/Interfaces/IProxy/IProxy.html" target="classFrame" onclick="doClick('../../../PureMVC/Interfaces/IProxy/doc-files/default.txvpck.html')">PureMVC.Interfaces.IProxy.IProxy</a> </pre><dl >
-<dt /><b >summary</b><dd > Remove an IProxy instance from the Model by name<br /></dd></dl><dl >
-<dt /><b >param</b><dd >The IProxy to remove from the Model</dd></dl><dl >
 <dt /><b >Reintroduce</b><dd >False</dd></dl><dl >
-<dt /><b >Returns</b><dd >IProxy</dd></dl><hr /><a  name='RetrieveMediator(string)'>
+<dt /><b >Returns</b><dd >IProxy</dd></dl><dl >
+<dt /><b >summary</b><dd > Remove an IProxy instance from the Model by name<br /></dd></dl><dl >
+<dt /><b >param</b><dd >The IProxy to remove from the Model</dd></dl><hr /><a  name='RetrieveMediator(string)'>
 <h3 >RetrieveMediator</h3></a><pre >public&nbsp;function RetrieveMediator(MediatorName: string): <a href="../../../PureMVC/Interfaces/IMediator/IMediator.html" target="classFrame" onclick="doClick('../../../PureMVC/Interfaces/IMediator/doc-files/default.txvpck.html')">PureMVC.Interfaces.IMediator.IMediator</a> </pre><dl >
+<dt /><b >Reintroduce</b><dd >False</dd></dl><dl >
+<dt /><b >Returns</b><dd >IMediator</dd></dl><dl >
 <dt /><b >summary</b><dd > Retrieve an IMediator instance from the View</dd></dl><dl >
 <dt /><b >returns</b><dd >The IMediator previously registered with the given mediatorName</dd></dl><dl >
-<dt /><b >param</b><dd >The name of the IMediator instance to retrieve</dd></dl><dl >
-<dt /><b >Reintroduce</b><dd >False</dd></dl><dl >
-<dt /><b >Returns</b><dd >IMediator</dd></dl><hr /><a  name='RetrieveProxy(string)'>
+<dt /><b >param</b><dd >The name of the IMediator instance to retrieve</dd></dl><hr /><a  name='RetrieveProxy(string)'>
 <h3 >RetrieveProxy</h3></a><pre >public&nbsp;function RetrieveProxy(ProxyName: string): <a href="../../../PureMVC/Interfaces/IProxy/IProxy.html" target="classFrame" onclick="doClick('../../../PureMVC/Interfaces/IProxy/doc-files/default.txvpck.html')">PureMVC.Interfaces.IProxy.IProxy</a> </pre><dl >
+<dt /><b >Reintroduce</b><dd >False</dd></dl><dl >
+<dt /><b >Returns</b><dd >IProxy</dd></dl><dl >
 <dt /><b >summary</b><dd > Retrieve a IProxy from the Model by name<br /></dd></dl><dl >
 <dt /><b >returns</b><dd >The IProxy previously regisetered by proxyName with the Model</dd></dl><dl >
-<dt /><b >param</b><dd >The name of the IProxy instance to be retrieved</dd></dl><dl >
-<dt /><b >Reintroduce</b><dd >False</dd></dl><dl >
-<dt /><b >Returns</b><dd >IProxy</dd></dl><hr /><p /><table  border='0' cellpadding='0' cellspacing='0'>
+<dt /><b >param</b><dd >The name of the IProxy instance to be retrieved</dd></dl><hr /><p /><table  border='0' cellpadding='0' cellspacing='0'>
 <tr  class='TableHeaderStyle'>
 <td >
 <font  size='+0'>
@@ -234,7 +234,7 @@
 <b >Help</b></font></a>&nbsp;</td></tr></table><td  align='right' valign='top' rowspan='3'>
 <em ></em></td></td></tr><tr >
 <td  class='NavBarCellPrevNext'>
-<font  size='-2'> PREV&nbsp;&nbsp;<a href="../../../PureMVC/Interfaces/IFacade/globals IFacade.html" target="classFrame" onclick="doClick('../../../PureMVC/Interfaces/IFacade/doc-files/default.txvpck.html')">NEXT </a> </font></td><td  class='NavBarCellPrevNext'>
+<font  size='-2'><a href="../../../PureMVC/Interfaces/IFacade/globals IFacade.html" target="classFrame" onclick="doClick('../../../PureMVC/Interfaces/IFacade/doc-files/default.txvpck.html')">PREV </a> &nbsp;&nbsp;NEXT</font></td><td  class='NavBarCellPrevNext'>
 <font  size='-2'>
 <a  href='../../../index.html' target='_top'>
 <b >FRAMES</b></a>&nbsp;<a  href='../../../PureMVC/Interfaces/IFacade/IFacade.html' target='_top'>

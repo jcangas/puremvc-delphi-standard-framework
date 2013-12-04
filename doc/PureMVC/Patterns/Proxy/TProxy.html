@@ -36,18 +36,19 @@
 <font  size='-2'>SUMMARY:&nbsp;INNER&nbsp;|&nbsp;<a  href='#field_summary'>FIELD</a>&nbsp;|&nbsp;<a  href='#constructor_summary'>CONSTR</a>&nbsp;|&nbsp;DESTR&nbsp;|&nbsp;<a  href='#method_summary'>METHOD</a></font></td><td  valign='top' class='NavBarCell3'>
 <font  size='-2'>DETAIL:&nbsp;<a  href='#field_detail'>FIELD</a>&nbsp;|&nbsp;<a  href='#constructor_detail'>CONSTR</a>&nbsp;|&nbsp;DESTR&nbsp;|&nbsp;<a  href='#method_detail'>METHOD</a></font></td></tr></table><hr /><h2 >
 <font  size='-1'>
-<i >Namespace: </i>PureMVC.Patterns.Proxy<br /></font><br />Class TProxy</h2><pre >
-<a href="../../../PureMVC/Patterns/Notifier/TNotifier.html" target="classFrame" onclick="doClick('../../../PureMVC/Patterns/Notifier/doc-files/default.txvpck.html')">PureMVC.Patterns.Notifier.TNotifier</a> 
+<i >Namespace: </i>PureMVC.Patterns.Proxy<br /></font><br />Class TProxy</h2><pre >System.TInterfacedObject
   |
-  +-- PureMVC.Patterns.Proxy.TProxy
+  +-- <a href="../../../PureMVC/Patterns/Notifier/TNotifier.html" target="classFrame" onclick="doClick('../../../PureMVC/Patterns/Notifier/doc-files/default.txvpck.html')">PureMVC.Patterns.Notifier.TNotifier</a> 
+    |
+    +-- PureMVC.Patterns.Proxy.TProxy
 </pre><dl >
 <dt /><b >All Implemented Interfaces: </b><dd ><a href="../../../PureMVC/Interfaces/IProxy/IProxy.html" target="classFrame" onclick="doClick('../../../PureMVC/Interfaces/IProxy/doc-files/default.txvpck.html')"><i>IProxy</i></a>    , <a href="../../../PureMVC/Interfaces/INotifier/INotifier.html" target="classFrame" onclick="doClick('../../../PureMVC/Interfaces/INotifier/doc-files/default.txvpck.html')"><i>INotifier</i></a>   </dd></dl><hr /><dl >
 <dt />public&nbsp;class <b >TProxy</b> ( <a href="../../../PureMVC/Patterns/Notifier/TNotifier.html" target="classFrame" onclick="doClick('../../../PureMVC/Patterns/Notifier/doc-files/default.txvpck.html')">TNotifier</a>    , <a href="../../../PureMVC/Interfaces/IProxy/IProxy.html" target="classFrame" onclick="doClick('../../../PureMVC/Interfaces/IProxy/doc-files/default.txvpck.html')"><i>IProxy</i></a>    , <a href="../../../PureMVC/Interfaces/INotifier/INotifier.html" target="classFrame" onclick="doClick('../../../PureMVC/Interfaces/INotifier/doc-files/default.txvpck.html')"><i>INotifier</i></a>    ) </dl><p /><dl >
 <dt /><b >Abstract</b><dd >False</dd></dl><dl >
-<dt /><b >summary</b><dd > A base IProxy implementation<br /></dd></dl><dl >
-<dt /><b >remarks</b><dd >In PureMVC, Proxy classes are used to manage parts of the application's data modelA Proxy might simply manage a reference to a local data object, in which case interacting with it might involve setting and getting of its data in synchronous fashionProxy classes are also used to encapsulate the application's interaction with remote services to save or retrieve data, in which case, we adopt an asyncronous idiom; setting data (or calling a method) on the Proxy and listening for a Notification to be sent when the Proxy has retrieved the data from the service</dd></dl><dl >
+<dt /><b >Sealed</b><dd >False</dd></dl><dl >
 <dt /><b >Persistent</b><dd >False</dd></dl><dl >
-<dt /><b >Sealed</b><dd >False</dd></dl><hr /><p /><a  name='field_summary'/><table  border='1' cellpadding='3' cellspacing='0' width='100%'>
+<dt /><b >summary</b><dd > A base IProxy implementation<br /></dd></dl><dl >
+<dt /><b >remarks</b><dd >In PureMVC, Proxy classes are used to manage parts of the application's data modelA Proxy might simply manage a reference to a local data object, in which case interacting with it might involve setting and getting of its data in synchronous fashionProxy classes are also used to encapsulate the application's interaction with remote services to save or retrieve data, in which case, we adopt an asyncronous idiom; setting data (or calling a method) on the Proxy and listening for a Notification to be sent when the Proxy has retrieved the data from the service</dd></dl><hr /><p /><a  name='field_summary'/><table  border='1' cellpadding='3' cellspacing='0' width='100%'>
 <tr  class='TableHeaderStyle'>
 <td  colspan='2'>
 <font  size='+2'>
@@ -56,7 +57,7 @@
 <font  size='-1'>
 <code >
 						&nbsp; public&nbsp; 
-							<b ></b></code></font></td><td >
+							<b >System.string</b></code></font></td><td >
 <code >
 <b >
 <a  href='../../../PureMVC/Patterns/Proxy/TProxy.html#NAME'>NAME</a></b></code><br />	 </td></tr></table> <p /><a  name='field_summary'/><table  border='1' cellpadding='3' cellspacing='0' width='100%'>
@@ -127,7 +128,7 @@
 <td  colspan='2'>
 <font  size='+2'>
 <b >Field Detail</b></font></td></tr></table><br /><a  name='NAME'>
-<h3 >NAME</h3></a><pre >public&nbsp;const NAME:  = 'Proxy'</pre><dl >
+<h3 >NAME</h3></a><pre >public&nbsp;const NAME: System.string = 'Proxy'</pre><dl >
 <dt /><b >Initial</b><dd >'Proxy'</dd></dl><dl >
 <dt /><b >Const</b><dd >True</dd></dl><dl >
 <dt /><b >Class</b><dd >False</dd></dl><hr /><a  Name='field_detail'/><table  border='1' cellpadding='3' cellspacing='0' width='100%'>
@@ -136,8 +137,8 @@
 <font  size='+2'>
 <b >Property Detail</b></font></td></tr></table><br /><a  name='Data'>
 <h3 >Data</h3></a><pre >public&nbsp;Data: TValue</pre><dl >
-<dt /><b >Access</b><dd >read/write</dd></dl><dl >
 <dt /><b >Type</b><dd >TValue</dd></dl><dl >
+<dt /><b >Access</b><dd >read/write</dd></dl><dl >
 <dt /><b >Class</b><dd >False</dd></dl><hr /><a  Name='constructor_detail'/><table  border='1' cellpadding='3' cellspacing='0' width='100%'>
 <tr  class='TableHeaderStyle'>
 <td  colspan='2'>
@@ -145,20 +146,18 @@
 <b >Constructor Detail</b></font></td></tr></table><br /><a  name='Create(string/TValue)'>
 <h3 >Create</h3></a><pre >public&nbsp;constructor Create(ProxyName: string; Data: TValue)</pre><dl >
 <dt /><b >Abstract</b><dd >False</dd></dl><dl >
-<dt /><b >summary</b><dd > Constructs a new proxy with the specified name and data<br /></dd></dl><dl >
-<dt /><b >param</b><dd >The name of the proxy<br />The data to be managed</dd></dl><dl >
-<dt /><b >Final</b><dd >False</dd></dl><dl >
 <dt /><b >Reintroduce</b><dd >False</dd></dl><dl >
-<dt /><b >Override</b><dd >False</dd></dl><dl >
 <dt /><b >Virtual</b><dd >False</dd></dl><dl >
-<dt /><b >Class</b><dd >False</dd></dl><hr /><a  name='Create(string)'>
+<dt /><b >Override</b><dd >False</dd></dl><dl >
+<dt /><b >Final</b><dd >False</dd></dl><dl >
+<dt /><b >summary</b><dd > Constructs a new proxy with the specified name and data<br /></dd></dl><dl >
+<dt /><b >param</b><dd >The name of the proxy<br />The data to be managed</dd></dl><hr /><a  name='Create(string)'>
 <h3 >Create</h3></a><pre >public&nbsp;constructor Create(ProxyName: string)</pre><dl >
 <dt /><b >Abstract</b><dd >False</dd></dl><dl >
-<dt /><b >Final</b><dd >False</dd></dl><dl >
 <dt /><b >Reintroduce</b><dd >False</dd></dl><dl >
-<dt /><b >Override</b><dd >False</dd></dl><dl >
 <dt /><b >Virtual</b><dd >False</dd></dl><dl >
-<dt /><b >Class</b><dd >False</dd></dl><hr /><a  name='method_detail'/><table  border='1' cellpadding='3' cellspacing='0' width='100%'>
+<dt /><b >Override</b><dd >False</dd></dl><dl >
+<dt /><b >Final</b><dd >False</dd></dl><hr /><a  name='method_detail'/><table  border='1' cellpadding='3' cellspacing='0' width='100%'>
 <tr  class='TableHeaderStyle'>
 <td  colspan='2'>
 <font  size='+2'>
@@ -166,42 +165,42 @@
 <h3 >GetData</h3></a><pre >public&nbsp;function GetData(): TValue</pre><dl >
 <dt /><b >Abstract</b><dd >False</dd></dl><dl >
 <dt /><b >Reintroduce</b><dd >False</dd></dl><dl >
+<dt /><b >Final</b><dd >False</dd></dl><dl >
 <dt /><b >Returns</b><dd >TValue</dd></dl><dl >
-<dt /><b >Class</b><dd >False</dd></dl><dl >
-<dt /><b >Override</b><dd >False</dd></dl><dl >
 <dt /><b >Virtual</b><dd >False</dd></dl><dl >
-<dt /><b >Final</b><dd >False</dd></dl><hr /><a  name='GetProxyName()'>
+<dt /><b >Override</b><dd >False</dd></dl><dl >
+<dt /><b >Class</b><dd >False</dd></dl><hr /><a  name='GetProxyName()'>
 <h3 >GetProxyName</h3></a><pre >public&nbsp;function GetProxyName(): string</pre><dl >
 <dt /><b >Abstract</b><dd >False</dd></dl><dl >
 <dt /><b >Reintroduce</b><dd >False</dd></dl><dl >
+<dt /><b >Final</b><dd >False</dd></dl><dl >
 <dt /><b >Returns</b><dd >string</dd></dl><dl >
-<dt /><b >Class</b><dd >False</dd></dl><dl >
-<dt /><b >Override</b><dd >False</dd></dl><dl >
 <dt /><b >Virtual</b><dd >False</dd></dl><dl >
-<dt /><b >Final</b><dd >False</dd></dl><hr /><a  name='OnRegister()'>
+<dt /><b >Override</b><dd >False</dd></dl><dl >
+<dt /><b >Class</b><dd >False</dd></dl><hr /><a  name='OnRegister()'>
 <h3 >OnRegister</h3></a><pre >public&nbsp;procedure OnRegister()</pre><dl >
 <dt /><b >Abstract</b><dd >False</dd></dl><dl >
-<dt /><b >summary</b><dd > Called by the Model when the Proxy is registered<br /></dd></dl><dl >
 <dt /><b >Reintroduce</b><dd >False</dd></dl><dl >
-<dt /><b >Class</b><dd >False</dd></dl><dl >
-<dt /><b >Override</b><dd >False</dd></dl><dl >
+<dt /><b >Final</b><dd >False</dd></dl><dl >
 <dt /><b >Virtual</b><dd >True</dd></dl><dl >
-<dt /><b >Final</b><dd >False</dd></dl><hr /><a  name='OnRemove()'>
+<dt /><b >Override</b><dd >False</dd></dl><dl >
+<dt /><b >summary</b><dd > Called by the Model when the Proxy is registered<br /></dd></dl><dl >
+<dt /><b >Class</b><dd >False</dd></dl><hr /><a  name='OnRemove()'>
 <h3 >OnRemove</h3></a><pre >public&nbsp;procedure OnRemove()</pre><dl >
 <dt /><b >Abstract</b><dd >False</dd></dl><dl >
-<dt /><b >summary</b><dd > Called by the Model when the Proxy is removed<br /></dd></dl><dl >
 <dt /><b >Reintroduce</b><dd >False</dd></dl><dl >
-<dt /><b >Class</b><dd >False</dd></dl><dl >
-<dt /><b >Override</b><dd >False</dd></dl><dl >
+<dt /><b >Final</b><dd >False</dd></dl><dl >
 <dt /><b >Virtual</b><dd >True</dd></dl><dl >
-<dt /><b >Final</b><dd >False</dd></dl><hr /><a  name='SetData(TValue)'>
+<dt /><b >Override</b><dd >False</dd></dl><dl >
+<dt /><b >summary</b><dd > Called by the Model when the Proxy is removed<br /></dd></dl><dl >
+<dt /><b >Class</b><dd >False</dd></dl><hr /><a  name='SetData(TValue)'>
 <h3 >SetData</h3></a><pre >public&nbsp;procedure SetData(Value: TValue)</pre><dl >
 <dt /><b >Abstract</b><dd >False</dd></dl><dl >
 <dt /><b >Reintroduce</b><dd >False</dd></dl><dl >
-<dt /><b >Class</b><dd >False</dd></dl><dl >
-<dt /><b >Override</b><dd >False</dd></dl><dl >
+<dt /><b >Final</b><dd >False</dd></dl><dl >
 <dt /><b >Virtual</b><dd >False</dd></dl><dl >
-<dt /><b >Final</b><dd >False</dd></dl><hr /><p /><table  border='0' cellpadding='0' cellspacing='0'>
+<dt /><b >Override</b><dd >False</dd></dl><dl >
+<dt /><b >Class</b><dd >False</dd></dl><hr /><p /><table  border='0' cellpadding='0' cellspacing='0'>
 <tr  class='TableHeaderStyle'>
 <td >
 <font  size='+0'>
