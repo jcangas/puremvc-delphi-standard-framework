@@ -36,17 +36,18 @@
 <font  size='-2'>SUMMARY:&nbsp;INNER&nbsp;|&nbsp;FIELD&nbsp;|&nbsp;CONSTR&nbsp;|&nbsp;DESTR&nbsp;|&nbsp;<a  href='#method_summary'>METHOD</a></font></td><td  valign='top' class='NavBarCell3'>
 <font  size='-2'>DETAIL:&nbsp;FIELD&nbsp;|&nbsp;CONSTR&nbsp;|&nbsp;DESTR&nbsp;|&nbsp;<a  href='#method_detail'>METHOD</a></font></td></tr></table><hr /><h2 >
 <font  size='-1'>
-<i >Namespace: </i>PureMVC.Core.Model<br /></font><br />Class TModel</h2><pre >
-PureMVC.Core.Model.TModel
+<i >Namespace: </i>PureMVC.Core.Model<br /></font><br />Class TModel</h2><pre >System.TInterfacedObject
+  |
+  +-- PureMVC.Core.Model.TModel
 </pre><dl >
 <dt /><b >All Implemented Interfaces: </b><dd ><a href="../../../PureMVC/Interfaces/IModel/IModel.html" target="classFrame" onclick="doClick('../../../PureMVC/Interfaces/IModel/doc-files/default.txvpck.html')"><i>IModel</i></a>   </dd></dl><hr /><dl >
-<dt />public&nbsp;class <b >TModel</b> ( <a href="../../../PureMVC/Interfaces/IModel/IModel.html" target="classFrame" onclick="doClick('../../../PureMVC/Interfaces/IModel/doc-files/default.txvpck.html')"><i>IModel</i></a>    ) </dl><p /><dl >
+<dt />public&nbsp;class <b >TModel</b> ( System.TInterfacedObject   , <a href="../../../PureMVC/Interfaces/IModel/IModel.html" target="classFrame" onclick="doClick('../../../PureMVC/Interfaces/IModel/doc-files/default.txvpck.html')"><i>IModel</i></a>    ) </dl><p /><dl >
 <dt /><b >Abstract</b><dd >False</dd></dl><dl >
+<dt /><b >Sealed</b><dd >False</dd></dl><dl >
+<dt /><b >Persistent</b><dd >False</dd></dl><dl >
 <dt /><b >seealso</b><dd ></dd></dl><dl >
 <dt /><b >summary</b><dd > A Singleton IModel implementation<br /></dd></dl><dl >
-<dt /><b >remarks</b><dd >In PureMVC, the Model class provides access to model objects (Proxies) by named lookupThe Model assumes these responsibilities:Maintain a cache of IProxy instancesProvide methods for registering, retrieving, and removing IProxy instances<br /> Your application must register IProxy instances<br /> with the Model. Typically, you use an<br /> ICommand to create and register IProxy<br /> instances once the Facade has initialized the Core actors<br /></dd></dl><dl >
-<dt /><b >Persistent</b><dd >False</dd></dl><dl >
-<dt /><b >Sealed</b><dd >False</dd></dl><hr /><p /><a  name='method_summary'/><table  border='1' cellpadding='3' cellspacing='0' width='100%'>
+<dt /><b >remarks</b><dd >In PureMVC, the Model class provides access to model objects (Proxies) by named lookupThe Model assumes these responsibilities:Maintain a cache of IProxy instancesProvide methods for registering, retrieving, and removing IProxy instances<br /> Your application must register IProxy instances<br /> with the Model. Typically, you use an<br /> ICommand to create and register IProxy<br /> instances once the Facade has initialized the Core actors<br /></dd></dl><hr /><p /><a  name='method_summary'/><table  border='1' cellpadding='3' cellspacing='0' width='100%'>
 <tr  class='TableHeaderStyle'>
 <td  colspan='2'>
 <font  size='+2'>
@@ -99,63 +100,63 @@ PureMVC.Core.Model.TModel
 <b >Method Detail</b></font></td></tr></table><br /><a  name='Destroy()'>
 <h3 >Destroy</h3></a><pre >public&nbsp;procedure Destroy()</pre><dl >
 <dt /><b >Abstract</b><dd >False</dd></dl><dl >
-<dt /><b >Final</b><dd >False</dd></dl><dl >
 <dt /><b >Reintroduce</b><dd >False</dd></dl><dl >
+<dt /><b >Virtual</b><dd >False</dd></dl><dl >
 <dt /><b >Override</b><dd >True</dd></dl><dl >
-<dt /><b >Virtual</b><dd >False</dd></dl><hr /><a  name='HasProxy(string)'>
+<dt /><b >Final</b><dd >False</dd></dl><hr /><a  name='HasProxy(string)'>
 <h3 >HasProxy</h3></a><pre >public&nbsp;function HasProxy(ProxyName: string): Boolean</pre><dl >
 <dt /><b >Abstract</b><dd >False</dd></dl><dl >
+<dt /><b >Reintroduce</b><dd >False</dd></dl><dl >
+<dt /><b >Final</b><dd >False</dd></dl><dl >
+<dt /><b >Returns</b><dd >Boolean</dd></dl><dl >
+<dt /><b >Virtual</b><dd >True</dd></dl><dl >
+<dt /><b >Override</b><dd >False</dd></dl><dl >
 <dt /><b >summary</b><dd > Check if a Proxy is registered<br /></dd></dl><dl >
 <dt /><b >remarks</b><dd >This method is thread safe and needs to be thread safe in all implementations.</dd></dl><dl >
 <dt /><b >returns</b><dd >whether a Proxy is currently registered with the given proxyName.</dd></dl><dl >
-<dt /><b >Reintroduce</b><dd >False</dd></dl><dl >
-<dt /><b >Returns</b><dd >Boolean</dd></dl><dl >
-<dt /><b >Class</b><dd >False</dd></dl><dl >
-<dt /><b >Override</b><dd >False</dd></dl><dl >
-<dt /><b >Virtual</b><dd >True</dd></dl><dl >
-<dt /><b >Final</b><dd >False</dd></dl><hr /><a  name='Instance()'>
+<dt /><b >Class</b><dd >False</dd></dl><hr /><a  name='Instance()'>
 <h3 >Instance</h3></a><pre >public&nbsp;function Instance(): <a href="../../../PureMVC/Interfaces/IModel/IModel.html" target="classFrame" onclick="doClick('../../../PureMVC/Interfaces/IModel/doc-files/default.txvpck.html')">PureMVC.Interfaces.IModel.IModel</a> </pre><dl >
 <dt /><b >Abstract</b><dd >False</dd></dl><dl >
-<dt /><b >summary</b><dd >Model Singleton Factory method.  This method is thread safe.<br /></dd></dl><dl >
 <dt /><b >Reintroduce</b><dd >False</dd></dl><dl >
+<dt /><b >Final</b><dd >False</dd></dl><dl >
 <dt /><b >Returns</b><dd >IModel</dd></dl><dl >
-<dt /><b >Class</b><dd >True</dd></dl><dl >
-<dt /><b >Override</b><dd >False</dd></dl><dl >
 <dt /><b >Virtual</b><dd >False</dd></dl><dl >
-<dt /><b >Final</b><dd >False</dd></dl><hr /><a  name='RegisterProxy(IProxy)'>
+<dt /><b >Override</b><dd >False</dd></dl><dl >
+<dt /><b >summary</b><dd >Model Singleton Factory method.  This method is thread safe.<br /></dd></dl><dl >
+<dt /><b >Class</b><dd >True</dd></dl><hr /><a  name='RegisterProxy(IProxy)'>
 <h3 >RegisterProxy</h3></a><pre >public&nbsp;procedure RegisterProxy(Proxy: <a href="../../../PureMVC/Interfaces/IProxy/IProxy.html" target="classFrame" onclick="doClick('../../../PureMVC/Interfaces/IProxy/doc-files/default.txvpck.html')">PureMVC.Interfaces.IProxy.IProxy</a> )</pre><dl >
 <dt /><b >Abstract</b><dd >False</dd></dl><dl >
+<dt /><b >Reintroduce</b><dd >False</dd></dl><dl >
+<dt /><b >Final</b><dd >False</dd></dl><dl >
+<dt /><b >Virtual</b><dd >True</dd></dl><dl >
+<dt /><b >Override</b><dd >False</dd></dl><dl >
 <dt /><b >summary</b><dd > Register an IProxy with the Model</dd></dl><dl >
 <dt /><b >remarks</b><dd >This method is thread safe and needs to be thread safe in all implementations.</dd></dl><dl >
 <dt /><b >param</b><dd >An IProxy to be held by the Model</dd></dl><dl >
-<dt /><b >Reintroduce</b><dd >False</dd></dl><dl >
-<dt /><b >Class</b><dd >False</dd></dl><dl >
-<dt /><b >Override</b><dd >False</dd></dl><dl >
-<dt /><b >Virtual</b><dd >True</dd></dl><dl >
-<dt /><b >Final</b><dd >False</dd></dl><hr /><a  name='RemoveProxy(string)'>
+<dt /><b >Class</b><dd >False</dd></dl><hr /><a  name='RemoveProxy(string)'>
 <h3 >RemoveProxy</h3></a><pre >public&nbsp;function RemoveProxy(ProxyName: string): <a href="../../../PureMVC/Interfaces/IProxy/IProxy.html" target="classFrame" onclick="doClick('../../../PureMVC/Interfaces/IProxy/doc-files/default.txvpck.html')">PureMVC.Interfaces.IProxy.IProxy</a> </pre><dl >
 <dt /><b >Abstract</b><dd >False</dd></dl><dl >
+<dt /><b >Reintroduce</b><dd >False</dd></dl><dl >
+<dt /><b >Final</b><dd >False</dd></dl><dl >
+<dt /><b >Returns</b><dd >IProxy</dd></dl><dl >
+<dt /><b >Virtual</b><dd >True</dd></dl><dl >
+<dt /><b >Override</b><dd >False</dd></dl><dl >
 <dt /><b >summary</b><dd > Remove an IProxy from the Model</dd></dl><dl >
 <dt /><b >remarks</b><dd >This method is thread safe and needs to be thread safe in all implementations.</dd></dl><dl >
 <dt /><b >param</b><dd >The name of the IProxy instance to be removed</dd></dl><dl >
-<dt /><b >Reintroduce</b><dd >False</dd></dl><dl >
-<dt /><b >Returns</b><dd >IProxy</dd></dl><dl >
-<dt /><b >Class</b><dd >False</dd></dl><dl >
-<dt /><b >Override</b><dd >False</dd></dl><dl >
-<dt /><b >Virtual</b><dd >True</dd></dl><dl >
-<dt /><b >Final</b><dd >False</dd></dl><hr /><a  name='RetrieveProxy(string)'>
+<dt /><b >Class</b><dd >False</dd></dl><hr /><a  name='RetrieveProxy(string)'>
 <h3 >RetrieveProxy</h3></a><pre >public&nbsp;function RetrieveProxy(ProxyName: string): <a href="../../../PureMVC/Interfaces/IProxy/IProxy.html" target="classFrame" onclick="doClick('../../../PureMVC/Interfaces/IProxy/doc-files/default.txvpck.html')">PureMVC.Interfaces.IProxy.IProxy</a> </pre><dl >
 <dt /><b >Abstract</b><dd >False</dd></dl><dl >
+<dt /><b >Reintroduce</b><dd >False</dd></dl><dl >
+<dt /><b >Final</b><dd >False</dd></dl><dl >
+<dt /><b >Returns</b><dd >IProxy</dd></dl><dl >
+<dt /><b >Virtual</b><dd >True</dd></dl><dl >
+<dt /><b >Override</b><dd >False</dd></dl><dl >
 <dt /><b >summary</b><dd > Retrieve an IProxy from the Model</dd></dl><dl >
 <dt /><b >remarks</b><dd >This method is thread safe and needs to be thread safe in all implementations.</dd></dl><dl >
 <dt /><b >returns</b><dd >The IProxy instance previously registered with the given proxyName</dd></dl><dl >
 <dt /><b >param</b><dd >The name of the IProxy to retrieve</dd></dl><dl >
-<dt /><b >Reintroduce</b><dd >False</dd></dl><dl >
-<dt /><b >Returns</b><dd >IProxy</dd></dl><dl >
-<dt /><b >Class</b><dd >False</dd></dl><dl >
-<dt /><b >Override</b><dd >False</dd></dl><dl >
-<dt /><b >Virtual</b><dd >True</dd></dl><dl >
-<dt /><b >Final</b><dd >False</dd></dl><hr /><p /><table  border='0' cellpadding='0' cellspacing='0'>
+<dt /><b >Class</b><dd >False</dd></dl><hr /><p /><table  border='0' cellpadding='0' cellspacing='0'>
 <tr  class='TableHeaderStyle'>
 <td >
 <font  size='+0'>
@@ -167,9 +168,9 @@ PureMVC.Core.Model.TModel
 <font  size='+0'>
 <b >Association Link</b></font></td></tr></table><br />to Interface  <a href="../../../PureMVC/Interfaces/IModel/IModel.html" target="classFrame" onclick="doClick('../../../PureMVC/Interfaces/IModel/doc-files/default.txvpck.html')"><i>IModel</i></a> <p /><dl >
 <dt /><b >Client</b><dd >FInstance</dd></dl><dl >
-<dt /><b >Supplier</b><dd >IModel</dd></dl><dl >
 <dt /><b >Directed</b><dd >False</dd></dl><dl >
-<dt /><b >Type</b><dd >association</dd></dl><br /><hr /><table  border='0' width='100%' cellpadding='1' cellspacing='0'>
+<dt /><b >Type</b><dd >association</dd></dl><dl >
+<dt /><b >Supplier</b><dd >IModel</dd></dl><br /><hr /><table  border='0' width='100%' cellpadding='1' cellspacing='0'>
 <tr >
 <td  colspan='2' class='NavBarCellCommon'>
 <table  border='0' cellpadding='0' cellspacing='3'>

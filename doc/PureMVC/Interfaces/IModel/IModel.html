@@ -39,9 +39,9 @@
 <i >Namespace: </i>PureMVC.Interfaces.IModel<br /></font><br />Interface IModel</h2><dl >
 <dt /><b >All Known Implementing Classes: </b><dd ><a href="../../../PureMVC/Core/Model/TModel.html" target="classFrame" onclick="doClick('../../../PureMVC/Core/Model/doc-files/default.txvpck.html')">TModel</a>   </dd></dl><hr /><dl >
 <dt />public&nbsp;interface <b >IModel</b></dl><p /><dl >
+<dt /><b >Persistent</b><dd >False</dd></dl><dl >
 <dt /><b >remarks</b><dd >In PureMVC, IModel implementors provide access to IProxy objects by named lookupAn IModel assumes these responsibilities:Maintain a cache of IProxy instancesProvide methods for registering, retrieving, and removing IProxy instances</dd></dl><dl >
-<dt /><b >summary</b><dd > The interface definition for a PureMVC Model<br /></dd></dl><dl >
-<dt /><b >Persistent</b><dd >False</dd></dl><hr /><p /><a  name='method_summary'/><table  border='1' cellpadding='3' cellspacing='0' width='100%'>
+<dt /><b >summary</b><dd > The interface definition for a PureMVC Model<br /></dd></dl><hr /><p /><a  name='method_summary'/><table  border='1' cellpadding='3' cellspacing='0' width='100%'>
 <tr  class='TableHeaderStyle'>
 <td  colspan='2'>
 <font  size='+2'>
@@ -79,26 +79,26 @@
 <font  size='+2'>
 <b >Method Detail</b></font></td></tr></table><br /><a  name='HasProxy(string)'>
 <h3 >HasProxy</h3></a><pre >public&nbsp;function HasProxy(ProxyName: string): Boolean</pre><dl >
+<dt /><b >Reintroduce</b><dd >False</dd></dl><dl >
+<dt /><b >Returns</b><dd >Boolean</dd></dl><dl >
 <dt /><b >summary</b><dd > Check if a Proxy is registered<br /></dd></dl><dl >
 <dt /><b >returns</b><dd >whether a Proxy is currently registered with the given proxyName.</dd></dl><dl >
-<dt /><b >param</b><dd >The name of the proxy to check for</dd></dl><dl >
-<dt /><b >Reintroduce</b><dd >False</dd></dl><dl >
-<dt /><b >Returns</b><dd >Boolean</dd></dl><hr /><a  name='RegisterProxy(IProxy)'>
+<dt /><b >param</b><dd >The name of the proxy to check for</dd></dl><hr /><a  name='RegisterProxy(IProxy)'>
 <h3 >RegisterProxy</h3></a><pre >public&nbsp;procedure RegisterProxy(Proxy: <a href="../../../PureMVC/Interfaces/IProxy/IProxy.html" target="classFrame" onclick="doClick('../../../PureMVC/Interfaces/IProxy/doc-files/default.txvpck.html')">PureMVC.Interfaces.IProxy.IProxy</a> )</pre><dl >
-<dt /><b >summary</b><dd > Register an IProxy instance with the Model</dd></dl><dl >
-<dt /><b >param</b><dd >A reference to the proxy object to be held by the Model</dd></dl><dl >
-<dt /><b >Reintroduce</b><dd >False</dd></dl><hr /><a  name='RemoveProxy(string)'>
-<h3 >RemoveProxy</h3></a><pre >public&nbsp;function RemoveProxy(ProxyName: string): <a href="../../../PureMVC/Interfaces/IProxy/IProxy.html" target="classFrame" onclick="doClick('../../../PureMVC/Interfaces/IProxy/doc-files/default.txvpck.html')">PureMVC.Interfaces.IProxy.IProxy</a> </pre><dl >
-<dt /><b >summary</b><dd > Remove an IProxy instance from the Model<br /></dd></dl><dl >
-<dt /><b >param</b><dd >The name of the IProxy instance to be removed</dd></dl><dl >
 <dt /><b >Reintroduce</b><dd >False</dd></dl><dl >
-<dt /><b >Returns</b><dd >IProxy</dd></dl><hr /><a  name='RetrieveProxy(string)'>
+<dt /><b >summary</b><dd > Register an IProxy instance with the Model</dd></dl><dl >
+<dt /><b >param</b><dd >A reference to the proxy object to be held by the Model</dd></dl><hr /><a  name='RemoveProxy(string)'>
+<h3 >RemoveProxy</h3></a><pre >public&nbsp;function RemoveProxy(ProxyName: string): <a href="../../../PureMVC/Interfaces/IProxy/IProxy.html" target="classFrame" onclick="doClick('../../../PureMVC/Interfaces/IProxy/doc-files/default.txvpck.html')">PureMVC.Interfaces.IProxy.IProxy</a> </pre><dl >
+<dt /><b >Reintroduce</b><dd >False</dd></dl><dl >
+<dt /><b >Returns</b><dd >IProxy</dd></dl><dl >
+<dt /><b >summary</b><dd > Remove an IProxy instance from the Model<br /></dd></dl><dl >
+<dt /><b >param</b><dd >The name of the IProxy instance to be removed</dd></dl><hr /><a  name='RetrieveProxy(string)'>
 <h3 >RetrieveProxy</h3></a><pre >public&nbsp;function RetrieveProxy(ProxyName: string): <a href="../../../PureMVC/Interfaces/IProxy/IProxy.html" target="classFrame" onclick="doClick('../../../PureMVC/Interfaces/IProxy/doc-files/default.txvpck.html')">PureMVC.Interfaces.IProxy.IProxy</a> </pre><dl >
+<dt /><b >Reintroduce</b><dd >False</dd></dl><dl >
+<dt /><b >Returns</b><dd >IProxy</dd></dl><dl >
 <dt /><b >summary</b><dd > Retrieve an IProxy instance from the Model<br /></dd></dl><dl >
 <dt /><b >returns</b><dd >The IProxy instance previously registered with the given proxyName</dd></dl><dl >
-<dt /><b >param</b><dd >The name of the proxy to retrieve</dd></dl><dl >
-<dt /><b >Reintroduce</b><dd >False</dd></dl><dl >
-<dt /><b >Returns</b><dd >IProxy</dd></dl><hr /><hr /><table  border='0' width='100%' cellpadding='1' cellspacing='0'>
+<dt /><b >param</b><dd >The name of the proxy to retrieve</dd></dl><hr /><hr /><table  border='0' width='100%' cellpadding='1' cellspacing='0'>
 <tr >
 <td  colspan='2' class='NavBarCellCommon'>
 <table  border='0' cellpadding='0' cellspacing='3'>

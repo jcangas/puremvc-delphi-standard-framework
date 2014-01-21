@@ -39,10 +39,10 @@
 <i >Namespace: </i>PureMVC.Interfaces.IObserver<br /></font><br />Interface IObserver</h2><dl >
 <dt /><b >All Known Implementing Classes: </b><dd ><a href="../../../PureMVC/Patterns/Observer/TObserver.html" target="classFrame" onclick="doClick('../../../PureMVC/Patterns/Observer/doc-files/default.txvpck.html')">TObserver</a>   </dd></dl><hr /><dl >
 <dt />public&nbsp;interface <b >IObserver</b></dl><p /><dl >
+<dt /><b >Persistent</b><dd >False</dd></dl><dl >
 <dt /><b >see</b><dd ></dd></dl><dl >
 <dt /><b >remarks</b><dd >In PureMVC, IObserver implementors assume these responsibilities:Encapsulate the notification (callback) method of the interested objectEncapsulate the notification context (this) of the interested objectProvide methods for setting the interested object' notification method and contextProvide a method for notifying the interested objectPureMVC does not rely upon underlying event modelsThe Observer Pattern as implemented within PureMVC exists to support event driven communication between the application and the actors of the MVC triadAn Observer is an object that encapsulates information about an interested object with a notification method that should be called when an INotification is broadcast. The Observer then acts as a proxy for notifying the interested objectObservers can receive Notifications by having their notifyObserver method invoked, passing in an object implementing the INotification interface, such as a subclass of Notification</dd></dl><dl >
-<dt /><b >summary</b><dd > The interface definition for a PureMVC Observer<br /></dd></dl><dl >
-<dt /><b >Persistent</b><dd >False</dd></dl><hr /><p /><a  name='field_summary'/><table  border='1' cellpadding='3' cellspacing='0' width='100%'>
+<dt /><b >summary</b><dd > The interface definition for a PureMVC Observer<br /></dd></dl><hr /><p /><a  name='field_summary'/><table  border='1' cellpadding='3' cellspacing='0' width='100%'>
 <tr  class='TableHeaderStyle'>
 <td  colspan='2'>
 <font  size='+2'>
@@ -100,32 +100,32 @@
 <font  size='+2'>
 <b >Property Detail</b></font></td></tr></table><br /><a  name='NotifyContext'>
 <h3 >NotifyContext</h3></a><pre >public&nbsp;NotifyContext: TObject</pre><dl >
-<dt /><b >Access</b><dd >write</dd></dl><dl >
-<dt /><b >Type</b><dd >TObject</dd></dl><hr /><a  name='NotifyMethod'>
+<dt /><b >Type</b><dd >TObject</dd></dl><dl >
+<dt /><b >Access</b><dd >write</dd></dl><hr /><a  name='NotifyMethod'>
 <h3 >NotifyMethod</h3></a><pre >public&nbsp;NotifyMethod: string</pre><dl >
-<dt /><b >Access</b><dd >write</dd></dl><dl >
-<dt /><b >Type</b><dd >string</dd></dl><hr /><a  name='method_detail'/><table  border='1' cellpadding='3' cellspacing='0' width='100%'>
+<dt /><b >Type</b><dd >string</dd></dl><dl >
+<dt /><b >Access</b><dd >write</dd></dl><hr /><a  name='method_detail'/><table  border='1' cellpadding='3' cellspacing='0' width='100%'>
 <tr  class='TableHeaderStyle'>
 <td  colspan='2'>
 <font  size='+2'>
 <b >Method Detail</b></font></td></tr></table><br /><a  name='CompareNotifyContext(TObject)'>
 <h3 >CompareNotifyContext</h3></a><pre >public&nbsp;function CompareNotifyContext(Obj: TObject): Boolean</pre><dl >
+<dt /><b >Reintroduce</b><dd >False</dd></dl><dl >
+<dt /><b >Returns</b><dd >Boolean</dd></dl><dl >
 <dt /><b >summary</b><dd > Compare the given object to the notificaiton context object<br /></dd></dl><dl >
 <dt /><b >returns</b><dd >Indicates if the notification context and the object are the same.</dd></dl><dl >
-<dt /><b >param</b><dd >The object to compare</dd></dl><dl >
-<dt /><b >Reintroduce</b><dd >False</dd></dl><dl >
-<dt /><b >Returns</b><dd >Boolean</dd></dl><hr /><a  name='NotifyObserver(INotification)'>
+<dt /><b >param</b><dd >The object to compare</dd></dl><hr /><a  name='NotifyObserver(INotification)'>
 <h3 >NotifyObserver</h3></a><pre >public&nbsp;procedure NotifyObserver(Notification: <a href="../../../PureMVC/Interfaces/INotification/INotification.html" target="classFrame" onclick="doClick('../../../PureMVC/Interfaces/INotification/doc-files/default.txvpck.html')">PureMVC.Interfaces.INotification.INotification</a> )</pre><dl >
+<dt /><b >Reintroduce</b><dd >False</dd></dl><dl >
 <dt /><b >summary</b><dd > Notify the interested object<br /></dd></dl><dl >
-<dt /><b >param</b><dd >The INotification to pass to the interested object's notification method</dd></dl><dl >
-<dt /><b >Reintroduce</b><dd >False</dd></dl><hr /><a  name='SetNotifyContext(TObject)'>
+<dt /><b >param</b><dd >The INotification to pass to the interested object's notification method</dd></dl><hr /><a  name='SetNotifyContext(TObject)'>
 <h3 >SetNotifyContext</h3></a><pre >public&nbsp;procedure SetNotifyContext(Value: TObject)</pre><dl >
-<dt /><b >summary</b><dd > The notification context (this) of the interested object<br /></dd></dl><dl >
-<dt /><b >Reintroduce</b><dd >False</dd></dl><hr /><a  name='SetNotifyMethod(string)'>
+<dt /><b >Reintroduce</b><dd >False</dd></dl><dl >
+<dt /><b >summary</b><dd > The notification context (this) of the interested object<br /></dd></dl><hr /><a  name='SetNotifyMethod(string)'>
 <h3 >SetNotifyMethod</h3></a><pre >public&nbsp;procedure SetNotifyMethod(Value: string)</pre><dl >
+<dt /><b >Reintroduce</b><dd >False</dd></dl><dl >
 <dt /><b >summary</b><dd > The notification (callback) method of the interested object<br /></dd></dl><dl >
-<dt /><b >remarks</b><dd >The notification method should take one parameter of type INotification</dd></dl><dl >
-<dt /><b >Reintroduce</b><dd >False</dd></dl><hr /><hr /><table  border='0' width='100%' cellpadding='1' cellspacing='0'>
+<dt /><b >remarks</b><dd >The notification method should take one parameter of type INotification</dd></dl><hr /><hr /><table  border='0' width='100%' cellpadding='1' cellspacing='0'>
 <tr >
 <td  colspan='2' class='NavBarCellCommon'>
 <table  border='0' cellpadding='0' cellspacing='3'>

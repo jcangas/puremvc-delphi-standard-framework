@@ -39,9 +39,9 @@
 <i >Namespace: </i>PureMVC.Interfaces.IProxy<br /></font><br />Interface IProxy</h2><dl >
 <dt /><b >All Known Implementing Classes: </b><dd ><a href="../../../PureMVC/Patterns/Proxy/TProxy.html" target="classFrame" onclick="doClick('../../../PureMVC/Patterns/Proxy/doc-files/default.txvpck.html')">TProxy</a>   </dd></dl><hr /><dl >
 <dt />public&nbsp;interface <b >IProxy</b></dl><p /><dl >
+<dt /><b >Persistent</b><dd >False</dd></dl><dl >
 <dt /><b >remarks</b><dd >In PureMVC, IProxy implementors assume these responsibilities:Implement a common method which returns the name of the ProxyAdditionally, IProxys typically:Maintain references to one or more pieces of model dataProvide methods for manipulating that dataGenerate INotifications when their model data changesExpose their name as a public const called NAMEEncapsulate interaction with local or remote services used to fetch and persist model data</dd></dl><dl >
-<dt /><b >summary</b><dd > The interface definition for a PureMVC Proxy<br /></dd></dl><dl >
-<dt /><b >Persistent</b><dd >False</dd></dl><hr /><p /><a  name='field_summary'/><table  border='1' cellpadding='3' cellspacing='0' width='100%'>
+<dt /><b >summary</b><dd > The interface definition for a PureMVC Proxy<br /></dd></dl><hr /><p /><a  name='field_summary'/><table  border='1' cellpadding='3' cellspacing='0' width='100%'>
 <tr  class='TableHeaderStyle'>
 <td  colspan='2'>
 <font  size='+2'>
@@ -106,29 +106,29 @@
 <font  size='+2'>
 <b >Property Detail</b></font></td></tr></table><br /><a  name='Data'>
 <h3 >Data</h3></a><pre >public&nbsp;Data: TValue</pre><dl >
-<dt /><b >Access</b><dd >read/write</dd></dl><dl >
-<dt /><b >Type</b><dd >TValue</dd></dl><hr /><a  name='ProxyName'>
+<dt /><b >Type</b><dd >TValue</dd></dl><dl >
+<dt /><b >Access</b><dd >read/write</dd></dl><hr /><a  name='ProxyName'>
 <h3 >ProxyName</h3></a><pre >public&nbsp;ProxyName: string</pre><dl >
-<dt /><b >Access</b><dd >read</dd></dl><dl >
-<dt /><b >Type</b><dd >string</dd></dl><hr /><a  name='method_detail'/><table  border='1' cellpadding='3' cellspacing='0' width='100%'>
+<dt /><b >Type</b><dd >string</dd></dl><dl >
+<dt /><b >Access</b><dd >read</dd></dl><hr /><a  name='method_detail'/><table  border='1' cellpadding='3' cellspacing='0' width='100%'>
 <tr  class='TableHeaderStyle'>
 <td  colspan='2'>
 <font  size='+2'>
 <b >Method Detail</b></font></td></tr></table><br /><a  name='GetData()'>
 <h3 >GetData</h3></a><pre >public&nbsp;function GetData(): TValue</pre><dl >
-<dt /><b >summary</b><dd > The data of the proxy<br /></dd></dl><dl >
 <dt /><b >Reintroduce</b><dd >False</dd></dl><dl >
-<dt /><b >Returns</b><dd >TValue</dd></dl><hr /><a  name='GetProxyName()'>
+<dt /><b >Returns</b><dd >TValue</dd></dl><dl >
+<dt /><b >summary</b><dd > The data of the proxy<br /></dd></dl><hr /><a  name='GetProxyName()'>
 <h3 >GetProxyName</h3></a><pre >public&nbsp;function GetProxyName(): string</pre><dl >
-<dt /><b >summary</b><dd > The Proxy instance name<br /></dd></dl><dl >
 <dt /><b >Reintroduce</b><dd >False</dd></dl><dl >
-<dt /><b >Returns</b><dd >string</dd></dl><hr /><a  name='OnRegister()'>
+<dt /><b >Returns</b><dd >string</dd></dl><dl >
+<dt /><b >summary</b><dd > The Proxy instance name<br /></dd></dl><hr /><a  name='OnRegister()'>
 <h3 >OnRegister</h3></a><pre >public&nbsp;procedure OnRegister()</pre><dl >
-<dt /><b >summary</b><dd > Called by the Model when the Proxy is registered<br /></dd></dl><dl >
-<dt /><b >Reintroduce</b><dd >False</dd></dl><hr /><a  name='OnRemove()'>
+<dt /><b >Reintroduce</b><dd >False</dd></dl><dl >
+<dt /><b >summary</b><dd > Called by the Model when the Proxy is registered<br /></dd></dl><hr /><a  name='OnRemove()'>
 <h3 >OnRemove</h3></a><pre >public&nbsp;procedure OnRemove()</pre><dl >
-<dt /><b >summary</b><dd > Called by the Model when the Proxy is removed<br /></dd></dl><dl >
-<dt /><b >Reintroduce</b><dd >False</dd></dl><hr /><a  name='SetData(TValue)'>
+<dt /><b >Reintroduce</b><dd >False</dd></dl><dl >
+<dt /><b >summary</b><dd > Called by the Model when the Proxy is removed<br /></dd></dl><hr /><a  name='SetData(TValue)'>
 <h3 >SetData</h3></a><pre >public&nbsp;procedure SetData(Value: TValue)</pre><dl >
 <dt /><b >Reintroduce</b><dd >False</dd></dl><hr /><hr /><table  border='0' width='100%' cellpadding='1' cellspacing='0'>
 <tr >
