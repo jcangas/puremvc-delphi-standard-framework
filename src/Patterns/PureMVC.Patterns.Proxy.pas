@@ -62,8 +62,8 @@ type
     procedure OnRemove; virtual;
 
     function GetProxyName: string;
-    function GetData: TValue;
-    procedure SetData(Value: TValue);
+    function GetData: TValue;virtual;
+    procedure SetData(Value: TValue);virtual;
     property Data: TValue read GetData write SetData;
 
 {$ENDREGION}
