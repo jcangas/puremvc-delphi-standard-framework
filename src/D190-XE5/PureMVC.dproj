@@ -2,7 +2,7 @@
     <PropertyGroup>
         <ProjectGuid>{25811770-0120-4D90-ABD3-A47020842BE6}</ProjectGuid>
         <MainSource>PureMVC.dpk</MainSource>
-        <ProjectVersion>15.2</ProjectVersion>
+        <ProjectVersion>15.3</ProjectVersion>
         <FrameworkType>None</FrameworkType>
         <Base>True</Base>
         <Config Condition="'$(Config)'==''">Debug</Config>
