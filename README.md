@@ -28,6 +28,7 @@ Production - 1.0
 * Delphi XE
 * Delphi XE2
 * Delphi XE3
+* Delphi XE5
 
 ## License
  

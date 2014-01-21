@@ -10,9 +10,7 @@
     <ProjectExtensions>
         <Borland.Personality>Delphi.Personality.12</Borland.Personality>
         <Borland.ProjectType>OptionSet</Borland.ProjectType>
-        <BorlandProject>
-            <Delphi.Personality/>
-        </BorlandProject>
+        <BorlandProject><Delphi.Personality/></BorlandProject>
         <ProjectFileVersion>12</ProjectFileVersion>
     </ProjectExtensions>
 </Project>

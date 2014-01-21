@@ -36,14 +36,15 @@
 <font  size='-2'>SUMMARY:&nbsp;INNER&nbsp;|&nbsp;<a  href='#field_summary'>FIELD</a>&nbsp;|&nbsp;<a  href='#constructor_summary'>CONSTR</a>&nbsp;|&nbsp;DESTR&nbsp;|&nbsp;<a  href='#method_summary'>METHOD</a></font></td><td  valign='top' class='NavBarCell3'>
 <font  size='-2'>DETAIL:&nbsp;<a  href='#field_detail'>FIELD</a>&nbsp;|&nbsp;<a  href='#constructor_detail'>CONSTR</a>&nbsp;|&nbsp;DESTR&nbsp;|&nbsp;<a  href='#method_detail'>METHOD</a></font></td></tr></table><hr /><h2 >
 <font  size='-1'>
-<i >Namespace: </i>PureMVC.Patterns.Notification<br /></font><br />Class TNotification</h2><pre >
-PureMVC.Patterns.Notification.TNotification
+<i >Namespace: </i>PureMVC.Patterns.Notification<br /></font><br />Class TNotification</h2><pre >System.TInterfacedObject
+  |
+  +-- PureMVC.Patterns.Notification.TNotification
 </pre><dl >
 <dt /><b >All Implemented Interfaces: </b><dd ><a href="../../../PureMVC/Interfaces/INotification/INotification.html" target="classFrame" onclick="doClick('../../../PureMVC/Interfaces/INotification/doc-files/default.txvpck.html')"><i>INotification</i></a>   </dd></dl><hr /><dl >
-<dt />public&nbsp;class <b >TNotification</b> ( <a href="../../../PureMVC/Interfaces/INotification/INotification.html" target="classFrame" onclick="doClick('../../../PureMVC/Interfaces/INotification/doc-files/default.txvpck.html')"><i>INotification</i></a>    ) </dl><p /><dl >
+<dt />public&nbsp;class <b >TNotification</b> ( System.TInterfacedObject   , <a href="../../../PureMVC/Interfaces/INotification/INotification.html" target="classFrame" onclick="doClick('../../../PureMVC/Interfaces/INotification/doc-files/default.txvpck.html')"><i>INotification</i></a>    ) </dl><p /><dl >
 <dt /><b >Abstract</b><dd >False</dd></dl><dl >
-<dt /><b >Persistent</b><dd >False</dd></dl><dl >
-<dt /><b >Sealed</b><dd >False</dd></dl><hr /><p /><a  name='field_summary'/><table  border='1' cellpadding='3' cellspacing='0' width='100%'>
+<dt /><b >Sealed</b><dd >False</dd></dl><dl >
+<dt /><b >Persistent</b><dd >False</dd></dl><hr /><p /><a  name='field_summary'/><table  border='1' cellpadding='3' cellspacing='0' width='100%'>
 <tr  class='TableHeaderStyle'>
 <td  colspan='2'>
 <font  size='+2'>
@@ -123,53 +124,19 @@ PureMVC.Patterns.Notification.TNotification
 <td >
 <code >
 <b >
-<a  href='../../../PureMVC/Patterns/Notification/TNotification.html#Create(TObject/string/TValue/TValue)'>Create</a></b>(Sender: TObject; Name: string; Body: TValue; Kind: TValue)</code><br />	 </td></tr></table> <p /><a  name='method_summary'/><table  border='1' cellpadding='3' cellspacing='0' width='100%'>
+<a  href='../../../PureMVC/Patterns/Notification/TNotification.html#Create(string/TObject/TValue/TValue)'>Create</a></b>(Name: string; Sender: TObject; Body: TValue; Kind: TValue)</code><br />	 </td></tr><tr  class='TableRow'>
+<td >
+<code >
+<b >
+<a  href='../../../PureMVC/Patterns/Notification/TNotification.html#Create(string/TObject/TValue)'>Create</a></b>(Name: string; Sender: TObject; Body: TValue)</code><br />	 </td></tr><tr  class='TableRow'>
+<td >
+<code >
+<b >
+<a  href='../../../PureMVC/Patterns/Notification/TNotification.html#Create(string/TObject)'>Create</a></b>(Name: string; Sender: TObject)</code><br />	 </td></tr></table> <p /><a  name='method_summary'/><table  border='1' cellpadding='3' cellspacing='0' width='100%'>
 <tr  class='TableHeaderStyle'>
 <td  colspan='2'>
 <font  size='+2'>
 <b >Method Summary</b></font></td></tr><tr  class='TableRow'>
-<td  align='right' valign='top' width='20%'>
-<font  size='-1'>
-<code >
-                                                &nbsp; internal <b >function TValue</b></code></font></td><td >
-<code >
-<b >
-<a  href='../../../PureMVC/Patterns/Notification/TNotification.html#GetBody()'>GetBody</a></b>()</code><br />	 </td></tr><tr  class='TableRow'>
-<td  align='right' valign='top' width='20%'>
-<font  size='-1'>
-<code >
-                                                &nbsp; internal <b >function TValue</b></code></font></td><td >
-<code >
-<b >
-<a  href='../../../PureMVC/Patterns/Notification/TNotification.html#GetKind()'>GetKind</a></b>()</code><br />	 </td></tr><tr  class='TableRow'>
-<td  align='right' valign='top' width='20%'>
-<font  size='-1'>
-<code >
-                                                &nbsp; internal <b >function string</b></code></font></td><td >
-<code >
-<b >
-<a  href='../../../PureMVC/Patterns/Notification/TNotification.html#GetName()'>GetName</a></b>()</code><br />	 </td></tr><tr  class='TableRow'>
-<td  align='right' valign='top' width='20%'>
-<font  size='-1'>
-<code >
-                                                &nbsp; internal <b >function TObject</b></code></font></td><td >
-<code >
-<b >
-<a  href='../../../PureMVC/Patterns/Notification/TNotification.html#GetSender()'>GetSender</a></b>()</code><br />	 </td></tr><tr  class='TableRow'>
-<td  align='right' valign='top' width='20%'>
-<font  size='-1'>
-<code >
-                                                &nbsp; internal <b >Sub </b></code></font></td><td >
-<code >
-<b >
-<a  href='../../../PureMVC/Patterns/Notification/TNotification.html#SetBody(TValue)'>SetBody</a></b>(Value: TValue)</code><br />	 </td></tr><tr  class='TableRow'>
-<td  align='right' valign='top' width='20%'>
-<font  size='-1'>
-<code >
-                                                &nbsp; internal <b >Sub </b></code></font></td><td >
-<code >
-<b >
-<a  href='../../../PureMVC/Patterns/Notification/TNotification.html#SetKind(TValue)'>SetKind</a></b>(Value: TValue)</code><br />	 </td></tr><tr  class='TableRow'>
 <td  align='right' valign='top' width='20%'>
 <font  size='-1'>
 <code >
@@ -202,90 +169,55 @@ PureMVC.Patterns.Notification.TNotification
 <font  size='+2'>
 <b >Property Detail</b></font></td></tr></table><br /><a  name='Body'>
 <h3 >Body</h3></a><pre >public&nbsp;Body: TValue</pre><dl >
-<dt /><b >Access</b><dd >read/write</dd></dl><dl >
 <dt /><b >Type</b><dd >TValue</dd></dl><dl >
+<dt /><b >Access</b><dd >read</dd></dl><dl >
 <dt /><b >Class</b><dd >False</dd></dl><hr /><a  name='Kind'>
 <h3 >Kind</h3></a><pre >public&nbsp;Kind: TValue</pre><dl >
-<dt /><b >Access</b><dd >read/write</dd></dl><dl >
 <dt /><b >Type</b><dd >TValue</dd></dl><dl >
+<dt /><b >Access</b><dd >read</dd></dl><dl >
 <dt /><b >Class</b><dd >False</dd></dl><hr /><a  name='Name'>
 <h3 >Name</h3></a><pre >public&nbsp;Name: string</pre><dl >
-<dt /><b >Access</b><dd >read</dd></dl><dl >
 <dt /><b >Type</b><dd >string</dd></dl><dl >
+<dt /><b >Access</b><dd >read</dd></dl><dl >
 <dt /><b >Class</b><dd >False</dd></dl><hr /><a  name='Sender'>
 <h3 >Sender</h3></a><pre >public&nbsp;Sender: TObject</pre><dl >
-<dt /><b >Access</b><dd >read</dd></dl><dl >
 <dt /><b >Type</b><dd >TObject</dd></dl><dl >
+<dt /><b >Access</b><dd >read</dd></dl><dl >
 <dt /><b >Class</b><dd >False</dd></dl><hr /><a  Name='constructor_detail'/><table  border='1' cellpadding='3' cellspacing='0' width='100%'>
 <tr  class='TableHeaderStyle'>
 <td  colspan='2'>
 <font  size='+2'>
-<b >Constructor Detail</b></font></td></tr></table><br /><a  name='Create(TObject/string/TValue/TValue)'>
-<h3 >Create</h3></a><pre >public&nbsp;constructor Create(Sender: TObject; Name: string; Body: TValue; Kind: TValue)</pre><dl >
+<b >Constructor Detail</b></font></td></tr></table><br /><a  name='Create(string/TObject/TValue/TValue)'>
+<h3 >Create</h3></a><pre >public&nbsp;constructor Create(Name: string; Sender: TObject; Body: TValue; Kind: TValue)</pre><dl >
 <dt /><b >Abstract</b><dd >False</dd></dl><dl >
-<dt /><b >Final</b><dd >False</dd></dl><dl >
 <dt /><b >Reintroduce</b><dd >False</dd></dl><dl >
-<dt /><b >Override</b><dd >False</dd></dl><dl >
 <dt /><b >Virtual</b><dd >False</dd></dl><dl >
-<dt /><b >Class</b><dd >False</dd></dl><hr /><a  name='method_detail'/><table  border='1' cellpadding='3' cellspacing='0' width='100%'>
+<dt /><b >Override</b><dd >False</dd></dl><dl >
+<dt /><b >Final</b><dd >False</dd></dl><hr /><a  name='Create(string/TObject/TValue)'>
+<h3 >Create</h3></a><pre >public&nbsp;constructor Create(Name: string; Sender: TObject; Body: TValue)</pre><dl >
+<dt /><b >Abstract</b><dd >False</dd></dl><dl >
+<dt /><b >Reintroduce</b><dd >False</dd></dl><dl >
+<dt /><b >Virtual</b><dd >False</dd></dl><dl >
+<dt /><b >Override</b><dd >False</dd></dl><dl >
+<dt /><b >Final</b><dd >False</dd></dl><hr /><a  name='Create(string/TObject)'>
+<h3 >Create</h3></a><pre >public&nbsp;constructor Create(Name: string; Sender: TObject)</pre><dl >
+<dt /><b >Abstract</b><dd >False</dd></dl><dl >
+<dt /><b >Reintroduce</b><dd >False</dd></dl><dl >
+<dt /><b >Virtual</b><dd >False</dd></dl><dl >
+<dt /><b >Override</b><dd >False</dd></dl><dl >
+<dt /><b >Final</b><dd >False</dd></dl><hr /><a  name='method_detail'/><table  border='1' cellpadding='3' cellspacing='0' width='100%'>
 <tr  class='TableHeaderStyle'>
 <td  colspan='2'>
 <font  size='+2'>
-<b >Method Detail</b></font></td></tr></table><br /><a  name='GetBody()'>
-<h3 >GetBody</h3></a><pre >internal&nbsp;function GetBody(): TValue</pre><dl >
-<dt /><b >Abstract</b><dd >False</dd></dl><dl >
-<dt /><b >Reintroduce</b><dd >False</dd></dl><dl >
-<dt /><b >Returns</b><dd >TValue</dd></dl><dl >
-<dt /><b >Class</b><dd >False</dd></dl><dl >
-<dt /><b >Override</b><dd >False</dd></dl><dl >
-<dt /><b >Virtual</b><dd >False</dd></dl><dl >
-<dt /><b >Final</b><dd >False</dd></dl><hr /><a  name='GetKind()'>
-<h3 >GetKind</h3></a><pre >internal&nbsp;function GetKind(): TValue</pre><dl >
-<dt /><b >Abstract</b><dd >False</dd></dl><dl >
-<dt /><b >Reintroduce</b><dd >False</dd></dl><dl >
-<dt /><b >Returns</b><dd >TValue</dd></dl><dl >
-<dt /><b >Class</b><dd >False</dd></dl><dl >
-<dt /><b >Override</b><dd >False</dd></dl><dl >
-<dt /><b >Virtual</b><dd >False</dd></dl><dl >
-<dt /><b >Final</b><dd >False</dd></dl><hr /><a  name='GetName()'>
-<h3 >GetName</h3></a><pre >internal&nbsp;function GetName(): string</pre><dl >
-<dt /><b >Abstract</b><dd >False</dd></dl><dl >
-<dt /><b >Reintroduce</b><dd >False</dd></dl><dl >
-<dt /><b >Returns</b><dd >string</dd></dl><dl >
-<dt /><b >Class</b><dd >False</dd></dl><dl >
-<dt /><b >Override</b><dd >False</dd></dl><dl >
-<dt /><b >Virtual</b><dd >False</dd></dl><dl >
-<dt /><b >Final</b><dd >False</dd></dl><hr /><a  name='GetSender()'>
-<h3 >GetSender</h3></a><pre >internal&nbsp;function GetSender(): TObject</pre><dl >
-<dt /><b >Abstract</b><dd >False</dd></dl><dl >
-<dt /><b >Reintroduce</b><dd >False</dd></dl><dl >
-<dt /><b >Returns</b><dd >TObject</dd></dl><dl >
-<dt /><b >Class</b><dd >False</dd></dl><dl >
-<dt /><b >Override</b><dd >False</dd></dl><dl >
-<dt /><b >Virtual</b><dd >False</dd></dl><dl >
-<dt /><b >Final</b><dd >False</dd></dl><hr /><a  name='SetBody(TValue)'>
-<h3 >SetBody</h3></a><pre >internal&nbsp;procedure SetBody(Value: TValue)</pre><dl >
-<dt /><b >Abstract</b><dd >False</dd></dl><dl >
-<dt /><b >Reintroduce</b><dd >False</dd></dl><dl >
-<dt /><b >Class</b><dd >False</dd></dl><dl >
-<dt /><b >Override</b><dd >False</dd></dl><dl >
-<dt /><b >Virtual</b><dd >False</dd></dl><dl >
-<dt /><b >Final</b><dd >False</dd></dl><hr /><a  name='SetKind(TValue)'>
-<h3 >SetKind</h3></a><pre >internal&nbsp;procedure SetKind(Value: TValue)</pre><dl >
-<dt /><b >Abstract</b><dd >False</dd></dl><dl >
-<dt /><b >Reintroduce</b><dd >False</dd></dl><dl >
-<dt /><b >Class</b><dd >False</dd></dl><dl >
-<dt /><b >Override</b><dd >False</dd></dl><dl >
-<dt /><b >Virtual</b><dd >False</dd></dl><dl >
-<dt /><b >Final</b><dd >False</dd></dl><hr /><a  name='ToString()'>
+<b >Method Detail</b></font></td></tr></table><br /><a  name='ToString()'>
 <h3 >ToString</h3></a><pre >public&nbsp;function ToString(): string</pre><dl >
 <dt /><b >Abstract</b><dd >False</dd></dl><dl >
 <dt /><b >Reintroduce</b><dd >False</dd></dl><dl >
+<dt /><b >Final</b><dd >False</dd></dl><dl >
 <dt /><b >Returns</b><dd >string</dd></dl><dl >
-<dt /><b >Class</b><dd >False</dd></dl><dl >
-<dt /><b >Override</b><dd >True</dd></dl><dl >
 <dt /><b >Virtual</b><dd >False</dd></dl><dl >
-<dt /><b >Final</b><dd >False</dd></dl><hr /><p /><table  border='0' cellpadding='0' cellspacing='0'>
+<dt /><b >Override</b><dd >True</dd></dl><dl >
+<dt /><b >Class</b><dd >False</dd></dl><hr /><p /><table  border='0' cellpadding='0' cellspacing='0'>
 <tr  class='TableHeaderStyle'>
 <td >
 <font  size='+0'>

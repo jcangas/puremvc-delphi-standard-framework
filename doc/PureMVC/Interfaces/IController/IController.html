@@ -27,7 +27,7 @@
 <b >Help</b></font></a>&nbsp;</td></tr></table><td  align='right' valign='top' rowspan='3'>
 <em ></em></td></td></tr><tr >
 <td  class='NavBarCellPrevNext'>
-<font  size='-2'><a href="../../../PureMVC/Interfaces/IController/globals IController.html" target="classFrame" onclick="doClick('../../../PureMVC/Interfaces/IController/doc-files/default.txvpck.html')">PREV </a> &nbsp;&nbsp;NEXT</font></td><td  class='NavBarCellPrevNext'>
+<font  size='-2'> PREV&nbsp;&nbsp;<a href="../../../PureMVC/Interfaces/IController/globals IController.html" target="classFrame" onclick="doClick('../../../PureMVC/Interfaces/IController/doc-files/default.txvpck.html')">NEXT </a> </font></td><td  class='NavBarCellPrevNext'>
 <font  size='-2'>
 <a  href='../../../index.html' target='_top'>
 <b >FRAMES</b></a>&nbsp;<a  href='../../../PureMVC/Interfaces/IController/IController.html' target='_top'>
@@ -39,10 +39,10 @@
 <i >Namespace: </i>PureMVC.Interfaces.IController<br /></font><br />Interface IController</h2><dl >
 <dt /><b >All Known Implementing Classes: </b><dd ><a href="../../../PureMVC/Core/Controller/TController.html" target="classFrame" onclick="doClick('../../../PureMVC/Core/Controller/doc-files/default.txvpck.html')">TController</a>   </dd></dl><hr /><dl >
 <dt />public&nbsp;interface <b >IController</b></dl><p /><dl >
+<dt /><b >Persistent</b><dd >False</dd></dl><dl >
 <dt /><b >see</b><dd ></dd></dl><dl >
 <dt /><b >remarks</b><dd >In PureMVC, an IController implementor follows the 'Command and Controller' strategy, and assumes these responsibilities:Remembering which ICommands are intended to handle which INotificationsRegistering itself as an IObserver with the View for each INotification that it has an ICommand mapping forCreating a new instance of the proper ICommand to handle a given INotification when notified by the ViewCalling the ICommand's execute method, passing in the INotification</dd></dl><dl >
-<dt /><b >summary</b><dd > The interface definition for a PureMVC Controller<br /></dd></dl><dl >
-<dt /><b >Persistent</b><dd >False</dd></dl><hr /><p /><a  name='method_summary'/><table  border='1' cellpadding='3' cellspacing='0' width='100%'>
+<dt /><b >summary</b><dd > The interface definition for a PureMVC Controller<br /></dd></dl><hr /><p /><a  name='method_summary'/><table  border='1' cellpadding='3' cellspacing='0' width='100%'>
 <tr  class='TableHeaderStyle'>
 <td  colspan='2'>
 <font  size='+2'>
@@ -80,23 +80,23 @@
 <font  size='+2'>
 <b >Method Detail</b></font></td></tr></table><br /><a  name='ExecuteCommand(INotification)'>
 <h3 >ExecuteCommand</h3></a><pre >public&nbsp;procedure ExecuteCommand(Notification: <a href="../../../PureMVC/Interfaces/INotification/INotification.html" target="classFrame" onclick="doClick('../../../PureMVC/Interfaces/INotification/doc-files/default.txvpck.html')">PureMVC.Interfaces.INotification.INotification</a> )</pre><dl >
+<dt /><b >Reintroduce</b><dd >False</dd></dl><dl >
 <dt /><b >summary</b><dd > Execute the ICommand previously registered as the handler for INotifications with the given notification name<br /></dd></dl><dl >
-<dt /><b >param</b><dd >The INotification to execute the associated ICommand for</dd></dl><dl >
-<dt /><b >Reintroduce</b><dd >False</dd></dl><hr /><a  name='HasCommand(string)'>
+<dt /><b >param</b><dd >The INotification to execute the associated ICommand for</dd></dl><hr /><a  name='HasCommand(string)'>
 <h3 >HasCommand</h3></a><pre >public&nbsp;function HasCommand(NotificationName: string): Boolean</pre><dl >
+<dt /><b >Reintroduce</b><dd >False</dd></dl><dl >
+<dt /><b >Returns</b><dd >Boolean</dd></dl><dl >
 <dt /><b >summary</b><dd > Check if a Command is registered for a given Notification.<br /></dd></dl><dl >
 <dt /><b >returns</b><dd >whether a Command is currently registered for the given notificationName.</dd></dl><dl >
-<dt /><b >param</b><dd >The name of the INotification to check the ICommand mapping for</dd></dl><dl >
-<dt /><b >Reintroduce</b><dd >False</dd></dl><dl >
-<dt /><b >Returns</b><dd >Boolean</dd></dl><hr /><a  name='RegisterCommand(string/TClass)'>
+<dt /><b >param</b><dd >The name of the INotification to check the ICommand mapping for</dd></dl><hr /><a  name='RegisterCommand(string/TClass)'>
 <h3 >RegisterCommand</h3></a><pre >public&nbsp;procedure RegisterCommand(NotificationName: string; CommandType: TClass)</pre><dl >
+<dt /><b >Reintroduce</b><dd >False</dd></dl><dl >
 <dt /><b >summary</b><dd > Register a particular ICommand class as the handler for a particular INotification</dd></dl><dl >
-<dt /><b >param</b><dd >The name of the INotification<br />The Type of the ICommand</dd></dl><dl >
-<dt /><b >Reintroduce</b><dd >False</dd></dl><hr /><a  name='RemoveCommand(string)'>
+<dt /><b >param</b><dd >The name of the INotification<br />The Type of the ICommand</dd></dl><hr /><a  name='RemoveCommand(string)'>
 <h3 >RemoveCommand</h3></a><pre >public&nbsp;procedure RemoveCommand(NotificationName: string)</pre><dl >
+<dt /><b >Reintroduce</b><dd >False</dd></dl><dl >
 <dt /><b >summary</b><dd > Remove a previously registered ICommand to INotification mapping.<br /></dd></dl><dl >
-<dt /><b >param</b><dd >The name of the INotification to remove the ICommand mapping for</dd></dl><dl >
-<dt /><b >Reintroduce</b><dd >False</dd></dl><hr /><hr /><table  border='0' width='100%' cellpadding='1' cellspacing='0'>
+<dt /><b >param</b><dd >The name of the INotification to remove the ICommand mapping for</dd></dl><hr /><hr /><table  border='0' width='100%' cellpadding='1' cellspacing='0'>
 <tr >
 <td  colspan='2' class='NavBarCellCommon'>
 <table  border='0' cellpadding='0' cellspacing='3'>
@@ -119,7 +119,7 @@
 <b >Help</b></font></a>&nbsp;</td></tr></table><td  align='right' valign='top' rowspan='3'>
 <em ></em></td></td></tr><tr >
 <td  class='NavBarCellPrevNext'>
-<font  size='-2'><a href="../../../PureMVC/Interfaces/IController/globals IController.html" target="classFrame" onclick="doClick('../../../PureMVC/Interfaces/IController/doc-files/default.txvpck.html')">PREV </a> &nbsp;&nbsp;NEXT</font></td><td  class='NavBarCellPrevNext'>
+<font  size='-2'> PREV&nbsp;&nbsp;<a href="../../../PureMVC/Interfaces/IController/globals IController.html" target="classFrame" onclick="doClick('../../../PureMVC/Interfaces/IController/doc-files/default.txvpck.html')">NEXT </a> </font></td><td  class='NavBarCellPrevNext'>
 <font  size='-2'>
 <a  href='../../../index.html' target='_top'>
 <b >FRAMES</b></a>&nbsp;<a  href='../../../PureMVC/Interfaces/IController/IController.html' target='_top'>

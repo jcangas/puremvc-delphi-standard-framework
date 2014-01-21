@@ -258,14 +258,13 @@ begin
       Interests := Mediator.ListNotificationInterests();
 
       // Register Mediator as an observer for each of its notification interests
-      if (Interests.Count = 0) then Exit;
+      if (Interests.Count = 0) then begin
+        // Create Observer
+        Observer := TObserver.Create('HandleNotification', TObject(Mediator));
 
-      // Create Observer
-      Observer := TObserver.Create('HandleNotification', TObject(Mediator));
-
-      // Register Mediator as Observer for its list of Notification interests
-      for Interest in Interests do RegisterObserver(Interest, Observer);
-
+        // Register Mediator as Observer for its list of Notification interests
+        for Interest in Interests do RegisterObserver(Interest, Observer);
+      end;
       // alert the mediator that it has been registered
       Mediator.OnRegister();
 

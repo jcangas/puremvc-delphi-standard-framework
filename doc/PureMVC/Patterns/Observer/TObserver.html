@@ -27,7 +27,7 @@
 <b >Help</b></font></a>&nbsp;</td></tr></table><td  align='right' valign='top' rowspan='3'>
 <em ></em></td></td></tr><tr >
 <td  class='NavBarCellPrevNext'>
-<font  size='-2'><a href="../../../PureMVC/Patterns/Observer/TObserverHelper.html" target="classFrame" onclick="doClick('../../../PureMVC/Patterns/Observer/doc-files/default.txvpck.html')">PREV </a> &nbsp;&nbsp;NEXT</font></td><td  class='NavBarCellPrevNext'>
+<font  size='-2'><a href="../../../PureMVC/Patterns/Observer/TObserverList.html" target="classFrame" onclick="doClick('../../../PureMVC/Patterns/Observer/doc-files/default.txvpck.html')">PREV </a> &nbsp;&nbsp;NEXT</font></td><td  class='NavBarCellPrevNext'>
 <font  size='-2'>
 <a  href='../../../index.html' target='_top'>
 <b >FRAMES</b></a>&nbsp;<a  href='../../../PureMVC/Patterns/Observer/TObserver.html' target='_top'>
@@ -36,14 +36,15 @@
 <font  size='-2'>SUMMARY:&nbsp;INNER&nbsp;|&nbsp;<a  href='#field_summary'>FIELD</a>&nbsp;|&nbsp;<a  href='#constructor_summary'>CONSTR</a>&nbsp;|&nbsp;DESTR&nbsp;|&nbsp;<a  href='#method_summary'>METHOD</a></font></td><td  valign='top' class='NavBarCell3'>
 <font  size='-2'>DETAIL:&nbsp;<a  href='#field_detail'>FIELD</a>&nbsp;|&nbsp;<a  href='#constructor_detail'>CONSTR</a>&nbsp;|&nbsp;DESTR&nbsp;|&nbsp;<a  href='#method_detail'>METHOD</a></font></td></tr></table><hr /><h2 >
 <font  size='-1'>
-<i >Namespace: </i>PureMVC.Patterns.Observer<br /></font><br />Class TObserver</h2><pre >
-PureMVC.Patterns.Observer.TObserver
+<i >Namespace: </i>PureMVC.Patterns.Observer<br /></font><br />Class TObserver</h2><pre >System.TInterfacedObject
+  |
+  +-- PureMVC.Patterns.Observer.TObserver
 </pre><dl >
 <dt /><b >All Implemented Interfaces: </b><dd ><a href="../../../PureMVC/Interfaces/IObserver/IObserver.html" target="classFrame" onclick="doClick('../../../PureMVC/Interfaces/IObserver/doc-files/default.txvpck.html')"><i>IObserver</i></a>   </dd></dl><hr /><dl >
-<dt />public&nbsp;class <b >TObserver</b> ( <a href="../../../PureMVC/Interfaces/IObserver/IObserver.html" target="classFrame" onclick="doClick('../../../PureMVC/Interfaces/IObserver/doc-files/default.txvpck.html')"><i>IObserver</i></a>    ) </dl><p /><dl >
+<dt />public&nbsp;class <b >TObserver</b> ( System.TInterfacedObject   , <a href="../../../PureMVC/Interfaces/IObserver/IObserver.html" target="classFrame" onclick="doClick('../../../PureMVC/Interfaces/IObserver/doc-files/default.txvpck.html')"><i>IObserver</i></a>    ) </dl><p /><dl >
 <dt /><b >Abstract</b><dd >False</dd></dl><dl >
-<dt /><b >Persistent</b><dd >False</dd></dl><dl >
-<dt /><b >Sealed</b><dd >False</dd></dl><hr /><p /><a  name='field_summary'/><table  border='1' cellpadding='3' cellspacing='0' width='100%'>
+<dt /><b >Sealed</b><dd >False</dd></dl><dl >
+<dt /><b >Persistent</b><dd >False</dd></dl><hr /><p /><a  name='field_summary'/><table  border='1' cellpadding='3' cellspacing='0' width='100%'>
 <tr  class='TableHeaderStyle'>
 <td  colspan='2'>
 <font  size='+2'>
@@ -141,12 +142,12 @@ PureMVC.Patterns.Observer.TObserver
 <font  size='+2'>
 <b >Property Detail</b></font></td></tr></table><br /><a  name='NotifyContext'>
 <h3 >NotifyContext</h3></a><pre >public&nbsp;NotifyContext: TObject</pre><dl >
-<dt /><b >Access</b><dd >write</dd></dl><dl >
 <dt /><b >Type</b><dd >TObject</dd></dl><dl >
+<dt /><b >Access</b><dd >write</dd></dl><dl >
 <dt /><b >Class</b><dd >False</dd></dl><hr /><a  name='NotifyMethod'>
 <h3 >NotifyMethod</h3></a><pre >public&nbsp;NotifyMethod: string</pre><dl >
-<dt /><b >Access</b><dd >write</dd></dl><dl >
 <dt /><b >Type</b><dd >string</dd></dl><dl >
+<dt /><b >Access</b><dd >write</dd></dl><dl >
 <dt /><b >Class</b><dd >False</dd></dl><hr /><a  Name='constructor_detail'/><table  border='1' cellpadding='3' cellspacing='0' width='100%'>
 <tr  class='TableHeaderStyle'>
 <td  colspan='2'>
@@ -154,11 +155,10 @@ PureMVC.Patterns.Observer.TObserver
 <b >Constructor Detail</b></font></td></tr></table><br /><a  name='Create(string/TObject)'>
 <h3 >Create</h3></a><pre >public&nbsp;constructor Create(Notify: string; Context: TObject)</pre><dl >
 <dt /><b >Abstract</b><dd >False</dd></dl><dl >
-<dt /><b >Final</b><dd >False</dd></dl><dl >
 <dt /><b >Reintroduce</b><dd >False</dd></dl><dl >
-<dt /><b >Override</b><dd >False</dd></dl><dl >
 <dt /><b >Virtual</b><dd >False</dd></dl><dl >
-<dt /><b >Class</b><dd >False</dd></dl><hr /><a  name='method_detail'/><table  border='1' cellpadding='3' cellspacing='0' width='100%'>
+<dt /><b >Override</b><dd >False</dd></dl><dl >
+<dt /><b >Final</b><dd >False</dd></dl><hr /><a  name='method_detail'/><table  border='1' cellpadding='3' cellspacing='0' width='100%'>
 <tr  class='TableHeaderStyle'>
 <td  colspan='2'>
 <font  size='+2'>
@@ -166,32 +166,32 @@ PureMVC.Patterns.Observer.TObserver
 <h3 >CompareNotifyContext</h3></a><pre >public&nbsp;function CompareNotifyContext(Other: TObject): Boolean</pre><dl >
 <dt /><b >Abstract</b><dd >False</dd></dl><dl >
 <dt /><b >Reintroduce</b><dd >False</dd></dl><dl >
+<dt /><b >Final</b><dd >False</dd></dl><dl >
 <dt /><b >Returns</b><dd >Boolean</dd></dl><dl >
-<dt /><b >Class</b><dd >False</dd></dl><dl >
-<dt /><b >Override</b><dd >False</dd></dl><dl >
 <dt /><b >Virtual</b><dd >False</dd></dl><dl >
-<dt /><b >Final</b><dd >False</dd></dl><hr /><a  name='NotifyObserver(INotification)'>
+<dt /><b >Override</b><dd >False</dd></dl><dl >
+<dt /><b >Class</b><dd >False</dd></dl><hr /><a  name='NotifyObserver(INotification)'>
 <h3 >NotifyObserver</h3></a><pre >public&nbsp;procedure NotifyObserver(Notification: <a href="../../../PureMVC/Interfaces/INotification/INotification.html" target="classFrame" onclick="doClick('../../../PureMVC/Interfaces/INotification/doc-files/default.txvpck.html')">PureMVC.Interfaces.INotification.INotification</a> )</pre><dl >
 <dt /><b >Abstract</b><dd >False</dd></dl><dl >
 <dt /><b >Reintroduce</b><dd >False</dd></dl><dl >
-<dt /><b >Class</b><dd >False</dd></dl><dl >
-<dt /><b >Override</b><dd >False</dd></dl><dl >
+<dt /><b >Final</b><dd >False</dd></dl><dl >
 <dt /><b >Virtual</b><dd >False</dd></dl><dl >
-<dt /><b >Final</b><dd >False</dd></dl><hr /><a  name='SetNotifyContext(TObject)'>
+<dt /><b >Override</b><dd >False</dd></dl><dl >
+<dt /><b >Class</b><dd >False</dd></dl><hr /><a  name='SetNotifyContext(TObject)'>
 <h3 >SetNotifyContext</h3></a><pre >public&nbsp;procedure SetNotifyContext(Value: TObject)</pre><dl >
 <dt /><b >Abstract</b><dd >False</dd></dl><dl >
 <dt /><b >Reintroduce</b><dd >False</dd></dl><dl >
-<dt /><b >Class</b><dd >False</dd></dl><dl >
-<dt /><b >Override</b><dd >False</dd></dl><dl >
+<dt /><b >Final</b><dd >False</dd></dl><dl >
 <dt /><b >Virtual</b><dd >False</dd></dl><dl >
-<dt /><b >Final</b><dd >False</dd></dl><hr /><a  name='SetNotifyMethod(string)'>
+<dt /><b >Override</b><dd >False</dd></dl><dl >
+<dt /><b >Class</b><dd >False</dd></dl><hr /><a  name='SetNotifyMethod(string)'>
 <h3 >SetNotifyMethod</h3></a><pre >public&nbsp;procedure SetNotifyMethod(Value: string)</pre><dl >
 <dt /><b >Abstract</b><dd >False</dd></dl><dl >
 <dt /><b >Reintroduce</b><dd >False</dd></dl><dl >
-<dt /><b >Class</b><dd >False</dd></dl><dl >
-<dt /><b >Override</b><dd >False</dd></dl><dl >
+<dt /><b >Final</b><dd >False</dd></dl><dl >
 <dt /><b >Virtual</b><dd >False</dd></dl><dl >
-<dt /><b >Final</b><dd >False</dd></dl><hr /><p /><table  border='0' cellpadding='0' cellspacing='0'>
+<dt /><b >Override</b><dd >False</dd></dl><dl >
+<dt /><b >Class</b><dd >False</dd></dl><hr /><p /><table  border='0' cellpadding='0' cellspacing='0'>
 <tr  class='TableHeaderStyle'>
 <td >
 <font  size='+0'>
@@ -220,7 +220,7 @@ PureMVC.Patterns.Observer.TObserver
 <b >Help</b></font></a>&nbsp;</td></tr></table><td  align='right' valign='top' rowspan='3'>
 <em ></em></td></td></tr><tr >
 <td  class='NavBarCellPrevNext'>
-<font  size='-2'><a href="../../../PureMVC/Patterns/Observer/TObserverHelper.html" target="classFrame" onclick="doClick('../../../PureMVC/Patterns/Observer/doc-files/default.txvpck.html')">PREV </a> &nbsp;&nbsp;NEXT</font></td><td  class='NavBarCellPrevNext'>
+<font  size='-2'><a href="../../../PureMVC/Patterns/Observer/TObserverList.html" target="classFrame" onclick="doClick('../../../PureMVC/Patterns/Observer/doc-files/default.txvpck.html')">PREV </a> &nbsp;&nbsp;NEXT</font></td><td  class='NavBarCellPrevNext'>
 <font  size='-2'>
 <a  href='../../../index.html' target='_top'>
 <b >FRAMES</b></a>&nbsp;<a  href='../../../PureMVC/Patterns/Observer/TObserver.html' target='_top'>

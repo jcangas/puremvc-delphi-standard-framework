@@ -22,7 +22,11 @@ type
 
     procedure AddRange(const Values: array of T); overload;
     procedure AddRange(const Collection: IEnumerable<T>); overload;
+    {$IF RTLVersion >= 26}
+    procedure AddRange(const Collection: TEnumerable<T>); overload;
+    {$ELSE}
     procedure AddRange(Collection: TEnumerable<T>); overload;
+    {$IFEND}
 
     procedure Insert(Index: Integer; const Value: T);
 

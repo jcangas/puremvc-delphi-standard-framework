@@ -36,14 +36,15 @@
 <font  size='-2'>SUMMARY:&nbsp;INNER&nbsp;|&nbsp;FIELD&nbsp;|&nbsp;CONSTR&nbsp;|&nbsp;DESTR&nbsp;|&nbsp;<a  href='#method_summary'>METHOD</a></font></td><td  valign='top' class='NavBarCell3'>
 <font  size='-2'>DETAIL:&nbsp;FIELD&nbsp;|&nbsp;CONSTR&nbsp;|&nbsp;DESTR&nbsp;|&nbsp;<a  href='#method_detail'>METHOD</a></font></td></tr></table><hr /><h2 >
 <font  size='-1'>
-<i >Namespace: </i>PureMVC.Core.Controller<br /></font><br />Class TController</h2><pre >
-PureMVC.Core.Controller.TController
+<i >Namespace: </i>PureMVC.Core.Controller<br /></font><br />Class TController</h2><pre >System.TInterfacedObject
+  |
+  +-- PureMVC.Core.Controller.TController
 </pre><dl >
 <dt /><b >All Implemented Interfaces: </b><dd ><a href="../../../PureMVC/Interfaces/IController/IController.html" target="classFrame" onclick="doClick('../../../PureMVC/Interfaces/IController/doc-files/default.txvpck.html')"><i>IController</i></a>   </dd></dl><hr /><dl >
-<dt />public&nbsp;class <b >TController</b> ( <a href="../../../PureMVC/Interfaces/IController/IController.html" target="classFrame" onclick="doClick('../../../PureMVC/Interfaces/IController/doc-files/default.txvpck.html')"><i>IController</i></a>    ) </dl><p /><dl >
+<dt />public&nbsp;class <b >TController</b> ( System.TInterfacedObject   , <a href="../../../PureMVC/Interfaces/IController/IController.html" target="classFrame" onclick="doClick('../../../PureMVC/Interfaces/IController/doc-files/default.txvpck.html')"><i>IController</i></a>    ) </dl><p /><dl >
 <dt /><b >Abstract</b><dd >False</dd></dl><dl >
-<dt /><b >Persistent</b><dd >False</dd></dl><dl >
-<dt /><b >Sealed</b><dd >False</dd></dl><hr /><p /><a  name='method_summary'/><table  border='1' cellpadding='3' cellspacing='0' width='100%'>
+<dt /><b >Sealed</b><dd >False</dd></dl><dl >
+<dt /><b >Persistent</b><dd >False</dd></dl><hr /><p /><a  name='method_summary'/><table  border='1' cellpadding='3' cellspacing='0' width='100%'>
 <tr  class='TableHeaderStyle'>
 <td  colspan='2'>
 <font  size='+2'>
@@ -96,50 +97,50 @@ PureMVC.Core.Controller.TController
 <b >Method Detail</b></font></td></tr></table><br /><a  name='Destroy()'>
 <h3 >Destroy</h3></a><pre >public&nbsp;procedure Destroy()</pre><dl >
 <dt /><b >Abstract</b><dd >False</dd></dl><dl >
-<dt /><b >Final</b><dd >False</dd></dl><dl >
 <dt /><b >Reintroduce</b><dd >False</dd></dl><dl >
+<dt /><b >Virtual</b><dd >False</dd></dl><dl >
 <dt /><b >Override</b><dd >True</dd></dl><dl >
-<dt /><b >Virtual</b><dd >False</dd></dl><hr /><a  name='ExecuteCommand(INotification)'>
+<dt /><b >Final</b><dd >False</dd></dl><hr /><a  name='ExecuteCommand(INotification)'>
 <h3 >ExecuteCommand</h3></a><pre >public&nbsp;procedure ExecuteCommand(Note: <a href="../../../PureMVC/Interfaces/INotification/INotification.html" target="classFrame" onclick="doClick('../../../PureMVC/Interfaces/INotification/doc-files/default.txvpck.html')">PureMVC.Interfaces.INotification.INotification</a> )</pre><dl >
 <dt /><b >Abstract</b><dd >False</dd></dl><dl >
+<dt /><b >Reintroduce</b><dd >False</dd></dl><dl >
+<dt /><b >Final</b><dd >False</dd></dl><dl >
+<dt /><b >Virtual</b><dd >True</dd></dl><dl >
+<dt /><b >Override</b><dd >False</dd></dl><dl >
 <dt /><b >summary</b><dd > If an ICommand has previously been registered<br /> to handle a the given INotification, then it is executed.<br /></dd></dl><dl >
 <dt /><b >remarks</b><dd >This method is thread safe and needs to be thread safe in all implementations.</dd></dl><dl >
 <dt /><b >param</b><dd >An INotification</dd></dl><dl >
-<dt /><b >Reintroduce</b><dd >False</dd></dl><dl >
-<dt /><b >Class</b><dd >False</dd></dl><dl >
-<dt /><b >Override</b><dd >False</dd></dl><dl >
-<dt /><b >Virtual</b><dd >True</dd></dl><dl >
-<dt /><b >Final</b><dd >False</dd></dl><hr /><a  name='HasCommand(string)'>
+<dt /><b >Class</b><dd >False</dd></dl><hr /><a  name='HasCommand(string)'>
 <h3 >HasCommand</h3></a><pre >public&nbsp;function HasCommand(NotificationName: string): Boolean</pre><dl >
 <dt /><b >Abstract</b><dd >False</dd></dl><dl >
 <dt /><b >Reintroduce</b><dd >False</dd></dl><dl >
+<dt /><b >Final</b><dd >False</dd></dl><dl >
 <dt /><b >Returns</b><dd >Boolean</dd></dl><dl >
-<dt /><b >Class</b><dd >False</dd></dl><dl >
-<dt /><b >Override</b><dd >False</dd></dl><dl >
 <dt /><b >Virtual</b><dd >True</dd></dl><dl >
-<dt /><b >Final</b><dd >False</dd></dl><hr /><a  name='Instance()'>
+<dt /><b >Override</b><dd >False</dd></dl><dl >
+<dt /><b >Class</b><dd >False</dd></dl><hr /><a  name='Instance()'>
 <h3 >Instance</h3></a><pre >public&nbsp;function Instance(): <a href="../../../PureMVC/Interfaces/IController/IController.html" target="classFrame" onclick="doClick('../../../PureMVC/Interfaces/IController/doc-files/default.txvpck.html')">PureMVC.Interfaces.IController.IController</a> </pre><dl >
 <dt /><b >Abstract</b><dd >False</dd></dl><dl >
 <dt /><b >Reintroduce</b><dd >False</dd></dl><dl >
+<dt /><b >Final</b><dd >False</dd></dl><dl >
 <dt /><b >Returns</b><dd >IController</dd></dl><dl >
-<dt /><b >Class</b><dd >True</dd></dl><dl >
-<dt /><b >Override</b><dd >False</dd></dl><dl >
 <dt /><b >Virtual</b><dd >False</dd></dl><dl >
-<dt /><b >Final</b><dd >False</dd></dl><hr /><a  name='RegisterCommand(string/TClass)'>
+<dt /><b >Override</b><dd >False</dd></dl><dl >
+<dt /><b >Class</b><dd >True</dd></dl><hr /><a  name='RegisterCommand(string/TClass)'>
 <h3 >RegisterCommand</h3></a><pre >public&nbsp;procedure RegisterCommand(NotificationName: string; CommandType: TClass)</pre><dl >
 <dt /><b >Abstract</b><dd >False</dd></dl><dl >
 <dt /><b >Reintroduce</b><dd >False</dd></dl><dl >
-<dt /><b >Class</b><dd >False</dd></dl><dl >
-<dt /><b >Override</b><dd >False</dd></dl><dl >
+<dt /><b >Final</b><dd >False</dd></dl><dl >
 <dt /><b >Virtual</b><dd >True</dd></dl><dl >
-<dt /><b >Final</b><dd >False</dd></dl><hr /><a  name='RemoveCommand(string)'>
+<dt /><b >Override</b><dd >False</dd></dl><dl >
+<dt /><b >Class</b><dd >False</dd></dl><hr /><a  name='RemoveCommand(string)'>
 <h3 >RemoveCommand</h3></a><pre >public&nbsp;procedure RemoveCommand(NotificationName: string)</pre><dl >
 <dt /><b >Abstract</b><dd >False</dd></dl><dl >
 <dt /><b >Reintroduce</b><dd >False</dd></dl><dl >
-<dt /><b >Class</b><dd >False</dd></dl><dl >
-<dt /><b >Override</b><dd >False</dd></dl><dl >
+<dt /><b >Final</b><dd >False</dd></dl><dl >
 <dt /><b >Virtual</b><dd >True</dd></dl><dl >
-<dt /><b >Final</b><dd >False</dd></dl><hr /><p /><table  border='0' cellpadding='0' cellspacing='0'>
+<dt /><b >Override</b><dd >False</dd></dl><dl >
+<dt /><b >Class</b><dd >False</dd></dl><hr /><p /><table  border='0' cellpadding='0' cellspacing='0'>
 <tr  class='TableHeaderStyle'>
 <td >
 <font  size='+0'>
@@ -151,13 +152,13 @@ PureMVC.Core.Controller.TController
 <font  size='+0'>
 <b >Association Link</b></font></td></tr></table><br />to Interface  <a href="../../../PureMVC/Interfaces/IView/IView.html" target="classFrame" onclick="doClick('../../../PureMVC/Interfaces/IView/doc-files/default.txvpck.html')"><i>IView</i></a> <p /><dl >
 <dt /><b >Client</b><dd >FView</dd></dl><dl >
-<dt /><b >Supplier</b><dd >IView</dd></dl><dl >
 <dt /><b >Directed</b><dd >False</dd></dl><dl >
-<dt /><b >Type</b><dd >association</dd></dl><br />to Interface  <a href="../../../PureMVC/Interfaces/IController/IController.html" target="classFrame" onclick="doClick('../../../PureMVC/Interfaces/IController/doc-files/default.txvpck.html')"><i>IController</i></a> <p /><dl >
+<dt /><b >Type</b><dd >association</dd></dl><dl >
+<dt /><b >Supplier</b><dd >IView</dd></dl><br />to Interface  <a href="../../../PureMVC/Interfaces/IController/IController.html" target="classFrame" onclick="doClick('../../../PureMVC/Interfaces/IController/doc-files/default.txvpck.html')"><i>IController</i></a> <p /><dl >
 <dt /><b >Client</b><dd >FInstance</dd></dl><dl >
-<dt /><b >Supplier</b><dd >IController</dd></dl><dl >
 <dt /><b >Directed</b><dd >False</dd></dl><dl >
-<dt /><b >Type</b><dd >association</dd></dl><br /><hr /><table  border='0' width='100%' cellpadding='1' cellspacing='0'>
+<dt /><b >Type</b><dd >association</dd></dl><dl >
+<dt /><b >Supplier</b><dd >IController</dd></dl><br /><hr /><table  border='0' width='100%' cellpadding='1' cellspacing='0'>
 <tr >
 <td  colspan='2' class='NavBarCellCommon'>
 <table  border='0' cellpadding='0' cellspacing='3'>
