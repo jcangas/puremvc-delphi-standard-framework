@@ -258,7 +258,7 @@ begin
       Interests := Mediator.ListNotificationInterests();
 
       // Register Mediator as an observer for each of its notification interests
-      if (Interests.Count = 0) then begin
+      if (Interests.Count > 0) then begin
         // Create Observer
         Observer := TObserver.Create('HandleNotification', TObject(Mediator));
 
