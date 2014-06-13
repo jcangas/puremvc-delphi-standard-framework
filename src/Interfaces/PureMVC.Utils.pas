@@ -156,6 +156,17 @@ implementation
 
 {$REGION 'IInterface Members'}
 
+{$IF RTLVersion >= 14.0} // >= XE5
+function InterlockedIncrement(var Addend: Integer): Integer; inline;
+begin
+  Result := AtomicIncrement(Addend);
+end;
+
+function InterlockedDecrement(var Addend: Integer): Integer; inline;
+begin
+  Result := AtomicDecrement(Addend);
+end;
+{$ELSE}
 // copied from System Unit
 function InterlockedAdd(var Addend: Integer; Increment: Integer): Integer;
 asm
@@ -176,6 +187,9 @@ asm
       MOV   EDX,-1
       JMP   InterlockedAdd
 end;
+
+{$IFEND}
+
 
 { Sync }
 
