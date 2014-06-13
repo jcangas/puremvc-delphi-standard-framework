@@ -5,7 +5,7 @@ package PureMVC;
 {$ALIGN 8}
 {$ASSERTIONS ON}
 {$BOOLEVAL OFF}
-{$DEBUGINFO ON}
+{$DEBUGINFO OFF}
 {$EXTENDEDSYNTAX ON}
 {$IMPORTEDDATA ON}
 {$IOCHECKS ON}
@@ -25,8 +25,7 @@ package PureMVC;
 {$IMAGEBASE $400000}
 {$DEFINE DEBUG}
 {$ENDIF IMPLICITBUILDING}
-{$LIBSUFFIX '190'}
-{$RUNONLY}
+{$LIBSUFFIX '200'}
 {$IMPLICITBUILD OFF}
 
 requires
@@ -46,13 +45,15 @@ contains
   PureMVC.Interfaces.IObserver in '..\Interfaces\PureMVC.Interfaces.IObserver.pas',
   PureMVC.Interfaces.IProxy in '..\Interfaces\PureMVC.Interfaces.IProxy.pas',
   PureMVC.Interfaces.IView in '..\Interfaces\PureMVC.Interfaces.IView.pas',
-  PureMVC.Utils in '..\Interfaces\PureMVC.Utils.pas',
   PureMVC.Patterns.Command in '..\Patterns\PureMVC.Patterns.Command.pas',
   PureMVC.Patterns.Facade in '..\Patterns\PureMVC.Patterns.Facade.pas',
   PureMVC.Patterns.Mediator in '..\Patterns\PureMVC.Patterns.Mediator.pas',
   PureMVC.Patterns.Notification in '..\Patterns\PureMVC.Patterns.Notification.pas',
   PureMVC.Patterns.Notifier in '..\Patterns\PureMVC.Patterns.Notifier.pas',
   PureMVC.Patterns.Observer in '..\Patterns\PureMVC.Patterns.Observer.pas',
-  PureMVC.Patterns.Proxy in '..\Patterns\PureMVC.Patterns.Proxy.pas';
+  PureMVC.Patterns.Proxy in '..\Patterns\PureMVC.Patterns.Proxy.pas',
+  PureMVC.Interfaces.Collections in '..\Interfaces\PureMVC.Interfaces.Collections.pas',
+  PureMVC.Patterns.Collections in '..\Patterns\PureMVC.Patterns.Collections.pas';
 
 end.
+

@@ -10,7 +10,7 @@ interface
 
 uses
   SysUtils,
-  PureMVC.Utils,
+  PureMVC.Patterns.Collections,
   PureMVC.Interfaces.INotification,
   PureMVC.Interfaces.IController,
   PureMVC.Interfaces.ICommand,
@@ -39,9 +39,9 @@ uses
 /// <see cref="PureMVC.Patterns.MacroCommand"/>
 
 type
-{$M+}
+  {$M+}
   TController = class(TInterfacedObject, IController)
-{$REGION 'Constructors'}
+    {$REGION 'Constructors'}
     /// <summary>
     /// Constructs and initializes a new controller
     /// </summary>
@@ -57,8 +57,8 @@ type
     constructor Create;
   public
     destructor Destroy; override;
-{$ENDREGION}
-{$REGION 'IController Members'}
+    {$ENDREGION}
+    {$REGION 'IController Members'}
     /// <summary>
     /// If an <c>ICommand</c> has previously been registered
     /// to handle a the given <c>INotification</c>, then it is executed.
@@ -81,8 +81,7 @@ type
     /// </remarks>
     /// <remarks>This method is thread safe and needs to be thread safe in all implementations.</remarks>
   public
-    procedure RegisterCommand(NotificationName: string;
-        CommandType: TClass); virtual;
+    procedure RegisterCommand(NotificationName: string; CommandType: TClass); virtual;
     /// <summary>
     /// Check if a Command is registered for a given Notification
     /// </summary>
@@ -99,15 +98,15 @@ type
     /// <remarks>This method is thread safe and needs to be thread safe in all implementations.</remarks>
   public
     procedure RemoveCommand(NotificationName: string); virtual;
-{$ENDREGION}
-{$REGION 'Accessors'}
+    {$ENDREGION}
+    {$REGION 'Accessors'}
     /// <summary>
     /// Singleton Factory method.  This method is thread safe.
     /// </summary>
   public
     class function Instance: IController; static;
-{$ENDREGION}
-{$REGION 'Protected & Internal Methods'}
+    {$ENDREGION}
+    {$REGION 'Protected & Internal Methods'}
   protected
     /// <summary>
     /// Initialize the Singleton <c>Controller</c> instance
@@ -131,8 +130,8 @@ type
     /// </example>
     /// </remarks>
     procedure InitializeController; virtual;
-{$ENDREGION}
-{$REGION 'Members'}
+    {$ENDREGION}
+    {$REGION 'Members'}
     /// <summary>
     /// Local reference to View
     /// </summary>
@@ -164,9 +163,9 @@ type
   protected
     // readonly
     class var FStaticSyncRoot: TObject;
-{$ENDREGION}
+    {$ENDREGION}
   end;
-{$M-}
+  {$M-}
 
 implementation
 
@@ -192,62 +191,72 @@ var
   CommandType: TCommandClass;
   CommandIntf: ICommand;
 begin
-  if not Sync.Lock<Boolean>(FSyncRoot, function: Boolean begin
-
-      Result := FCommandMap.TryGetValue(Note.Name, CommandType);
-
-  end) then
-    Exit;
+  TMonitor.Enter(FSyncRoot);
+  try
+    if not FCommandMap.TryGetValue(Note.Name, CommandType) then Exit;
+  finally
+    TMonitor.Exit(FSyncRoot);
+  end;
 
   CommandIntf := CommandType.Create;
-  if CommandIntf = nil then
-    Exit;
+  if CommandIntf = nil then Exit;
   CommandIntf.Execute(Note);
 end;
 
-procedure TController.RegisterCommand(NotificationName: string;
-    CommandType: TClass);
+procedure TController.RegisterCommand(NotificationName: string; CommandType: TClass);
 begin
   Assert(CommandType.InheritsFrom(TCommand));
-
-  Sync.Lock(FSyncRoot, procedure begin
-
+  TMonitor.Enter(FSyncRoot);
+  try
     if FCommandMap.ContainsKey(NotificationName) then Exit;
 
-      // This call needs to be monitored carefully. Have to make sure that RegisterObserver
-      // doesn't call back into the controller, or a dead lock could happen.
+    // This call needs to be monitored carefully. Have to make sure that RegisterObserver
+    // doesn't call back into the controller, or a dead lock could happen.
 
-      FView.RegisterObserver(NotificationName,
-      TObserver.Create('ExecuteCommand', Self));
-      FCommandMap.Add(NotificationName, TCommandClass(CommandType));
+    FView.RegisterObserver(NotificationName, TObserver.Create('ExecuteCommand', Self));
+    FCommandMap.Add(NotificationName, TCommandClass(CommandType));
 
-    end);
-
+  finally
+    TMonitor.Exit(FSyncRoot);
+  end;
 end;
 
 function TController.HasCommand(NotificationName: string): Boolean;
 begin
-  Result := Sync.Lock<Boolean>(FSyncRoot, function: Boolean begin Result :=
-      FCommandMap.ContainsKey(NotificationName); end);
+  TMonitor.Enter(FSyncRoot);
+  try
+    Result := FCommandMap.ContainsKey(NotificationName);
+  finally
+    TMonitor.Exit(FSyncRoot);
+  end;
 end;
 
 procedure TController.RemoveCommand(NotificationName: string);
 begin
-  Sync.Lock(FSyncRoot,
-      procedure begin if (FCommandMap.ContainsKey(NotificationName)) then begin
+  TMonitor.Enter(FSyncRoot);
+  try
+    if (FCommandMap.ContainsKey(NotificationName)) then begin
       // remove the observer
 
       // This call needs to be monitored carefully. Have to make sure that RemoveObserver
       // doesn't call back into the controller, or a dead lock could happen.
       FView.RemoveObserver(NotificationName, Self);
-      FCommandMap.Remove(NotificationName); end; end);
+      FCommandMap.Remove(NotificationName);
+    end;
+  finally
+    TMonitor.Exit(FSyncRoot);
+  end;
 end;
 
 class function TController.Instance: IController;
 begin
   if (FInstance = nil) then begin
-    Sync.Lock(FStaticSyncRoot, procedure begin if (FInstance = nil)
-    then FInstance := TController.Create; end);
+    TMonitor.Enter(FStaticSyncRoot);
+    try
+      if (FInstance = nil) then FInstance := TController.Create;
+    finally
+      TMonitor.Exit(FStaticSyncRoot);
+    end;
   end;
   Result := FInstance;
 end;

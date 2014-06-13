@@ -3,7 +3,7 @@ unit PureMVC.Core.Model;
 interface
 
 uses
-  PureMVC.Utils,
+  PureMVC.Patterns.Collections,
   PureMVC.Interfaces.IModel,
   PureMVC.Interfaces.IProxy;
 
@@ -29,7 +29,7 @@ type
   /// <seealso cref="PureMVC.Interfaces.IProxy" />
   TModel = class(TInterfacedObject, IModel)
 
-{$REGION 'Constructors'}
+    {$REGION 'Constructors'}
     /// <summary>
     /// Constructs and initializes a new model
     /// </summary>
@@ -38,11 +38,11 @@ type
     /// </remarks>
   protected
     constructor Create();
-{$ENDREGION}
-{$REGION 'Public Methods'}
+    {$ENDREGION}
+    {$REGION 'Public Methods'}
   public
     destructor Destroy; override;
-{$REGION 'IModel Members'}
+    {$REGION 'IModel Members'}
     /// <summary>
     /// Register an <c>IProxy</c> with the <c>Model</c>
     /// </summary>
@@ -70,15 +70,15 @@ type
     /// <remarks>This method is thread safe and needs to be thread safe in all implementations.</remarks>
     function RemoveProxy(ProxyName: string): IProxy; virtual;
 
-{$ENDREGION}
-{$ENDREGION}
-{$REGION 'Accessors'}
+    {$ENDREGION}
+    {$ENDREGION}
+    {$REGION 'Accessors'}
     /// <summary>
     /// <c>Model</c> Singleton Factory method.  This method is thread safe.
     /// </summary>
     class function Instance: IModel; static;
-{$ENDREGION}
-{$REGION 'Protected & Internal Methods'}
+    {$ENDREGION}
+    {$REGION 'Protected & Internal Methods'}
     /// <summary>
     /// Initialize the Singleton <c>Model</c> instance.
     /// </summary>
@@ -87,8 +87,8 @@ type
     /// </remarks>
   protected
     procedure InitializeModel; virtual;
-{$ENDREGION}
-{$REGION 'Members'}
+    {$ENDREGION}
+    {$REGION 'Members'}
     /// <summary>
     /// Mapping of proxyNames to <c>IProxy</c> instances
     /// </summary>
@@ -111,7 +111,7 @@ type
     /// </summary>
   var
     FSyncRoot: TObject;
-{$ENDREGION}
+    {$ENDREGION}
   end;
 
 implementation
@@ -135,11 +135,12 @@ end;
 
 function TModel.HasProxy(ProxyName: string): Boolean;
 begin
-  Result := Sync.Lock<Boolean>(FSyncRoot, function: Boolean begin 
-
-    Result := FProxyMap.ContainsKey(ProxyName); 
-
-  end);
+  TMonitor.Enter(FSyncRoot);
+  try
+    Result := FProxyMap.ContainsKey(ProxyName);
+  finally
+    TMonitor.Exit(FSyncRoot);
+  end;
 end;
 
 procedure TModel.InitializeModel;
@@ -149,24 +150,27 @@ end;
 
 class function TModel.Instance: IModel;
 begin
-  if (FInstance = nil) then
-      Sync.Lock(FStaticSyncRoot, procedure begin 
-
-        if (FInstance = nil) then FInstance := TModel.Create; 
-
-      end);
+  if (FInstance = nil) then begin
+    TMonitor.Enter(FStaticSyncRoot);
+    try
+      if (FInstance = nil) then FInstance := TModel.Create;
+    finally
+      TMonitor.Exit(FStaticSyncRoot);
+    end;
+  end;
 
   Result := FInstance;
 end;
 
 procedure TModel.RegisterProxy(Proxy: IProxy);
 begin
-  Sync.Lock(FSyncRoot, procedure begin 
-
+  TMonitor.Enter(FSyncRoot);
+  try
     FProxyMap.Add(Proxy.ProxyName, Proxy);
-    
-  end);
-  
+  finally
+    TMonitor.Exit(FSyncRoot);
+  end;
+
   Proxy.OnRegister;
 end;
 
@@ -175,15 +179,15 @@ var
   Proxy: IProxy;
 begin
   Proxy := nil;
-  Sync.Lock(FSyncRoot, procedure begin 
-
-    if (FProxyMap.ContainsKey(ProxyName)) then begin 
-      Proxy := RetrieveProxy(ProxyName); 
+  TMonitor.Enter(FSyncRoot);
+  try
+    if (FProxyMap.ContainsKey(ProxyName)) then begin
+      Proxy := RetrieveProxy(ProxyName);
       FProxyMap.Remove(ProxyName);
-    end; 
-
-  end);
-
+    end;
+  finally
+    TMonitor.Exit(FSyncRoot);
+  end;
   if Assigned(Proxy) then Proxy.OnRemove();
   Result := Proxy;
 end;
@@ -192,14 +196,13 @@ function TModel.RetrieveProxy(ProxyName: string): IProxy;
 var
   Proxy: IProxy;
 begin
-  Sync.Lock(FSyncRoot, procedure begin 
-
-    Proxy := nil; 
-    if FProxyMap.ContainsKey(ProxyName) then 
-      Proxy := FProxyMap[ProxyName]; 
-
-    end);
-    
+  TMonitor.Enter(FSyncRoot);
+  try
+    Proxy := nil;
+    if FProxyMap.ContainsKey(ProxyName) then Proxy := FProxyMap[ProxyName];
+  finally
+    TMonitor.Exit(FSyncRoot);
+  end;
   Result := Proxy;
 end;
 

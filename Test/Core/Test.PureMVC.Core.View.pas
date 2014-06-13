@@ -17,9 +17,12 @@ uses
   RTTI,
   TestFramework,
   PureMVC.Interfaces.IView,
-  PureMVC.Interfaces.IMediator, PureMVC.Utils,
+  PureMVC.Interfaces.IMediator,
+  PureMVC.Interfaces.Collections,
   PureMVC.Interfaces.IObserver,
-  PureMVC.Interfaces.INotification, PureMVC.Core.View;
+  PureMVC.Interfaces.INotification,
+  PureMVC.Patterns.Collections,
+  PureMVC.Core.View;
 
 type
   // Test methods for class TView
