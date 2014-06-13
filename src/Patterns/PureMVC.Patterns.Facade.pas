@@ -151,7 +151,7 @@ type
 implementation
 
 uses
-  PureMVC.Utils,
+  PureMVC.Interfaces.Collections,
   PureMVC.Core.Model,
   PureMVC.Core.View,
   PureMVC.Core.Controller,
@@ -193,11 +193,14 @@ end;
 
 class function TFacade.Instance: IFacade;
 begin
-  if (FInstance = nil) then
-    Sync.Lock(FStaticSyncRoot, procedure begin
+  if (FInstance = nil) then begin
+    TMonitor.Enter(FStaticSyncRoot);
+    try
       if (FInstance = nil) then FInstance := Self.Create;
-    end);
-
+    finally
+      TMonitor.Exit(FStaticSyncRoot);
+    end;
+  end;
   Result := FInstance;
 end;
 

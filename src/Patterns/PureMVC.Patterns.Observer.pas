@@ -9,7 +9,7 @@ unit PureMVC.Patterns.Observer;
 interface
 
 uses
-  PureMVC.Utils,
+  PureMVC.Patterns.Collections,
   PureMVC.Interfaces.IObserver,
   PureMVC.Interfaces.INotification;
 
