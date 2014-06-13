@@ -11,7 +11,7 @@ interface
 uses
   SysUtils,
   RTTI,
-  PureMVC.Utils,
+  PureMVC.Interfaces.Collections,
   PureMVC.Interfaces.INotification,
   PureMVC.Interfaces.INotifier,
   PureMVC.Interfaces.IMediator,
@@ -19,24 +19,31 @@ uses
 
 type
   /// <summary>
-  ///  Tools for implements IMediator and Notification handle using CustomAttributes
-  /// Attribute to mark a method as a PureMVC notification handler
+  /// Tools for implements IMediator and Notification handle using CustomAttributes
+  /// Attribute to mark a method as a PureMVC notification handler.
+  /// The method MUST have signature:
+  /// procedure (Notification: INotification);
+  /// Sample:
+  /// [PureMVCNotify(AppMsg.DAO_CHANGED)]
+  /// procedure DAOChanged(Notification: INotification);
   /// </summary>
   PureMVCNotifyAttribute = class(TCustomAttribute)
   private
     FNotificationName: string;
     FOrder: Integer;
   public
-    constructor Create(const NotificationName: string; const Order: Integer=0);
-    property NotificationName: string read FNotificationName;
-    property Order: Integer read FOrder;
+    constructor Create(const NotificationName: string; const Order: Integer = 0);
+    property NotificationName: string
+      read FNotificationName;
+    property Order: Integer
+      read FOrder;
   end;
 
   /// <summary>
-  ///  Tools for implements IMediator and Notification handle using CustomAttributes
+  /// Tools for implements IMediator and Notification handle using CustomAttributes
   /// A helper to query and manage methods using PureMVCNotifyAttribute
   /// </summary>
-  TPureMVCNotifyHelper = class Helper for TObject
+  TPureMVCNotifyHelper = class helper for TObject
   protected
     procedure InvokeByPureMVCNotify(NotificationName: string; Args: array of TValue);
   public
@@ -44,9 +51,8 @@ type
     function GetPureMVCNotifyNames: IList<string>;
   end;
 
-
   /// <summary>
-  ///  A default Mediator implementation based on PureMVCNotifyAttribute
+  /// A default Mediator implementation based on PureMVCNotifyAttribute
   /// </summary>
   TMediator = class(TNotifier, IMediator, INotifier)
   private
@@ -55,43 +61,51 @@ type
   public
     function GetMediatorName: string;
     function GetViewComponent: TObject;
-    procedure SetViewComponent(Value: TObject);virtual;
+    procedure SetViewComponent(Value: TObject); virtual;
     procedure OnRemove; virtual;
     procedure OnRegister; virtual;
     function ListNotificationInterests: IList<string>; virtual;
 
-    constructor Create(Name: string = ''; AViewComponent: TObject = nil);overload;
-    constructor Create(View: TObject);overload;
+    constructor Create(Name: string = ''; AViewComponent: TObject = nil); overload;
+    constructor Create(View: TObject); overload;
 
-    property MediatorName: string read GetMediatorName;
-    property ViewComponent: TObject read GetViewComponent write SetViewComponent;
+    property MediatorName: string
+      read GetMediatorName;
+    property ViewComponent: TObject
+      read GetViewComponent
+      write SetViewComponent;
     procedure HandleNotification(Notification: INotification); virtual;
   end;
 
 implementation
 
-uses Generics.Defaults;
+uses
+  Generics.Defaults,
+  PureMVC.Patterns.Collections;
 
 type
   TAttributePredicate = TPredicate<TCustomAttribute>;
+
   TAttributedMethod = record
   private
     FMethod: TRttiMethod;
     FByAttribute: TCustomAttribute;
   public
     constructor Create(AMethod: TRttiMethod; ByAttribute: TCustomAttribute);
-    property Method: TRttiMethod read FMethod;
-    property ByAttribute: TCustomAttribute read FByAttribute;
+    property Method: TRttiMethod
+      read FMethod;
+    property ByAttribute: TCustomAttribute
+      read FByAttribute;
   end;
 
   TAttributedMethods = class(TList<TAttributedMethod>)
   private
     FSource: TObject;
     RC: TRttiContext;
-    RType: TRttiType;
+    RType: TRttiInstanceType;
   public
     constructor Create(Source: TObject);
-    destructor Destroy;override;
+    destructor Destroy; override;
     function ByAttribute(AP: TAttributePredicate): TAttributedMethods;
     function Invoke(Args: array of TValue): TAttributedMethods;
   end;
@@ -101,9 +115,9 @@ type
     function Compare(const Left, Right: TAttributedMethod): Integer; override;
   end;
 
-{ PureMVCNotifyAttribute }
+  { PureMVCNotifyAttribute }
 
-constructor PureMVCNotifyAttribute.Create(const NotificationName: string; const Order: Integer=0);
+constructor PureMVCNotifyAttribute.Create(const NotificationName: string; const Order: Integer = 0);
 begin
   inherited Create;
   FNotificationName := NotificationName;
@@ -112,7 +126,7 @@ end;
 
 { TAttributedMethodComparer }
 
-function TAttributedMethodComparer.Compare(const Left, Right:  TAttributedMethod): Integer;
+function TAttributedMethodComparer.Compare(const Left, Right: TAttributedMethod): Integer;
 begin
   Result := PureMVCNotifyAttribute(Left.ByAttribute).Order - PureMVCNotifyAttribute(Right.ByAttribute).Order;
 end;
@@ -132,7 +146,7 @@ begin
   inherited Create;
   FSource := Source;
   RC := TRttiContext.Create;
-  RType := RC.GetType(FSource.ClassType) as TRttiType;
+  RType := RC.GetType(FSource.ClassType) as TRttiInstanceType;
 end;
 
 destructor TAttributedMethods.Destroy;
@@ -146,8 +160,7 @@ var
   Item: TAttributedMethod;
 begin
   Result := Self;
-  for Item in Self do
-    Item.Method.Invoke(FSource, Args);
+  for Item in Self do Item.Method.Invoke(FSource, Args);
 end;
 
 function TAttributedMethods.ByAttribute(AP: TAttributePredicate): TAttributedMethods;
@@ -178,18 +191,19 @@ var
   Comparer: IComparer<TAttributedMethod>;
 begin
   with TAttributedMethods.Create(Self) do
-  try
-    ByAttribute(function(Atr: TCustomAttribute): Boolean begin
-        Result := Atr.InheritsFrom(PureMVCNotifyAttribute) and
-        (PureMVCNotifyAttribute(Atr).NotificationName = NotificationName);
-    end);
-    Comparer := TAttributedMethodComparer.Create;
-    Sort(Comparer);
-    Comparer := nil;;
-    Invoke(Args);
-  finally
-    Free;
-  end;
+    try
+      ByAttribute(function(Atr: TCustomAttribute): Boolean
+        begin
+          Result := Atr.InheritsFrom(PureMVCNotifyAttribute) and
+            (PureMVCNotifyAttribute(Atr).NotificationName = NotificationName);
+        end);
+      Comparer := TAttributedMethodComparer.Create;
+      Sort(Comparer);
+      Comparer := nil;;
+      Invoke(Args);
+    finally
+      Free;
+    end;
 end;
 
 procedure TPureMVCNotifyHelper.HandlePureMVCNotification(Notification: INotification);
@@ -205,11 +219,12 @@ begin
   Result := TList<string>.Create;
   Methods := TAttributedMethods.Create(Self);
   try
-    Methods.ByAttribute(function(Atr: TCustomAttribute): Boolean begin
+    Methods.ByAttribute(function(Atr: TCustomAttribute): Boolean
+      begin
         Result := Atr.InheritsFrom(PureMVCNotifyAttribute);
-    end);
+      end);
     for Item in Methods do begin
-       Result.Add(PureMVCNotifyAttribute(Item.ByAttribute).NotificationName);
+      Result.Add(PureMVCNotifyAttribute(Item.ByAttribute).NotificationName);
     end;
   finally
     Methods.Free;
@@ -221,9 +236,8 @@ end;
 constructor TMediator.Create(Name: string; AViewComponent: TObject);
 begin
   inherited Create;
-  if Name = '' then
-    Name := ClassName;
-  FMediatorName := Name;
+  if name = '' then name := ClassName;
+  FMediatorName := name;
   ViewComponent := AViewComponent;
 end;
 

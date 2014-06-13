@@ -9,7 +9,7 @@ unit PureMVC.Patterns.Command;
 interface
 
 uses
-  PureMVC.Utils,
+  PureMVC.Interfaces.Collections,
   PureMVC.Patterns.Notifier,
   PureMVC.Interfaces.ICommand,
   PureMVC.Interfaces.INotifier,
@@ -122,6 +122,7 @@ type
 implementation
 
 uses
+  PureMVC.Patterns.Collections,
   SysUtils;
 
 { TCommand }

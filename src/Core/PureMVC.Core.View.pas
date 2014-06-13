@@ -9,8 +9,9 @@ interface
 
 uses
   SysUtils,
-  PureMVC.Utils,
+  PureMVC.Patterns.Collections,
   PureMVC.Patterns.Observer,
+  PureMVC.Interfaces.Collections,
   PureMVC.Interfaces.IObserver,
   PureMVC.Interfaces.INotification,
   PureMVC.Interfaces.IMediator,
@@ -35,7 +36,7 @@ type
   /// <see cref="PureMVC.Patterns.Observer"/>
   /// <see cref="PureMVC.Patterns.Notification"/>
   TView = class(TInterfacedObject, IView)
-{$REGION 'Constructors'}
+    {$REGION 'Constructors'}
     /// <summary>
     /// Constructs and initializes a new view
     /// </summary>
@@ -47,7 +48,7 @@ type
     procedure InitializeView; virtual;
   private
 
-{$ENDREGION}
+    {$ENDREGION}
   public
     destructor Destroy; override;
     class function Instance: IView; static;
@@ -58,8 +59,7 @@ type
     /// <param name="NotificationName">The name of the <c>INotifications</c> to notify this <c>IObserver</c> of</param>
     /// <param name="Observer">The <c>IObserver</c> to register</param>
     /// <remarks>This method is thread safe and needs to be thread safe in all implementations.</remarks>
-    procedure RegisterObserver(NotificationName: string;
-        Observer: IObserver); virtual;
+    procedure RegisterObserver(NotificationName: string; Observer: IObserver); virtual;
 
     /// <summary>
     /// Remove the observer for a given notifyContext from an observer list for a given Notification name.
@@ -67,8 +67,7 @@ type
     /// <param name="NotificationName">which observer list to remove from</param>
     /// <param name="NotifyContext">remove the observer with this object as its notifyContext</param>
     /// <remarks>This method is thread safe and needs to be thread safe in all implementations.</remarks>
-    procedure RemoveObserver(NotificationName: string;
-        NotifyContext: TObject); virtual;
+    procedure RemoveObserver(NotificationName: string; NotifyContext: TObject); virtual;
 
     /// <summary>
     /// Notify the <c>IObservers</c> for a particular <c>INotification</c>
@@ -116,7 +115,7 @@ type
     function HasMediator(MediatorName: string): Boolean; overload; virtual;
     function HasMediator(Mediator: IMediator): Boolean; overload;
 
-{$REGION 'Members'}
+    {$REGION 'Members'}
   protected
     /// <summary>
     /// Mapping of Mediator names to Mediator instances
@@ -143,7 +142,7 @@ type
     /// </summary>
     class var FStaticSyncRoot: TObject; // readonly
 
-{$ENDREGION}
+    {$ENDREGION}
   end;
 
 implementation
@@ -172,39 +171,44 @@ end;
 
 procedure TView.RegisterObserver(NotificationName: string; Observer: IObserver);
 begin
-  Sync.Lock(FSyncRoot, procedure begin
-
-    if not FObserverMap.ContainsKey(NotificationName) then
-      FObserverMap.Add(NotificationName, TList<IObserver>.Create);
+  TMonitor.Enter(FSyncRoot);
+  try
+    if not FObserverMap.ContainsKey(NotificationName) then FObserverMap.Add(NotificationName, TList<IObserver>.Create);
     FObserverMap[NotificationName].Add(Observer);
-  end);
-
+  finally
+    TMonitor.Exit(FSyncRoot);
+  end;
 end;
 
-procedure TView.RemoveObserver(NotificationName: string;
-    NotifyContext: TObject);
+procedure TView.RemoveObserver(NotificationName: string; NotifyContext: TObject);
 var
   Observers: IList<IObserver>;
+  I: Integer;
 begin
-  Sync.Lock(FSyncRoot, procedure var I: Integer; begin
+  TMonitor.Enter(FSyncRoot);
+  try
+    if not(FObserverMap.ContainsKey(NotificationName)) then Exit;
 
-      if not(FObserverMap.ContainsKey(NotificationName)) then Exit;
+    // the observer list for the notification under inspection
+    Observers := FObserverMap[NotificationName];
 
-      // the observer list for the notification under inspection
-      Observers := FObserverMap[NotificationName];
+    // find the observer for the notifyContext
+    for I := 0 to (Observers.Count - 1) do begin
+      if (Observers[I].CompareNotifyContext(NotifyContext)) then begin
+        // there can only be one Observer for a given notifyContext
+        // in any given Observer list, so remove it and break
+        Observers.Delete(I);
+        Break;
+      end;
+    end;
 
-      // find the observer for the notifyContext
-      for I := 0 to (Observers.Count - 1)
-      do begin if (Observers[I].CompareNotifyContext(NotifyContext)) then begin
-      // there can only be one Observer for a given notifyContext
-      // in any given Observer list, so remove it and break
-      Observers.Delete(I); Break; end; end;
+    // Also, when a Notification's Observer list length falls to
+    // zero, delete the notification key from the observer map
+    if (Observers.Count = 0) then FObserverMap.Remove(NotificationName);
 
-      // Also, when a Notification's Observer list length falls to
-      // zero, delete the notification key from the observer map
-      if (Observers.Count = 0) then FObserverMap.Remove(NotificationName);
-
-  end);
+  finally
+    TMonitor.Exit(FSyncRoot);
+  end;
 end;
 
 procedure TView.NotifyObservers(Notification: INotification);
@@ -214,26 +218,25 @@ var
   Observer: IObserver;
 begin
   Observers := nil;
+  TMonitor.Enter(FSyncRoot);
+  try
+    if not(FObserverMap.ContainsKey(Notification.Name)) then Exit;
 
-  Sync.Lock(FSyncRoot, procedure begin
+    // Get a reference to the observers list for this notification name
+    ObserversRef := FObserverMap[Notification.Name];
+    // Copy observers from reference array to working array,
+    // since the reference array may change during the notification loop
+    Observers := TList<IObserver>.Create(ObserversRef);
 
-      if not(FObserverMap.ContainsKey(Notification.Name)) then Exit;
-
-      // Get a reference to the observers list for this notification name
-      ObserversRef := FObserverMap[Notification.Name];
-      // Copy observers from reference array to working array,
-      // since the reference array may change during the notification loop
-      Observers := TList<IObserver>.Create(ObserversRef);
-
-  end);
+  finally
+    TMonitor.Exit(FSyncRoot);
+  end;
 
   // Notify outside of the lock
-  if (Observers = nil) then
-    Exit;
+  if (Observers = nil) then Exit;
 
   // Notify Observers from the working array
-  for Observer in Observers do
-    Observer.NotifyObserver(Notification);
+  for Observer in Observers do Observer.NotifyObserver(Notification);
 
 end;
 
@@ -243,61 +246,66 @@ end;
 
 procedure TView.RegisterMediator(Mediator: IMediator);
 var
+  Interest: string;
   Interests: IList<string>;
   Observer: IObserver;
 begin
-  Sync.Lock(FSyncRoot, procedure var Interest: string; begin
+  TMonitor.Enter(FSyncRoot);
+  try
+    // do not allow re-registration (you must do RemoveMediator first)
+    if (FMediatorMap.ContainsKey(Mediator.MediatorName)) then Exit;
 
-      // do not allow re-registration (you must do RemoveMediator first)
-      if (FMediatorMap.ContainsKey(Mediator.MediatorName)) then Exit;
+    // Register the Mediator for retrieval by name
+    FMediatorMap.Add(Mediator.MediatorName, Mediator);
 
-      // Register the Mediator for retrieval by name
-      FMediatorMap.Add(Mediator.MediatorName, Mediator);
+    // Get Notification interests, if any.
+    Interests := Mediator.ListNotificationInterests;
 
-      // Get Notification interests, if any.
-      Interests := Mediator.ListNotificationInterests();
+    // Register Mediator as an observer for each of its notification interests
+    if (Interests.Count > 0) then begin
+      // Create Observer
+      Observer := TObserver.Create('HandleNotification', TObject(Mediator));
 
-      // Register Mediator as an observer for each of its notification interests
-      if (Interests.Count > 0) then begin
-        // Create Observer
-        Observer := TObserver.Create('HandleNotification', TObject(Mediator));
+      // Register Mediator as Observer for its list of Notification interests
+      for Interest in Interests do RegisterObserver(Interest, Observer);
+    end;
+    // alert the mediator that it has been registered
+    Mediator.OnRegister();
 
-        // Register Mediator as Observer for its list of Notification interests
-        for Interest in Interests do RegisterObserver(Interest, Observer);
-      end;
-      // alert the mediator that it has been registered
-      Mediator.OnRegister();
-
-  end);
-
+  finally
+    TMonitor.Exit(FSyncRoot);
+  end;
 end;
 
 function TView.RetrieveMediator(MediatorName: string): IMediator;
 begin
-  Result := Sync.Lock<IMediator>(FSyncRoot, function: IMediator begin
-
-      if not(FMediatorMap.ContainsKey(MediatorName)) then Exit(nil);
-      Result := FMediatorMap[MediatorName];
-
-  end);
+  TMonitor.Enter(FSyncRoot);
+  try
+    if not(FMediatorMap.ContainsKey(MediatorName)) then Exit(nil);
+    Result := FMediatorMap[MediatorName];
+  finally
+    TMonitor.Exit(FSyncRoot);
+  end;
 end;
 
 function TView.HasMediator(MediatorName: string): Boolean;
 begin
-  Result := Sync.Lock<Boolean>(FSyncRoot, function: Boolean begin
-
-      Result := FMediatorMap.ContainsKey(MediatorName);
-
-  end);
+  TMonitor.Enter(FSyncRoot);
+  try
+    Result := FMediatorMap.ContainsKey(MediatorName);
+  finally
+    TMonitor.Exit(FSyncRoot);
+  end;
 end;
 
 function TView.HasMediator(Mediator: IMediator): Boolean;
 begin
-  Result := Sync.Lock<Boolean>(FSyncRoot, function: Boolean begin
-
-      Result := FMediatorMap.ContainsValue(Mediator);
-
-  end);
+  TMonitor.Enter(FSyncRoot);
+  try
+    Result := FMediatorMap.ContainsValue(Mediator);
+  finally
+    TMonitor.Exit(FSyncRoot);
+  end;
 end;
 
 /// <summary>
@@ -307,42 +315,40 @@ end;
 /// <remarks>This method is thread safe and needs to be thread safe in all implementations.</remarks>
 
 function TView.RemoveMediator(MediatorName: string): IMediator;
+var
+  Interests: IList<string>;
+  Mediator: IMediator;
+  Interest: string;
 
 begin
-  Result := Sync.Lock<IMediator>(FSyncRoot, function: IMediator
-      var
-        Interests: IList<string>;
-        Mediator: IMediator; Interest: string;
-      begin
+  TMonitor.Enter(FSyncRoot);
+  try
+    // Retrieve the named mediator
+    if not(FMediatorMap.ContainsKey(MediatorName)) then Exit(nil);
 
-      // Retrieve the named mediator
-      if not(FMediatorMap.ContainsKey(MediatorName)) then Exit(nil);
+    Mediator := FMediatorMap[MediatorName];
 
-      Mediator := FMediatorMap[MediatorName];
+    // for every notification this mediator is interested in...
+    Interests := Mediator.ListNotificationInterests;
 
-      // for every notification this mediator is interested in...
-      Interests := Mediator.ListNotificationInterests;
+    // remove the observer linking the mediator to the notification interest
+    for Interest in Interests do RemoveObserver(Interest, TObject(Mediator));
 
-      // remove the observer linking the mediator to the notification interest
-      for Interest in Interests do RemoveObserver(Interest, TObject(Mediator));
-      // FIX invalidcast
-
-      // remove the mediator from the map
-      FMediatorMap.Remove(MediatorName);
-      Result := Mediator;
-  end);
+    // remove the mediator from the map
+    FMediatorMap.Remove(MediatorName);
+    Result := Mediator;
+  finally
+    TMonitor.Exit(FSyncRoot);
+  end;
   // alert the mediator that it has been removed
-  if Assigned(Result) then
-    Result.OnRemove();
+  if Assigned(Result) then Result.OnRemove();
 end;
 
 function TView.RemoveMediator(Mediator: IMediator): IMediator;
 begin
-  if Mediator = nil then
-    Exit(nil);
+  if Mediator = nil then Exit(nil);
   // Ensure we not remove an unregistered mediator
-  if not HasMediator(Mediator) then
-    Exit(nil);
+  if not HasMediator(Mediator) then Exit(nil);
   Result := RemoveMediator(Mediator.MediatorName);
 end;
 
@@ -357,8 +363,12 @@ end;
 class function TView.Instance: IView;
 begin
   if (FInstance = nil) then begin
-    Sync.Lock(FStaticSyncRoot, procedure begin if (FInstance = nil)
-    then FInstance := TView.Create; end);
+    TMonitor.Enter(FStaticSyncRoot);
+    try
+      if (FInstance = nil) then FInstance := TView.Create;
+    finally
+      TMonitor.Exit(FStaticSyncRoot);
+    end;
   end;
   Result := FInstance;
 end;

@@ -9,7 +9,7 @@ unit PureMVC.Interfaces.IMediator;
 interface
 
 uses
-  PureMVC.Utils,
+  PureMVC.Interfaces.Collections,
   PureMVC.Interfaces.INotification;
 
 type
