@@ -5,12 +5,9 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, ExtCtrls, ActnList,
-  {$IF RTLVersion > 23}
-  System.Actions,
- {$IFEND}
   EmployeeAdmin.Model.Enum.Enum,
   EmployeeAdmin.Model.Enum.DeptEnum,
-  EmployeeAdmin.Model.VO.UserVO;
+  EmployeeAdmin.Model.VO.UserVO, System.Actions;
 
 type
   TUserFormMode = (ADD, EDIT);

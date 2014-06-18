@@ -9,7 +9,7 @@ uses
   PureMVC.Interfaces.ICommand,
   PureMVC.Patterns.Command,
   PureMVC.Patterns.Notification,
-  PureMVC.Utils,
+  PureMVC.Interfaces.Collections,
   PureMVC.Core.Controller,
   PureMVC.Core.View,
   PureMVC.Patterns.Observer;

@@ -10,7 +10,7 @@ interface
 
 uses
   Classes,
-  PureMVC.Utils,
+  PureMVC.Interfaces.Collections,
   EmployeeAdmin.Model.Enum.Enum;
 
 type
@@ -46,6 +46,9 @@ type
   end;
 
 implementation
+uses
+  PureMVC.Patterns.Collections;
+
 
 { TRoleEnum }
 

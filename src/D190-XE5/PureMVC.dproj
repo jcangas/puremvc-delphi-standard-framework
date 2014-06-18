@@ -2,10 +2,10 @@
     <PropertyGroup>
         <ProjectGuid>{25811770-0120-4D90-ABD3-A47020842BE6}</ProjectGuid>
         <MainSource>PureMVC.dpk</MainSource>
-        <ProjectVersion>15.3</ProjectVersion>
+        <ProjectVersion>15.4</ProjectVersion>
         <FrameworkType>None</FrameworkType>
         <Base>True</Base>
-        <Config Condition="'$(Config)'==''">Release</Config>
+        <Config Condition="'$(Config)'==''">Debug</Config>
         <Platform Condition="'$(Platform)'==''">iOSSimulator</Platform>
         <TargetedPlatforms>95</TargetedPlatforms>
         <AppType>Package</AppType>
@@ -48,6 +48,18 @@
         <CfgParent>Base</CfgParent>
         <Base>true</Base>
     </PropertyGroup>
+    <PropertyGroup Condition="('$(Platform)'=='Android' and '$(Cfg_1)'=='true') or '$(Cfg_1_Android)'!=''">
+        <Cfg_1_Android>true</Cfg_1_Android>
+        <CfgParent>Cfg_1</CfgParent>
+        <Cfg_1>true</Cfg_1>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="('$(Platform)'=='iOSDevice' and '$(Cfg_1)'=='true') or '$(Cfg_1_iOSDevice)'!=''">
+        <Cfg_1_iOSDevice>true</Cfg_1_iOSDevice>
+        <CfgParent>Cfg_1</CfgParent>
+        <Cfg_1>true</Cfg_1>
+        <Base>true</Base>
+    </PropertyGroup>
     <PropertyGroup Condition="('$(Platform)'=='iOSSimulator' and '$(Cfg_1)'=='true') or '$(Cfg_1_iOSSimulator)'!=''">
         <Cfg_1_iOSSimulator>true</Cfg_1_iOSSimulator>
         <CfgParent>Cfg_1</CfgParent>
@@ -77,17 +89,48 @@
         <CfgParent>Base</CfgParent>
         <Base>true</Base>
     </PropertyGroup>
+    <PropertyGroup Condition="('$(Platform)'=='Android' and '$(Cfg_2)'=='true') or '$(Cfg_2_Android)'!=''">
+        <Cfg_2_Android>true</Cfg_2_Android>
+        <CfgParent>Cfg_2</CfgParent>
+        <Cfg_2>true</Cfg_2>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="('$(Platform)'=='iOSDevice' and '$(Cfg_2)'=='true') or '$(Cfg_2_iOSDevice)'!=''">
+        <Cfg_2_iOSDevice>true</Cfg_2_iOSDevice>
+        <CfgParent>Cfg_2</CfgParent>
+        <Cfg_2>true</Cfg_2>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="('$(Platform)'=='iOSSimulator' and '$(Cfg_2)'=='true') or '$(Cfg_2_iOSSimulator)'!=''">
+        <Cfg_2_iOSSimulator>true</Cfg_2_iOSSimulator>
+        <CfgParent>Cfg_2</CfgParent>
+        <Cfg_2>true</Cfg_2>
+        <Base>true</Base>
+    </PropertyGroup>
     <PropertyGroup Condition="('$(Platform)'=='OSX32' and '$(Cfg_2)'=='true') or '$(Cfg_2_OSX32)'!=''">
         <Cfg_2_OSX32>true</Cfg_2_OSX32>
         <CfgParent>Cfg_2</CfgParent>
         <Cfg_2>true</Cfg_2>
         <Base>true</Base>
     </PropertyGroup>
+    <PropertyGroup Condition="('$(Platform)'=='Win32' and '$(Cfg_2)'=='true') or '$(Cfg_2_Win32)'!=''">
+        <Cfg_2_Win32>true</Cfg_2_Win32>
+        <CfgParent>Cfg_2</CfgParent>
+        <Cfg_2>true</Cfg_2>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="('$(Platform)'=='Win64' and '$(Cfg_2)'=='true') or '$(Cfg_2_Win64)'!=''">
+        <Cfg_2_Win64>true</Cfg_2_Win64>
+        <CfgParent>Cfg_2</CfgParent>
+        <Cfg_2>true</Cfg_2>
+        <Base>true</Base>
+    </PropertyGroup>
     <Import Project="..\source.optset" Condition="'$(Base)'!='' And Exists('..\source.optset')"/>
     <PropertyGroup Condition="'$(Base)'!=''">
+        <DCC_RunTimeTypeInfo>true</DCC_RunTimeTypeInfo>
+        <SanitizedProjectName>PureMVC</SanitizedProjectName>
         <DllSuffix>190</DllSuffix>
         <DCC_OutputNeverBuildDcps>true</DCC_OutputNeverBuildDcps>
-        <RuntimeOnlyPackage>true</RuntimeOnlyPackage>
         <GenPackage>true</GenPackage>
         <GenDll>true</GenDll>
         <DCC_Namespace>System;Xml;Data;Datasnap;Web;Soap;$(DCC_Namespace)</DCC_Namespace>
@@ -100,10 +143,13 @@
         <CfgDependentOn>..\source.optset</CfgDependentOn>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Android)'!=''">
+        <VerInfo_Build>1</VerInfo_Build>
+        <DCC_UsePackage>rtl;$(DCC_UsePackage)</DCC_UsePackage>
         <BT_BuildType>Debug</BT_BuildType>
-        <VerInfo_Keys>package=com.embarcadero.$(MSBuildProjectName);label=$(MSBuildProjectName);versionCode=1;versionName=1.0.0;persistent=False;restoreAnyVersion=False;installLocation=preferExternal;largeHeap=False;theme=TitleBar</VerInfo_Keys>
+        <VerInfo_Keys>package=com.embarcadero.$(MSBuildProjectName);label=$(MSBuildProjectName);versionCode=1;versionName=1.0.0;persistent=False;restoreAnyVersion=False;installLocation=preferExternal;largeHeap=False;theme=TitleBar;hardwareAccelerated=true</VerInfo_Keys>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_iOSDevice)'!=''">
+        <DCC_UsePackage>rtl;$(DCC_UsePackage)</DCC_UsePackage>
         <VerInfo_UIDeviceFamily>iPhoneAndiPad</VerInfo_UIDeviceFamily>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <VerInfo_BundleId>$(MSBuildProjectName)</VerInfo_BundleId>
@@ -111,22 +157,26 @@
         <BT_BuildType>Debug</BT_BuildType>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_iOSSimulator)'!=''">
+        <DCC_UsePackage>rtl;$(DCC_UsePackage)</DCC_UsePackage>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <VerInfo_UIDeviceFamily>iPhoneAndiPad</VerInfo_UIDeviceFamily>
         <VerInfo_Keys>CFBundleName=$(MSBuildProjectName);CFBundleDevelopmentRegion=en;CFBundleDisplayName=$(MSBuildProjectName);CFBundleIdentifier=$(MSBuildProjectName);CFBundleInfoDictionaryVersion=6.0;CFBundleVersion=1.0.0.0;CFBundlePackageType=APPL;CFBundleSignature=????;LSRequiresIPhoneOS=true;CFBundleAllowMixedLocalizations=YES;CFBundleExecutable=$(MSBuildProjectName);UIDeviceFamily=iPhone &amp; iPad;CFBundleResourceSpecification=ResourceRules.plist</VerInfo_Keys>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_OSX32)'!=''">
+        <DCC_UsePackage>rtl;$(DCC_UsePackage)</DCC_UsePackage>
         <Icns_MainIcns>$(BDS)\bin\delphi_PROJECTICNS.icns</Icns_MainIcns>
         <Debugger_Launcher>/usr/X11/bin/xterm -e &quot;%debuggee%&quot;</Debugger_Launcher>
         <VerInfo_Keys>CFBundleName=$(MSBuildProjectName);CFBundleDisplayName=$(MSBuildProjectName);CFBundleIdentifier=$(MSBuildProjectName);CFBundleVersion=1.0.0;CFBundlePackageType=APPL;CFBundleSignature=????;CFBundleAllowMixedLocalizations=YES;CFBundleExecutable=$(MSBuildProjectName);NSHighResolutionCapable=true;LSApplicationCategoryType=public.app-category.utilities</VerInfo_Keys>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Win32)'!=''">
+        <DCC_UsePackage>rtl;$(DCC_UsePackage)</DCC_UsePackage>
         <DCC_Namespace>Winapi;System.Win;Data.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;Bde;$(DCC_Namespace)</DCC_Namespace>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <VerInfo_Keys>CompanyName=;FileDescription=;FileVersion=1.0.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=;ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
         <VerInfo_Locale>1033</VerInfo_Locale>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Win64)'!=''">
+        <DCC_UsePackage>rtl;$(DCC_UsePackage)</DCC_UsePackage>
         <VerInfo_Locale>1033</VerInfo_Locale>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <VerInfo_Keys>CompanyName=;FileDescription=;FileVersion=1.0.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=;ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
@@ -141,6 +191,14 @@
         <DCC_DebugInfoInExe>true</DCC_DebugInfoInExe>
         <DCC_RemoteDebug>true</DCC_RemoteDebug>
     </PropertyGroup>
+    <PropertyGroup Condition="'$(Cfg_1_Android)'!=''">
+        <VerInfo_Build>1</VerInfo_Build>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Cfg_1_iOSDevice)'!=''">
+        <VerInfo_BundleId>$(MSBuildProjectName)</VerInfo_BundleId>
+        <VerInfo_UIDeviceFamily>iPhoneAndiPad</VerInfo_UIDeviceFamily>
+        <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
+    </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1_iOSSimulator)'!=''">
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <VerInfo_UIDeviceFamily>iPhoneAndiPad</VerInfo_UIDeviceFamily>
@@ -150,6 +208,7 @@
         <Debugger_Launcher>/usr/X11/bin/xterm -e &quot;%debuggee%&quot;</Debugger_Launcher>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1_Win32)'!=''">
+        <DCC_RunTimeTypeInfo>false</DCC_RunTimeTypeInfo>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <VerInfo_Locale>1033</VerInfo_Locale>
         <DCC_RemoteDebug>false</DCC_RemoteDebug>
@@ -164,8 +223,28 @@
         <DCC_SymbolReferenceInfo>0</DCC_SymbolReferenceInfo>
         <DCC_DebugInformation>0</DCC_DebugInformation>
     </PropertyGroup>
+    <PropertyGroup Condition="'$(Cfg_2_Android)'!=''">
+        <VerInfo_Build>1</VerInfo_Build>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Cfg_2_iOSDevice)'!=''">
+        <VerInfo_BundleId>$(MSBuildProjectName)</VerInfo_BundleId>
+        <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
+        <VerInfo_UIDeviceFamily>iPhoneAndiPad</VerInfo_UIDeviceFamily>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Cfg_2_iOSSimulator)'!=''">
+        <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
+        <VerInfo_UIDeviceFamily>iPhoneAndiPad</VerInfo_UIDeviceFamily>
+    </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2_OSX32)'!=''">
         <Icns_MainIcns>$(BDS)\bin\delphi_PROJECTICNS.icns</Icns_MainIcns>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Cfg_2_Win32)'!=''">
+        <VerInfo_Locale>1033</VerInfo_Locale>
+        <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Cfg_2_Win64)'!=''">
+        <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
+        <VerInfo_Locale>1033</VerInfo_Locale>
     </PropertyGroup>
     <ItemGroup>
         <DelphiCompile Include="$(MainSource)">
@@ -185,7 +264,6 @@
         <DCCReference Include="..\Interfaces\PureMVC.Interfaces.IObserver.pas"/>
         <DCCReference Include="..\Interfaces\PureMVC.Interfaces.IProxy.pas"/>
         <DCCReference Include="..\Interfaces\PureMVC.Interfaces.IView.pas"/>
-        <DCCReference Include="..\Interfaces\PureMVC.Utils.pas"/>
         <DCCReference Include="..\Patterns\PureMVC.Patterns.Command.pas"/>
         <DCCReference Include="..\Patterns\PureMVC.Patterns.Facade.pas"/>
         <DCCReference Include="..\Patterns\PureMVC.Patterns.Mediator.pas"/>
@@ -193,60 +271,10 @@
         <DCCReference Include="..\Patterns\PureMVC.Patterns.Notifier.pas"/>
         <DCCReference Include="..\Patterns\PureMVC.Patterns.Observer.pas"/>
         <DCCReference Include="..\Patterns\PureMVC.Patterns.Proxy.pas"/>
+        <DCCReference Include="..\Interfaces\PureMVC.Interfaces.Collections.pas"/>
+        <DCCReference Include="..\Patterns\PureMVC.Patterns.Collections.pas"/>
         <None Include="..\..\license.txt"/>
         <None Include="..\..\version.txt"/>
-        <None Include="ModelSupport_PureMVC\default.txaPackage"/>
-        <None Include="ModelSupport_PureMVC\default.txvpck"/>
-        <None Include="ModelSupport_PureMVC\PureMVC\default.txvpck"/>
-        <None Include="ModelSupport_PureMVC\PureMVC\Utils\default.txvpck"/>
-        <None Include="ModelSupport_PureMVC\PureMVC\Core\default.txvpck"/>
-        <None Include="ModelSupport_PureMVC\PureMVC\Interfaces\default.txvpck"/>
-        <None Include="ModelSupport_PureMVC\PureMVC\Patterns\default.txvpck"/>
-        <None Include="ModelSupport_PureMVC\PureMVC\Core\View\default.txvpck"/>
-        <None Include="ModelSupport_PureMVC\PureMVC\Core\Model\default.txvpck"/>
-        <None Include="ModelSupport_PureMVC\PureMVC\Core\Controller\default.txvpck"/>
-        <None Include="ModelSupport_PureMVC\PureMVC\Interfaces\IFacade\default.txvpck"/>
-        <None Include="ModelSupport_PureMVC\PureMVC\Interfaces\INotification\default.txvpck"/>
-        <None Include="ModelSupport_PureMVC\PureMVC\Interfaces\ICommand\default.txvpck"/>
-        <None Include="ModelSupport_PureMVC\PureMVC\Interfaces\IObserver\default.txvpck"/>
-        <None Include="ModelSupport_PureMVC\PureMVC\Interfaces\IModel\default.txvpck"/>
-        <None Include="ModelSupport_PureMVC\PureMVC\Interfaces\IMediator\default.txvpck"/>
-        <None Include="ModelSupport_PureMVC\PureMVC\Interfaces\IController\default.txvpck"/>
-        <None Include="ModelSupport_PureMVC\PureMVC\Interfaces\INotifier\default.txvpck"/>
-        <None Include="ModelSupport_PureMVC\PureMVC\Interfaces\IProxy\default.txvpck"/>
-        <None Include="ModelSupport_PureMVC\PureMVC\Interfaces\IView\default.txvpck"/>
-        <None Include="ModelSupport_PureMVC\PureMVC\Patterns\Command\default.txvpck"/>
-        <None Include="ModelSupport_PureMVC\PureMVC\Patterns\Notifier\default.txvpck"/>
-        <None Include="ModelSupport_PureMVC\PureMVC\Patterns\Facade\default.txvpck"/>
-        <None Include="ModelSupport_PureMVC\PureMVC\Patterns\Observer\default.txvpck"/>
-        <None Include="ModelSupport_PureMVC\PureMVC\Patterns\Notification\default.txvpck"/>
-        <None Include="ModelSupport_PureMVC\PureMVC\Patterns\Proxy\default.txvpck"/>
-        <None Include="ModelSupport_PureMVC\PureMVC\Patterns\Mediator\default.txvpck"/>
-        <None Include="ModelSupport_PureMVC\PureMVC\Core\View\default.txaPackage"/>
-        <None Include="ModelSupport_PureMVC\PureMVC\Interfaces\INotifier\default.txaPackage"/>
-        <None Include="ModelSupport_PureMVC\PureMVC\Core\Model\default.txaPackage"/>
-        <None Include="ModelSupport_PureMVC\PureMVC\Interfaces\IProxy\default.txaPackage"/>
-        <None Include="ModelSupport_PureMVC\PureMVC\Interfaces\default.txaPackage"/>
-        <None Include="ModelSupport_PureMVC\PureMVC\Interfaces\IModel\default.txaPackage"/>
-        <None Include="ModelSupport_PureMVC\PureMVC\Interfaces\IMediator\default.txaPackage"/>
-        <None Include="ModelSupport_PureMVC\PureMVC\Interfaces\IView\default.txaPackage"/>
-        <None Include="ModelSupport_PureMVC\PureMVC\Patterns\default.txaPackage"/>
-        <None Include="ModelSupport_PureMVC\PureMVC\Interfaces\IController\default.txaPackage"/>
-        <None Include="ModelSupport_PureMVC\PureMVC\default.txaPackage"/>
-        <None Include="ModelSupport_PureMVC\PureMVC\Patterns\Mediator\default.txaPackage"/>
-        <None Include="ModelSupport_PureMVC\PureMVC\Interfaces\IObserver\default.txaPackage"/>
-        <None Include="ModelSupport_PureMVC\PureMVC\Patterns\Observer\default.txaPackage"/>
-        <None Include="ModelSupport_PureMVC\PureMVC\Core\default.txaPackage"/>
-        <None Include="ModelSupport_PureMVC\PureMVC\Patterns\Proxy\default.txaPackage"/>
-        <None Include="ModelSupport_PureMVC\PureMVC\Patterns\Notifier\default.txaPackage"/>
-        <None Include="ModelSupport_PureMVC\PureMVC\Utils\default.txaPackage"/>
-        <None Include="ModelSupport_PureMVC\PureMVC\Interfaces\INotification\default.txaPackage"/>
-        <None Include="ModelSupport_PureMVC\PureMVC\Patterns\Notification\default.txaPackage"/>
-        <None Include="ModelSupport_PureMVC\PureMVC\Interfaces\IFacade\default.txaPackage"/>
-        <None Include="ModelSupport_PureMVC\PureMVC\Interfaces\ICommand\default.txaPackage"/>
-        <None Include="ModelSupport_PureMVC\PureMVC\Patterns\Facade\default.txaPackage"/>
-        <None Include="ModelSupport_PureMVC\PureMVC\Patterns\Command\default.txaPackage"/>
-        <None Include="ModelSupport_PureMVC\PureMVC\Core\Controller\default.txaPackage"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>
@@ -320,7 +348,7 @@
             <UnitTesting>
                 <TestProjectName>Z:\Projects\github\PureMVC4D\src\D170-XE3\Test\PureMVCTests.dproj</TestProjectName>
             </UnitTesting>
-            <ModelSupport>True</ModelSupport>
+            <ModelSupport>False</ModelSupport>
         </BorlandProject>
         <ProjectFileVersion>12</ProjectFileVersion>
     </ProjectExtensions>
