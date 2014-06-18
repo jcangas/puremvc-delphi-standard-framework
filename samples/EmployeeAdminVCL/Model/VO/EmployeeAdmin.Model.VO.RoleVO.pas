@@ -7,7 +7,8 @@
 unit EmployeeAdmin.Model.VO.RoleVO;
 
 interface
-uses PureMVC.Utils,
+uses
+  PureMVC.Interfaces.Collections,
   EmployeeAdmin.Model.Enum.RoleEnum;
 
 type
@@ -27,6 +28,8 @@ type
   end;
 
 implementation
+uses
+  PureMVC.Patterns.Collections;
 
 { TRoleVO }
 

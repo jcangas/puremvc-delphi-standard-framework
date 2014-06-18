@@ -8,7 +8,7 @@ unit EmployeeAdmin.Model.Enum.Enum;
 
 interface
 
-uses Classes, PureMVC.Utils;
+uses Classes;
 
 type
   TEnumClass = class of TEnum;

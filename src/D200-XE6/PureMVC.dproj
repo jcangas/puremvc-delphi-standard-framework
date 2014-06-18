@@ -6,7 +6,7 @@
         <FrameworkType>None</FrameworkType>
         <Base>True</Base>
         <Config Condition="'$(Config)'==''">Debug</Config>
-        <Platform Condition="'$(Platform)'==''">Win32</Platform>
+        <Platform Condition="'$(Platform)'==''">Win64</Platform>
         <TargetedPlatforms>95</TargetedPlatforms>
         <AppType>Package</AppType>
     </PropertyGroup>
@@ -89,8 +89,20 @@
         <CfgParent>Base</CfgParent>
         <Base>true</Base>
     </PropertyGroup>
+    <PropertyGroup Condition="('$(Platform)'=='Android' and '$(Cfg_2)'=='true') or '$(Cfg_2_Android)'!=''">
+        <Cfg_2_Android>true</Cfg_2_Android>
+        <CfgParent>Cfg_2</CfgParent>
+        <Cfg_2>true</Cfg_2>
+        <Base>true</Base>
+    </PropertyGroup>
     <PropertyGroup Condition="('$(Platform)'=='OSX32' and '$(Cfg_2)'=='true') or '$(Cfg_2_OSX32)'!=''">
         <Cfg_2_OSX32>true</Cfg_2_OSX32>
+        <CfgParent>Cfg_2</CfgParent>
+        <Cfg_2>true</Cfg_2>
+        <Base>true</Base>
+    </PropertyGroup>
+    <PropertyGroup Condition="('$(Platform)'=='Win32' and '$(Cfg_2)'=='true') or '$(Cfg_2_Win32)'!=''">
+        <Cfg_2_Win32>true</Cfg_2_Win32>
         <CfgParent>Cfg_2</CfgParent>
         <Cfg_2>true</Cfg_2>
         <Base>true</Base>
@@ -99,7 +111,7 @@
     <PropertyGroup Condition="'$(Base)'!=''">
         <DCC_RunTimeTypeInfo>true</DCC_RunTimeTypeInfo>
         <SanitizedProjectName>PureMVC</SanitizedProjectName>
-        <DllSuffix>190</DllSuffix>
+        <DllSuffix>200</DllSuffix>
         <DCC_OutputNeverBuildDcps>true</DCC_OutputNeverBuildDcps>
         <GenPackage>true</GenPackage>
         <GenDll>true</GenDll>
@@ -193,8 +205,16 @@
         <DCC_SymbolReferenceInfo>0</DCC_SymbolReferenceInfo>
         <DCC_DebugInformation>0</DCC_DebugInformation>
     </PropertyGroup>
+    <PropertyGroup Condition="'$(Cfg_2_Android)'!=''">
+        <VerInfo_Build>1</VerInfo_Build>
+    </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2_OSX32)'!=''">
         <Icns_MainIcns>$(BDS)\bin\delphi_PROJECTICNS.icns</Icns_MainIcns>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Cfg_2_Win32)'!=''">
+        <VerInfo_Locale>1033</VerInfo_Locale>
+        <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
+        <DllSuffix>200</DllSuffix>
     </PropertyGroup>
     <ItemGroup>
         <DelphiCompile Include="$(MainSource)">
@@ -225,62 +245,6 @@
         <DCCReference Include="..\Patterns\PureMVC.Patterns.Collections.pas"/>
         <None Include="..\..\license.txt"/>
         <None Include="..\..\version.txt"/>
-        <None Include="ModelSupport_PureMVC\default.txaPackage"/>
-        <None Include="ModelSupport_PureMVC\default.txvpck"/>
-        <None Include="ModelSupport_PureMVC\PureMVC\default.txvpck"/>
-        <None Include="ModelSupport_PureMVC\PureMVC\Utils\default.txvpck"/>
-        <None Include="ModelSupport_PureMVC\PureMVC\Core\default.txvpck"/>
-        <None Include="ModelSupport_PureMVC\PureMVC\Interfaces\default.txvpck"/>
-        <None Include="ModelSupport_PureMVC\PureMVC\Patterns\default.txvpck"/>
-        <None Include="ModelSupport_PureMVC\PureMVC\Core\View\default.txvpck"/>
-        <None Include="ModelSupport_PureMVC\PureMVC\Core\Model\default.txvpck"/>
-        <None Include="ModelSupport_PureMVC\PureMVC\Core\Controller\default.txvpck"/>
-        <None Include="ModelSupport_PureMVC\PureMVC\Interfaces\IFacade\default.txvpck"/>
-        <None Include="ModelSupport_PureMVC\PureMVC\Interfaces\INotification\default.txvpck"/>
-        <None Include="ModelSupport_PureMVC\PureMVC\Interfaces\ICommand\default.txvpck"/>
-        <None Include="ModelSupport_PureMVC\PureMVC\Interfaces\IObserver\default.txvpck"/>
-        <None Include="ModelSupport_PureMVC\PureMVC\Interfaces\IModel\default.txvpck"/>
-        <None Include="ModelSupport_PureMVC\PureMVC\Interfaces\IMediator\default.txvpck"/>
-        <None Include="ModelSupport_PureMVC\PureMVC\Interfaces\IController\default.txvpck"/>
-        <None Include="ModelSupport_PureMVC\PureMVC\Interfaces\INotifier\default.txvpck"/>
-        <None Include="ModelSupport_PureMVC\PureMVC\Interfaces\IProxy\default.txvpck"/>
-        <None Include="ModelSupport_PureMVC\PureMVC\Interfaces\IView\default.txvpck"/>
-        <None Include="ModelSupport_PureMVC\PureMVC\Patterns\Command\default.txvpck"/>
-        <None Include="ModelSupport_PureMVC\PureMVC\Patterns\Notifier\default.txvpck"/>
-        <None Include="ModelSupport_PureMVC\PureMVC\Patterns\Facade\default.txvpck"/>
-        <None Include="ModelSupport_PureMVC\PureMVC\Patterns\Observer\default.txvpck"/>
-        <None Include="ModelSupport_PureMVC\PureMVC\Patterns\Notification\default.txvpck"/>
-        <None Include="ModelSupport_PureMVC\PureMVC\Patterns\Proxy\default.txvpck"/>
-        <None Include="ModelSupport_PureMVC\PureMVC\Patterns\Mediator\default.txvpck"/>
-        <None Include="ModelSupport_PureMVC\PureMVC\Core\View\default.txaPackage"/>
-        <None Include="ModelSupport_PureMVC\PureMVC\Interfaces\INotifier\default.txaPackage"/>
-        <None Include="ModelSupport_PureMVC\PureMVC\Core\Model\default.txaPackage"/>
-        <None Include="ModelSupport_PureMVC\PureMVC\Interfaces\IProxy\default.txaPackage"/>
-        <None Include="ModelSupport_PureMVC\PureMVC\Interfaces\default.txaPackage"/>
-        <None Include="ModelSupport_PureMVC\PureMVC\Interfaces\IModel\default.txaPackage"/>
-        <None Include="ModelSupport_PureMVC\PureMVC\Interfaces\IMediator\default.txaPackage"/>
-        <None Include="ModelSupport_PureMVC\PureMVC\Interfaces\IView\default.txaPackage"/>
-        <None Include="ModelSupport_PureMVC\PureMVC\Patterns\default.txaPackage"/>
-        <None Include="ModelSupport_PureMVC\PureMVC\Interfaces\IController\default.txaPackage"/>
-        <None Include="ModelSupport_PureMVC\PureMVC\default.txaPackage"/>
-        <None Include="ModelSupport_PureMVC\PureMVC\Patterns\Mediator\default.txaPackage"/>
-        <None Include="ModelSupport_PureMVC\PureMVC\Interfaces\IObserver\default.txaPackage"/>
-        <None Include="ModelSupport_PureMVC\PureMVC\Patterns\Observer\default.txaPackage"/>
-        <None Include="ModelSupport_PureMVC\PureMVC\Core\default.txaPackage"/>
-        <None Include="ModelSupport_PureMVC\PureMVC\Patterns\Proxy\default.txaPackage"/>
-        <None Include="ModelSupport_PureMVC\PureMVC\Patterns\Notifier\default.txaPackage"/>
-        <None Include="ModelSupport_PureMVC\PureMVC\Utils\default.txaPackage"/>
-        <None Include="ModelSupport_PureMVC\PureMVC\Interfaces\INotification\default.txaPackage"/>
-        <None Include="ModelSupport_PureMVC\PureMVC\Patterns\Notification\default.txaPackage"/>
-        <None Include="ModelSupport_PureMVC\PureMVC\Interfaces\IFacade\default.txaPackage"/>
-        <None Include="ModelSupport_PureMVC\PureMVC\Interfaces\ICommand\default.txaPackage"/>
-        <None Include="ModelSupport_PureMVC\PureMVC\Patterns\Facade\default.txaPackage"/>
-        <None Include="ModelSupport_PureMVC\PureMVC\Patterns\Command\default.txaPackage"/>
-        <None Include="ModelSupport_PureMVC\PureMVC\Core\Controller\default.txaPackage"/>
-        <None Include="ModelSupport_PureMVC\PureMVC\ICollections\default.txaPackage"/>
-        <None Include="ModelSupport_PureMVC\PureMVC\ICollections\default.txvpck"/>
-        <None Include="ModelSupport_PureMVC\PureMVC\Patterns\Collections\default.txaPackage"/>
-        <None Include="ModelSupport_PureMVC\PureMVC\Interfaces\Collections\default.txaPackage"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

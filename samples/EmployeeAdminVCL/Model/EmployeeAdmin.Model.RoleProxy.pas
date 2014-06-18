@@ -8,7 +8,8 @@ unit EmployeeAdmin.Model.RoleProxy;
 
 interface
 
-uses PureMVC.Utils,
+uses
+  PureMVC.Interfaces.Collections,
   PureMVC.Interfaces.IProxy,
   PureMVC.Patterns.Proxy,
   EmployeeAdmin.Model.Enum.RoleEnum,
@@ -67,7 +68,7 @@ type
 
 implementation
 
-uses RTTI, EmployeeAdmin.Facade;
+uses RTTI, EmployeeAdmin.Facade,  PureMVC.Patterns.Collections;
 
 { TRoleProxy }
 
