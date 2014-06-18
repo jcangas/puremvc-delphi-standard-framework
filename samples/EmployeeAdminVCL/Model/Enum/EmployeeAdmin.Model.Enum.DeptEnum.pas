@@ -9,7 +9,6 @@ unit EmployeeAdmin.Model.Enum.DeptEnum;
 interface
 
 uses Classes,
-  PureMVC.Utils,
   EmployeeAdmin.Model.Enum.Enum;
 
 type

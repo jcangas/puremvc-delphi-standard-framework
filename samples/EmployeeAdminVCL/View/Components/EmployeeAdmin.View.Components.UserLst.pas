@@ -5,7 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, ExtCtrls, Grids,
-  PureMVC.Utils,
+  PureMVC.Interfaces.Collections,
   EmployeeAdmin.Model.VO.UserVO;
 
 type

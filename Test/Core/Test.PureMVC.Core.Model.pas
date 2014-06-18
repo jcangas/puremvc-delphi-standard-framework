@@ -8,7 +8,7 @@ uses
   PureMVC.Interfaces.IProxy,
   PureMVC.Interfaces.IModel,
   PureMVC.Patterns.Proxy,
-  PureMVC.Utils;
+  PureMVC.Interfaces.Collections;
 
 type
   // Test methods for class TModel
