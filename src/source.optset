@@ -1,5 +1,7 @@
 ﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <PropertyGroup>
+        <DCC_BpiOutput>$(BDSPROJECTGROUPDIR)\out\$(IDEVersion)\$(Platform)\$(Config)\lib</DCC_BpiOutput>
+        <DCC_ObjOutput>$(BDSPROJECTGROUPDIR)\out\$(IDEVersion)\$(Platform)\$(Config)\lib</DCC_ObjOutput>
         <DCC_ExeOutput>$(BDSPROJECTGROUPDIR)\out\$(IDEVersion)\$(Platform)\$(Config)\bin</DCC_ExeOutput>
         <DCC_BplOutput>$(BDSPROJECTGROUPDIR)\out\$(IDEVersion)\$(Platform)\$(Config)\bin</DCC_BplOutput>
         <DCC_UnitSearchPath>$(BDSPROJECTGROUPDIR)\out\$(IDEVersion)\$(Platform)\$(Config)\lib;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
@@ -10,7 +12,9 @@
     <ProjectExtensions>
         <Borland.Personality>Delphi.Personality.12</Borland.Personality>
         <Borland.ProjectType>OptionSet</Borland.ProjectType>
-        <BorlandProject><Delphi.Personality/></BorlandProject>
+        <BorlandProject>
+            <Delphi.Personality/>
+        </BorlandProject>
         <ProjectFileVersion>12</ProjectFileVersion>
     </ProjectExtensions>
 </Project>

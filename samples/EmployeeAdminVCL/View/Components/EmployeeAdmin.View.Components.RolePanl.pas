@@ -15,13 +15,10 @@ uses
   StdCtrls,
   ExtCtrls,
   ActnList,
-  {$IF RTLVersion > 23}
-  System.Actions,
- {$IFEND}
-  PureMVC.Utils,
+  PureMVC.Interfaces.Collections,
   EmployeeAdmin.Model.Enum.Enum,
   EmployeeAdmin.Model.Enum.RoleEnum,
-  EmployeeAdmin.Model.VO.UserVO;
+  EmployeeAdmin.Model.VO.UserVO, System.Actions;
 
 type
   TRolePanel = class(TFrame)

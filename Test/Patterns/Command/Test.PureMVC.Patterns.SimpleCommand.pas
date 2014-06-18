@@ -17,7 +17,7 @@ uses
   PureMVC.Patterns.Notification,
   PureMVC.Patterns.Command,
   PureMVC.Interfaces.ICommand,
-  PureMVC.Utils,
+  PureMVC.Interfaces.Collections,
   PureMVC.Interfaces.INotifier,
   PureMVC.Interfaces.INotification;
 

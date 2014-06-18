@@ -2,7 +2,7 @@ unit EmployeeAdmin.View.UserFormMediator;
 
 interface
 uses
-  PureMvc.Utils,
+  PureMVC.Interfaces.Collections,
   PureMVC.Patterns.Mediator,
   PureMVC.Interfaces.INotification,
   EmployeeAdmin.Facade,

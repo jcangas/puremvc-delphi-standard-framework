@@ -2,7 +2,7 @@ unit EmployeeAdmin.View.RolePanelMediator;
 
 interface
 uses
-  PureMVC.Utils,
+  PureMVC.Interfaces.Collections,
   PureMVC.Interfaces.INotification,
   PureMVC.Patterns.Mediator,
   EmployeeAdmin.Facade,

@@ -9,7 +9,7 @@ unit EmployeeAdmin.Model.UserProxy;
 interface
 
 uses Generics.Collections,
-  PureMVC.Utils,
+  PureMVC.Interfaces.Collections,
   PureMVC.Interfaces.IProxy,
   PureMVC.Patterns.Proxy,
   EmployeeAdmin.Model.Enum.DeptEnum,
@@ -46,7 +46,8 @@ type
   end;
 
 implementation
-uses RTTI;
+uses RTTI,
+  PureMVC.Patterns.Collections;
 
 { TUserProxy }
 
