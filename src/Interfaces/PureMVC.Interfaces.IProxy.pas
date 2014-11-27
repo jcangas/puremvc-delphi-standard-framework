@@ -55,6 +55,16 @@ type
     procedure OnRemove();
   end;
 
+  /// <summary>
+  ///  Delphi facility: IProxy interface that wraps Data with class type
+  IProxy<T: class> = interface(IProxy)
+    function GetDataObject: T;
+    procedure SetDataObject(const Value: T);
+    property DataObject: T
+      read GetDataObject
+      write SetDataObject;
+  end;
+
 implementation
 
 end.

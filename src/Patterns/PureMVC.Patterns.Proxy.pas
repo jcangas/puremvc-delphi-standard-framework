@@ -70,6 +70,23 @@ type
 {$ENDREGION}
   end;
 
+  TProxy<T: class> = class(TProxy, IProxy<T>)
+  private
+    FOwnsData: Boolean;
+    procedure SetOwnsData(const Value: Boolean);
+  public
+    function GetDataObject: T;
+    procedure SetDataObject(const Value: T);
+    procedure SetData(Value: TValue); override;
+    property OwnsData: Boolean read FOwnsData write SetOwnsData;
+    property DataObject: T
+      read GetDataObject
+      write SetDataObject;
+    constructor Create(ProxyName: string; Data: TValue; const OwnsData: Boolean = True); overload;
+    constructor Create(ProxyName: string = TProxy.NAME; const OwnsData: Boolean = True); overload;
+    destructor Destroy; override;
+  end;
+
 implementation
 
 { TProxy }
@@ -112,6 +129,50 @@ end;
 procedure TProxy.OnRemove;
 begin
 
+end;
+
+{ TProxy<T> }
+
+function TProxy<T>.GetDataObject: T;
+begin
+  // go faster: we know self is TObject by the constraint in generic type
+  Result := (Data.AsObject as T);
+end;
+
+procedure TProxy<T>.SetData(Value: TValue);
+begin
+  if not Data.IsEmpty and OwnsData then Data.AsObject.Free;
+  if not Value.IsType<T> then Exit;
+  inherited;
+end;
+
+procedure TProxy<T>.SetDataObject(const Value: T);
+begin
+  Data := Value
+end;
+
+procedure TProxy<T>.SetOwnsData(const Value: Boolean);
+begin
+  FOwnsData := Value;
+end;
+
+constructor TProxy<T>.Create(ProxyName: string; Data: TValue;
+  const OwnsData: Boolean);
+begin
+  inherited Create(ProxyName, Data);
+  FOwnsData := OwnsData;
+end;
+
+constructor TProxy<T>.Create(ProxyName: string; const OwnsData: Boolean);
+begin
+  inherited Create(ProxyName);
+  FOwnsData := OwnsData;
+end;
+
+destructor TProxy<T>.Destroy;
+begin
+  Data := TValue.Empty;
+  inherited;
 end;
 
 end.
