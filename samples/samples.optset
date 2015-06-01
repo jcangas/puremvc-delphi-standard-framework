@@ -1,12 +1,13 @@
-﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <PropertyGroup>
         <DCC_Define>DEBUG;$(DCC_Define)</DCC_Define>
-        <DCC_ExeOutput>$(BDSPROJECTGROUPDIR)\out\$(IDEVersion)\$(Platform)\$(Config)\bin</DCC_ExeOutput>
-        <DCC_BplOutput>$(BDSPROJECTGROUPDIR)\out\$(IDEVersion)\$(Platform)\$(Config)\bin</DCC_BplOutput>
-        <DCC_UnitSearchPath>$(BDSPROJECTGROUPDIR)\out\$(IDEVersion)\$(Platform)\$(Config)\lib;$(BDSPROJECTGROUPDIR)\out\$(IDEVersion)\$(Platform)\Debug\lib;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
+        <DCC_ExeOutput>$(DVM_PRJDIR)\out\$(DVM_IDETAG)\$(Platform)\$(Config)\bin</DCC_ExeOutput>
+        <DCC_BplOutput>$(DVM_PRJDIR)\out\$(DVM_IDETAG)\$(Platform)\$(Config)\bin</DCC_BplOutput>
+        <DCC_UnitSearchPath>$(DVM_PRJDIR)\out\$(DVM_IDETAG)\$(Platform)\$(Config)\lib;$(DVM_PRJDIR)\out\$(DVM_IDETAG)\$(Platform)\Debug\lib;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
         <DCC_UnitAlias>WinTypes=Windows;WinProcs=Windows;DbiTypes=BDE;DbiProcs=BDE;$(DCC_UnitAlias)</DCC_UnitAlias>
-        <DCC_DcpOutput>$(BDSPROJECTGROUPDIR)\out\$(IDEVersion)\$(Platform)\$(Config)\lib</DCC_DcpOutput>
-        <DCC_DcuOutput>$(BDSPROJECTGROUPDIR)\out\$(IDEVersion)\$(Platform)\$(Config)\lib</DCC_DcuOutput>
+        <DCC_DcpOutput>$(DVM_PRJDIR)\out\$(DVM_IDETAG)\$(Platform)\$(Config)\lib</DCC_DcpOutput>
+        <DCC_DcuOutput>$(DVM_PRJDIR)\out\$(DVM_IDETAG)\$(Platform)\$(Config)\lib</DCC_DcuOutput>
+        <BRCC_OutputDir>$(DVM_PRJDIR)\out\$(DVM_IDETAG)\$(Platform)\$(Config)\lib</BRCC_OutputDir>
     </PropertyGroup>
     <ProjectExtensions>
         <Borland.Personality>Delphi.Personality.12</Borland.Personality>

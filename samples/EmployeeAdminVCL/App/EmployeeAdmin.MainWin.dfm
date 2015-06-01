@@ -1,7 +1,7 @@
 object MainWindow: TMainWindow
   Left = 0
   Top = 0
-  Caption = 'MainWindow'
+  Caption = 'Employee Admin'
   ClientHeight = 576
   ClientWidth = 671
   Color = clBtnFace
@@ -34,25 +34,30 @@ object MainWindow: TMainWindow
       DesignSize = (
         376
         277)
-      inherited SaveBtn: TButton [1]
-      end
-      inherited UserNameCtl: TLabeledEdit [2]
+      inherited ConfirmPasswordCtl: TLabeledEdit [1]
         Left = 97
         Width = 270
-        EditLabel.ExplicitLeft = 44
+        EditLabel.ExplicitLeft = 6
         ExplicitLeft = 97
         ExplicitWidth = 270
       end
-      inherited PasswordCtl: TLabeledEdit [3]
+      inherited CancelBtn: TButton [2]
+        Left = 302
+        Width = 65
+        ExplicitLeft = 302
+        ExplicitWidth = 65
+      end
+      inherited LastNameCtl: TLabeledEdit [3]
         Left = 97
         Width = 270
-        EditLabel.ExplicitLeft = 46
+        EditLabel.ExplicitLeft = 42
         ExplicitLeft = 97
         ExplicitWidth = 270
       end
-      inherited DepartmentCtl: TComboBox [4]
+      inherited FirstNameCtl: TLabeledEdit [4]
         Left = 97
         Width = 270
+        EditLabel.ExplicitLeft = 41
         ExplicitLeft = 97
         ExplicitWidth = 270
       end
@@ -63,32 +68,27 @@ object MainWindow: TMainWindow
         ExplicitLeft = 97
         ExplicitWidth = 270
       end
-      inherited FirstNameCtl: TLabeledEdit [6]
+      inherited DepartmentCtl: TComboBox [6]
         Left = 97
         Width = 270
-        EditLabel.ExplicitLeft = 41
         ExplicitLeft = 97
         ExplicitWidth = 270
       end
-      inherited ConfirmPasswordCtl: TLabeledEdit [7]
+      inherited PasswordCtl: TLabeledEdit [7]
         Left = 97
         Width = 270
-        EditLabel.ExplicitLeft = 6
+        EditLabel.ExplicitLeft = 46
         ExplicitLeft = 97
         ExplicitWidth = 270
       end
-      inherited CancelBtn: TButton [8]
-        Left = 302
-        Width = 65
-        ExplicitLeft = 302
-        ExplicitWidth = 65
-      end
-      inherited LastNameCtl: TLabeledEdit [9]
+      inherited UserNameCtl: TLabeledEdit [8]
         Left = 97
         Width = 270
-        EditLabel.ExplicitLeft = 42
+        EditLabel.ExplicitLeft = 44
         ExplicitLeft = 97
         ExplicitWidth = 270
+      end
+      inherited SaveBtn: TButton [9]
       end
     end
     inline RolePanel: TRolePanel
