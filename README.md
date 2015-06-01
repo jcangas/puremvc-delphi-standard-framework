@@ -42,9 +42,7 @@ Production - 1.0
 
 ## Setup and Use
 
-* None special is required: as always put the .bpl, .dcu and .dcp files in your IDE's library paths.
-
-Production - 1.0
+* Nothing special is required: as always put the .bpl, .dcu and .dcp files in your IDE's library paths.
 
 ## Platforms / Technologies
 
