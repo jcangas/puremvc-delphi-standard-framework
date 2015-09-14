@@ -1,0 +1,60 @@
+package PureMVC;
+
+{$R *.res}
+{$IFDEF IMPLICITBUILDING This IFDEF should not be used by users}
+{$ALIGN 8}
+{$ASSERTIONS ON}
+{$BOOLEVAL OFF}
+{$DEBUGINFO OFF}
+{$EXTENDEDSYNTAX ON}
+{$IMPORTEDDATA ON}
+{$IOCHECKS ON}
+{$LOCALSYMBOLS OFF}
+{$LONGSTRINGS ON}
+{$OPENSTRINGS ON}
+{$OPTIMIZATION ON}
+{$OVERFLOWCHECKS OFF}
+{$RANGECHECKS OFF}
+{$REFERENCEINFO OFF}
+{$SAFEDIVIDE OFF}
+{$STACKFRAMES OFF}
+{$TYPEDADDRESS OFF}
+{$VARSTRINGCHECKS ON}
+{$WRITEABLECONST OFF}
+{$MINENUMSIZE 1}
+{$IMAGEBASE $400000}
+{$DEFINE RELEASE}
+{$ENDIF IMPLICITBUILDING}
+{$LIBSUFFIX '210'}
+{$RUNONLY}
+{$IMPLICITBUILD OFF}
+
+requires
+  rtl;
+
+contains
+  PureMVC.Core.Controller in '..\Core\PureMVC.Core.Controller.pas',
+  PureMVC.Core.Model in '..\Core\PureMVC.Core.Model.pas',
+  PureMVC.Core.View in '..\Core\PureMVC.Core.View.pas',
+  PureMVC.Interfaces.ICommand in '..\Interfaces\PureMVC.Interfaces.ICommand.pas',
+  PureMVC.Interfaces.IController in '..\Interfaces\PureMVC.Interfaces.IController.pas',
+  PureMVC.Interfaces.IFacade in '..\Interfaces\PureMVC.Interfaces.IFacade.pas',
+  PureMVC.Interfaces.IMediator in '..\Interfaces\PureMVC.Interfaces.IMediator.pas',
+  PureMVC.Interfaces.IModel in '..\Interfaces\PureMVC.Interfaces.IModel.pas',
+  PureMVC.Interfaces.INotification in '..\Interfaces\PureMVC.Interfaces.INotification.pas',
+  PureMVC.Interfaces.INotifier in '..\Interfaces\PureMVC.Interfaces.INotifier.pas',
+  PureMVC.Interfaces.IObserver in '..\Interfaces\PureMVC.Interfaces.IObserver.pas',
+  PureMVC.Interfaces.IProxy in '..\Interfaces\PureMVC.Interfaces.IProxy.pas',
+  PureMVC.Interfaces.IView in '..\Interfaces\PureMVC.Interfaces.IView.pas',
+  PureMVC.Patterns.Command in '..\Patterns\PureMVC.Patterns.Command.pas',
+  PureMVC.Patterns.Facade in '..\Patterns\PureMVC.Patterns.Facade.pas',
+  PureMVC.Patterns.Mediator in '..\Patterns\PureMVC.Patterns.Mediator.pas',
+  PureMVC.Patterns.Notification in '..\Patterns\PureMVC.Patterns.Notification.pas',
+  PureMVC.Patterns.Notifier in '..\Patterns\PureMVC.Patterns.Notifier.pas',
+  PureMVC.Patterns.Observer in '..\Patterns\PureMVC.Patterns.Observer.pas',
+  PureMVC.Patterns.Proxy in '..\Patterns\PureMVC.Patterns.Proxy.pas',
+  PureMVC.Interfaces.Collections in '..\Interfaces\PureMVC.Interfaces.Collections.pas',
+  PureMVC.Patterns.Collections in '..\Patterns\PureMVC.Patterns.Collections.pas';
+
+end.
+

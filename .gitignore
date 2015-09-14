@@ -1,20 +1,42 @@
-out
-profiling
-LibrarySupport
-ModelSupport_*
-__history
+#----------------
+# O.S. related
+#----------------
+*.exe
+*.dll
+*.~*
+*.bak
+Thumbs.db
+.DS_Store
+
+#----------------
+# SCM related
+#----------------
+.svn
+
+#----------------
+# Delphi related
+#----------------
+*.dcu
+*.dcp
 *.local
 *.identcache
+__history
 *.tvsconfig
 *.dsk
-*.bak
-*.~*
-temp
-/ship
-/vendor/cache
-/vendor/imports
-Thumbs.db
+ModelSupport_*
+LibrarySupport
 
-.DS_Store
-*.log
-/src/D190-XE5/*.rsm
+#----------------
+# DelphiVM related
+#----------------
+msbuild.log
+*.notes.html
+/out
+/vendor
+/ship
+
+#----------------
+# Project related
+#----------------
+deprecated
+*.stat

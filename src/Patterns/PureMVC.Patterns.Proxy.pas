@@ -143,7 +143,7 @@ procedure TProxy<T>.SetData(Value: TValue);
 begin
   if Data.AsObject = Value.AsObject then Exit;
   if not Data.IsEmpty and OwnsData then Data.AsObject.DisposeOf;
-  if not Value.IsType<T> then Exit;
+  if not Value.IsEmpty and not (Value.AsObject is T)  then Exit;
   inherited;
 end;
 

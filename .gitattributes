@@ -1,0 +1,18 @@
+# force Git convert line endings to CRLF on checkout.
+text eol=crlf
+
+# C++ files
+*.h         eol=crlf
+*.cpp       eol=crlf
+
+# Delphi files
+*.pas       eol=crlf
+*.dpr       eol=crlf
+*.dproj     eol=crlf
+*.groupproj eol=crlf
+*.bdsgroup  eol=crlf
+
+#Win files
+*.rc        eol=crlf
+*.bat       eol=crlf
+*.cmd       eol=crlf

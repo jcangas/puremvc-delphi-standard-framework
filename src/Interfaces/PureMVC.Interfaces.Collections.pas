@@ -35,7 +35,7 @@ type
   end;
 
   TEnumerable<T> = class abstract(TInterfacedObject, IEnumerable<T>)
-  private
+  protected
     {$HINTS OFF}
     function ToArrayImpl(Count: Integer): TArray<T>; // used by descendants
     {$HINTS ON}
