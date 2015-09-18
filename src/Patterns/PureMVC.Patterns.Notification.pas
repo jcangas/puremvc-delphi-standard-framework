@@ -101,9 +101,15 @@ end;
 
 function TNotification.ToString: string;
 const
-  ToStrFmt = 'Notification{Name:%s\nSender:%p\nBody:%s\nType:%s}';
+  ToStrFmt =  'PMVC.Notify %s' + sLineBreak +
+              'Sender: %s' + sLineBreak +
+              'Body: %s' + sLineBreak +
+              'Type: %s';
+var
+  VSender: TValue;
 begin
-  Result := Format(ToStrFmt, [Name, Pointer(Sender), Body.AsString, Kind.AsString]);
+  VSender := Sender;
+  Result := Format(ToStrFmt, [Name, VSender.ToString, Body.ToString, Kind.ToString]);
 end;
 
 end.

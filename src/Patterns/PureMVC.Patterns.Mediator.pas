@@ -84,35 +84,7 @@ uses
   PureMVC.Patterns.Collections;
 
 type
-  TAttributePredicate = TPredicate<TCustomAttribute>;
-
-  TAttributedMethod = record
-  private
-    FMethod: TRttiMethod;
-    FByAttribute: TCustomAttribute;
-  public
-    constructor Create(AMethod: TRttiMethod; ByAttribute: TCustomAttribute);
-    property Method: TRttiMethod
-      read FMethod;
-    property ByAttribute: TCustomAttribute
-      read FByAttribute;
-  end;
-
-  TAttributedMethods = class(TList<TAttributedMethod>)
-  private
-    FSource: TObject;
-    RC: TRttiContext;
-    RType: TRttiInstanceType;
-  public
-    constructor Create(Source: TObject);
-    destructor Destroy; override;
-    function ByAttribute(AP: TAttributePredicate): TAttributedMethods;
-    function Invoke(Args: array of TValue): TAttributedMethods;
-  end;
-
-type
   TAttributeClass = class of TCustomAttribute;
-  TVisibilitySet = set of TMemberVisibility;
   TCollectStrategy = (csAll, csFirstWins, csLastWins);
   TRttiObjectHelper = class helper for TRttiObject
   public
@@ -121,16 +93,13 @@ type
 
   TAttributeCollector = class
   public type
-    TClassAttrInfo = record
-      MetaClass: TClass;
+    TAttrInfo<T: TRttiNamedObject> = record
+      RTTI: T;
       Attrs: TCustomAttribute;
     end;
-    TMethodAttrInfo = record
-      MethodName: string;
-      RTTI: TRttiMethod;
-      Visibillity: TMemberVisibility;
-      Attrs: TCustomAttribute;
-    end;
+    TClassAttrInfo = TAttrInfo<TRttiInstanceType>;
+    TMethodAttrInfo = TAttrInfo<TRttiMethod>;
+
     TMethodsInfoDict = TDictionary<string, TMethodAttrInfo>;
 
   strict private
@@ -139,7 +108,7 @@ type
     FAttrMethodsInfo: TMethodsInfoDict;
     FClassAttr: TAttributeClass;
     FMethodAttr: TAttributeClass;
-    FMethodVisibility: TVisibilitySet;
+    FMethodFilter: TPredicate<TRttiMethod>;
     function GetInfoKey(Info: TMethodAttrInfo): string;
   protected
     procedure CollectClassInfo(InstanceType: TRttiInstanceType);
@@ -150,7 +119,7 @@ type
     destructor Destroy; override;
     procedure Explore(ExploredClass: TClass);
     procedure ClassFilter(ClassAttr: TAttributeClass);
-    procedure MethodFilter(MethodAttr: TAttributeClass; VisibilityOpts: TVisibilitySet);
+    procedure MethodFilter(MethodAttr: TAttributeClass; Filter: TPredicate<TRttiMethod> = nil);
     property ClassAttrInfo: TClassAttrInfo read FAttrClassInfo;
     property MethodsAttrInfo: TMethodsInfoDict read FAttrMethodsInfo;
   end;
@@ -183,7 +152,6 @@ begin
   FAttrMethodsInfo := TMethodsInfoDict.Create;
   FClassAttr := TCustomAttribute;
   FMethodAttr := TCustomAttribute;
-  FMethodVisibility := [];
 end;
 
 destructor TAttributeCollector.Destroy;
@@ -194,7 +162,8 @@ end;
 
 function TAttributeCollector.AcceptMethod(Method: TRttiMethod): Boolean;
 begin
-  Result := (FMethodVisibility = []) or (Method.Visibility in FMethodVisibility);
+  if not Assigned(FMethodFilter) then Exit(True);
+  Result := FMethodFilter(Method);
 end;
 
 procedure TAttributeCollector.ClassFilter(ClassAttr: TAttributeClass);
@@ -207,14 +176,13 @@ var
   Method: TRttiMethod;
   CollectedAttrs: TObjectList<TCustomAttribute>;
 begin
-  FAttrClassInfo.MetaClass := InstanceType.MetaclassType;
+  FAttrClassInfo.RTTI := InstanceType;
   CollectedAttrs := InstanceType.CollectAttributes(FClassAttr, csLastWins);
   try
     if (CollectedAttrs <> nil) and (CollectedAttrs.Count > 0) then
       FAttrClassInfo.Attrs := CollectedAttrs.First;
 
     for Method in InstanceType.GetDeclaredMethods do begin
-      if AcceptMethod(Method) then
         CollectMethodInfo(Method);
     end;
   finally
@@ -224,7 +192,6 @@ end;
 
 function TAttributeCollector.GetInfoKey(Info: TMethodAttrInfo): string;
 begin
-  Result := Info.RTTI.Name;
   Result := (Info.Attrs as PureMVCNotifyAttribute).NotificationName;
 end;
 
@@ -233,10 +200,9 @@ var
   Info: TMethodAttrInfo;
   CollectedAttrs: TObjectList<TCustomAttribute>;
 begin
+  if not AcceptMethod(Method) then Exit;
   FAttrMethodsInfo.TryGetValue(Method.Name, Info);
   Info.RTTI := Method;
-  Info.MethodName := Method.Name;
-  Info.Visibillity := Method.Visibility;
   CollectedAttrs := Method.CollectAttributes(FMethodAttr, csLastWins);
   try
     if not (CollectedAttrs.Count = 0) then
@@ -259,12 +225,11 @@ begin
   CollectClassInfo(RType);
 end;
 
-procedure TAttributeCollector.MethodFilter(MethodAttr: TAttributeClass; VisibilityOpts: TVisibilitySet);
+procedure TAttributeCollector.MethodFilter(MethodAttr: TAttributeClass; Filter: TPredicate<TRttiMethod> = nil);
 begin
   FMethodAttr := FMethodAttr;
-  FMethodVisibility := VisibilityOpts;
+  FMethodFilter := Filter;
 end;
-
 
 { PureMVCNotifyAttribute }
 
@@ -272,57 +237,6 @@ constructor PureMVCNotifyAttribute.Create(const NotificationName: string; const 
 begin
   inherited Create;
   FNotificationName := NotificationName;
-  //FOrder := Order;
-end;
-
-{ TAttributedMethod }
-
-constructor TAttributedMethod.Create(AMethod: TRttiMethod; ByAttribute: TCustomAttribute);
-begin
-  FMethod := AMethod;
-  FByAttribute := ByAttribute;
-end;
-
-{ TAttributedMethods }
-
-constructor TAttributedMethods.Create(Source: TObject);
-begin
-  inherited Create;
-  FSource := Source;
-  RC := TRttiContext.Create;
-  RType := RC.GetType(FSource.ClassType) as TRttiInstanceType;
-end;
-
-destructor TAttributedMethods.Destroy;
-begin
-  RC.Free;
-  inherited;
-end;
-
-function TAttributedMethods.Invoke(Args: array of TValue): TAttributedMethods;
-var
-  Item: TAttributedMethod;
-begin
-  Result := Self;
-  for Item in Self do
-    Item.Method.Invoke(FSource, Args);
-end;
-
-function TAttributedMethods.ByAttribute(AP: TAttributePredicate): TAttributedMethods;
-var
-  RMethod: TRttiMethod;
-  Atr: TCustomAttribute;
-begin
-  Result := Self;
-  for RMethod in RType.GetMethods do begin
-    for Atr in RMethod.GetAttributes do begin
-      if AP(Atr) then begin
-        Add(TAttributedMethod.Create(RMethod, Atr));
-        Break;
-      end;
-    end;
-  end;
-  Sort;
 end;
 
 { TMediatorHelper }
@@ -334,17 +248,16 @@ end;
 
 procedure TPureMVCNotifyHelper.InvokeByPureMVCNotify(NotificationName: string; Args: array of TValue);
 var
-  Item: TAttributedMethod;
   Collector: TAttributeCollector;
   MethodInfo: TAttributeCollector.TMethodAttrInfo;
-  Attr: PureMVCNotifyAttribute;
 begin
   Collector := TAttributeCollector.Create;
   try
-    Collector.MethodFilter(PureMVCNotifyAttribute, [mvProtected, mvPublic, mvPublished]);
+    Collector.MethodFilter(PureMVCNotifyAttribute, function(Method: TRttiMethod): Boolean begin
+      Result := Method.Visibility in [mvProtected, mvPublic, mvPublished];
+    end);
     Collector.Explore(Self.ClassType);
     for MethodInfo in Collector.MethodsAttrInfo.Values do begin
-      Attr := MethodInfo.Attrs as PureMVCNotifyAttribute;
       MethodInfo.RTTI.Invoke(Self, Args);
     end;
   finally
@@ -354,7 +267,6 @@ end;
 
 function TPureMVCNotifyHelper.GetPureMVCNotifyNames: IList<string>;
 var
-  Item: TAttributedMethod;
   Collector: TAttributeCollector;
   MethodInfo: TAttributeCollector.TMethodAttrInfo;
   Attr: PureMVCNotifyAttribute;
@@ -362,7 +274,9 @@ begin
   Result := TList<string>.Create;
   Collector := TAttributeCollector.Create;
   try
-    Collector.MethodFilter(PureMVCNotifyAttribute, [mvProtected, mvPublic, mvPublished]);
+    Collector.MethodFilter(PureMVCNotifyAttribute, function(Method: TRttiMethod): Boolean begin
+      Result := Method.Visibility in [mvProtected, mvPublic, mvPublished];
+    end);
     Collector.Explore(Self.ClassType);
     for MethodInfo in Collector.MethodsAttrInfo.Values do begin
       Attr := MethodInfo.Attrs as PureMVCNotifyAttribute;

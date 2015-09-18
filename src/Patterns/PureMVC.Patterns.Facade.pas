@@ -70,7 +70,7 @@ type
 {$ENDREGION}
 {$REGION 'Observer'}
   public
-    procedure NotifyObservers(Notification: INotification);
+    procedure NotifyObservers(Notification: INotification);virtual;
 {$ENDREGION}
 {$REGION 'INotifier Members'}
   public
