@@ -1,7 +1,7 @@
 {
- PureMVC Delphi Port by Jorge L. Cangas <jorge.cangas@puremvc.org>
- PureMVC - Copyright(c) 2006-11 Futurescale, Inc., Some rights reserved.
- Your reuse is governed by the Creative Commons Attribution 3.0 License
+  PureMVC Delphi Port by Jorge L. Cangas <jorge.cangas@puremvc.org>
+  PureMVC - Copyright(c) 2006-11 Futurescale, Inc., Some rights reserved.
+  Your reuse is governed by the Creative Commons Attribution 3.0 License
 }
 
 unit PureMVC.Patterns.Facade;
@@ -9,7 +9,8 @@ unit PureMVC.Patterns.Facade;
 interface
 
 uses
-  SysUtils, RTTI,
+  SysUtils,
+  RTTI,
   PureMVC.Interfaces.IModel,
   PureMVC.Interfaces.IController,
   PureMVC.Interfaces.IProxy,
@@ -43,51 +44,49 @@ type
   TFacade = class(TInterfacedObject, IFacade)
   private
   protected
-    constructor Create;virtual;
+    constructor Create; virtual;
   public
     destructor Destroy; override;
 
-{$REGION 'Proxy'}
+    {$REGION 'Proxy'}
   public
     procedure RegisterProxy(Proxy: IProxy);
     function RetrieveProxy(ProxyName: string): IProxy;
     function RemoveProxy(ProxyName: string): IProxy;
     function HasProxy(ProxyName: string): Boolean;
-{$ENDREGION}
-{$REGION 'Command'}
+    {$ENDREGION}
+    {$REGION 'Command'}
   public
     procedure RegisterCommand(NotificationName: string; CommandClass: TClass);
     procedure RemoveCommand(NotificationName: string);
     function HasCommand(NotificationName: string): Boolean;
-{$ENDREGION}
-{$REGION 'Mediator'}
+    {$ENDREGION}
+    {$REGION 'Mediator'}
   public
     procedure RegisterMediator(Mediator: IMediator);
     function RetrieveMediator(MediatorName: string): IMediator;
     function RemoveMediator(MediatorName: string): IMediator; overload;
     function RemoveMediator(Mediator: IMediator): IMediator; overload;
     function HasMediator(MediatorName: string): Boolean;
-{$ENDREGION}
-{$REGION 'Observer'}
+    {$ENDREGION}
+    {$REGION 'Observer'}
   public
-    procedure NotifyObservers(Notification: INotification);
-{$ENDREGION}
-{$REGION 'INotifier Members'}
+    procedure NotifyObservers(Notification: INotification); virtual;
+    {$ENDREGION}
+    {$REGION 'INotifier Members'}
   public
     procedure SendNotification(NotificationName: string; Sender: TObject = nil); overload;
-    procedure SendNotification(NotificationName: string; Sender: TObject;
-        Body: TValue); overload;
-    procedure SendNotification(NotificationName: string; Sender: TObject; Body: TValue;
-        Kind: TValue); overload;virtual;
-{$ENDREGION}
-{$REGION 'Accessors'}
+    procedure SendNotification(NotificationName: string; Sender: TObject; Body: TValue); overload;
+    procedure SendNotification(NotificationName: string; Sender: TObject; Body: TValue; Kind: TValue); overload; virtual;
+    {$ENDREGION}
+    {$REGION 'Accessors'}
   public
     /// <summary>
     /// Facade Singleton Factory method.  This method is thread safe.
     /// </summary>
     class function Instance: IFacade;
-{$ENDREGION}
-{$REGION 'Protected & Internal Methods'}
+    {$ENDREGION}
+    {$REGION 'Protected & Internal Methods'}
   protected
     /// <summary>
     /// Initialize the Singleton <c>Facade</c> instance
@@ -135,17 +134,15 @@ type
     /// </remarks>
     procedure InitializeView; virtual;
 
-{$ENDREGION}
-
-{$REGION 'Members'}
+    {$ENDREGION}
+    {$REGION 'Members'}
   protected
     FController: IController;
     FModel: IModel;
     FView: IView;
     class var FInstance: IFacade;
     class var FStaticSyncRoot: TObject;
-{$ENDREGION}
-
+    {$ENDREGION}
   end;
 
 implementation
@@ -172,22 +169,19 @@ end;
 
 procedure TFacade.InitializeModel;
 begin
-  if (FModel <> nil) then
-    Exit;
+  if (FModel <> nil) then Exit;
   FModel := TModel.Instance;
 end;
 
 procedure TFacade.InitializeController;
 begin
-  if (FController <> nil) then
-    Exit;
+  if (FController <> nil) then Exit;
   FController := TController.Instance;
 end;
 
 procedure TFacade.InitializeView;
 begin
-  if (FView <> nil) then
-    Exit;
+  if (FView <> nil) then Exit;
   FView := TView.Instance;
 end;
 
@@ -212,7 +206,8 @@ begin
 end;
 
 procedure TFacade.RegisterProxy(Proxy: IProxy);
-var a: string;
+var
+  a: string;
 begin
   a := Proxy.ProxyName;
   FModel.RegisterProxy(Proxy);
@@ -258,8 +253,7 @@ end;
 {$ENDREGION}
 {$REGION 'Command'}
 
-procedure TFacade.RegisterCommand(NotificationName: string;
-    CommandClass: TClass);
+procedure TFacade.RegisterCommand(NotificationName: string; CommandClass: TClass);
 begin
   FController.RegisterCommand(NotificationName, CommandClass);
 end;
@@ -283,8 +277,7 @@ begin
 end;
 {$ENDREGION}
 
-procedure TFacade.SendNotification(NotificationName: string; Sender: TObject; Body: TValue;
-    Kind: TValue);
+procedure TFacade.SendNotification(NotificationName: string; Sender: TObject; Body: TValue; Kind: TValue);
 begin
   NotifyObservers(TNotification.Create(NotificationName, Sender, Body, Kind))
 end;

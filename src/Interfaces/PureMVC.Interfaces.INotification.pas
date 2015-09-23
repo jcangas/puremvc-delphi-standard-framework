@@ -1,14 +1,15 @@
 {
- PureMVC Delphi Port by Jorge L. Cangas <jorge.cangas@puremvc.org>
- PureMVC - Copyright(c) 2006-11 Futurescale, Inc., Some rights reserved.
- Your reuse is governed by the Creative Commons Attribution 3.0 License
+  PureMVC Delphi Port by Jorge L. Cangas <jorge.cangas@puremvc.org>
+  PureMVC - Copyright(c) 2006-11 Futurescale, Inc., Some rights reserved.
+  Your reuse is governed by the Creative Commons Attribution 3.0 License
 }
 
 unit PureMVC.Interfaces.INotification;
 
 interface
 
-uses RTTI;
+uses
+  RTTI;
 
 type
 
@@ -40,25 +41,31 @@ type
 
     /// <summary>
     /// The Sender of the <c>INotification</c> instance. Introduced to be
-    ///  more "Delphi idiomatic"
+    /// more "Delphi idiomatic"
     /// </summary>
     /// <remarks>No setter, should be set by constructor only</remarks>
-    property Sender: TObject read GetSender;
+    property Sender: TObject
+      read GetSender;
     /// <summary>
     /// The name of the <c>INotification</c> instance
     /// </summary>
     /// <remarks>No setter, should be set by constructor only</remarks>
-    property Name: string read GetName;
+    property name: string
+      read GetName;
 
     /// <summary>
     /// The body of the <c>INotification</c> instance
     /// </summary>
-    property Body: TValue read GetBody write SetBody;
+    property Body: TValue
+      read GetBody
+      write SetBody;
 
     /// <summary>
     /// The type of the <c>INotification</c> instance
     /// </summary>
-    property Kind: TValue read GetKind write SetKind;
+    property Kind: TValue
+      read GetKind
+      write SetKind;
 
     /// <summary>
     /// Get the string representation of the <c>INotification</c> instance

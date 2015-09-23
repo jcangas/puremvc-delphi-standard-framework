@@ -1,15 +1,17 @@
 {
- PureMVC Delphi Port by Jorge L. Cangas <jorge.cangas@puremvc.org>
- PureMVC - Copyright(c) 2006-11 Futurescale, Inc., Some rights reserved.
- Your reuse is governed by the Creative Commons Attribution 3.0 License
+  PureMVC Delphi Port by Jorge L. Cangas <jorge.cangas@puremvc.org>
+  PureMVC - Copyright(c) 2006-11 Futurescale, Inc., Some rights reserved.
+  Your reuse is governed by the Creative Commons Attribution 3.0 License
 }
 
 unit PureMVC.Patterns.Notification;
 
 interface
 
-uses Rtti,
+uses
+  Rtti,
   PureMVC.Interfaces.INotification;
+
 type
   TNotification = class(TInterfacedObject, INotification)
   private
@@ -27,23 +29,29 @@ type
     procedure SetBody(Value: TValue);
     procedure SetKind(const Value: TValue);
   public
-    constructor Create(Name: string; Sender: TObject; Body: TValue; Kind: TValue);overload;
-    constructor Create(Name: string; Sender: TObject; Body: TValue);overload;
-    constructor Create(Name: string; Sender: TObject = nil);overload;
-    function ToString: string;override;
-    property Sender: TObject read GetSender;
-    property Name: string read GetName;
-    property Body: TValue read GetBody;
-    property Kind: TValue read GetKind;
+    constructor Create(Name: string; Sender: TObject; Body: TValue; Kind: TValue); overload;
+    constructor Create(Name: string; Sender: TObject; Body: TValue); overload;
+    constructor Create(Name: string; Sender: TObject = nil); overload;
+    function ToString: string; override;
+    property Sender: TObject
+      read GetSender;
+    property name: string
+      read GetName;
+    property Body: TValue
+      read GetBody;
+    property Kind: TValue
+      read GetKind;
   end;
 
 implementation
-uses SysUtils;
 
-constructor TNotification.Create(Name: string; Sender: TObject; Body: TValue ; Kind: TValue);
+uses
+  SysUtils;
+
+constructor TNotification.Create(Name: string; Sender: TObject; Body: TValue; Kind: TValue);
 begin
   inherited Create;
-  SetName(Name);
+  SetName(name);
   SetSender(Sender);
   SetBody(Body);
   SetKind(Kind);
@@ -51,12 +59,12 @@ end;
 
 constructor TNotification.Create(Name: string; Sender: TObject; Body: TValue);
 begin
-  Create(Name, Sender, Body, nil);
+  Create(name, Sender, Body, nil);
 end;
 
 constructor TNotification.Create(Name: string; Sender: TObject = nil);
 begin
-  Create(Name, Sender, nil, nil);
+  Create(name, Sender, nil, nil);
 end;
 
 function TNotification.GetName: string;
@@ -101,9 +109,12 @@ end;
 
 function TNotification.ToString: string;
 const
-  ToStrFmt = 'Notification{Name:%s\nSender:%p\nBody:%s\nType:%s}';
+  ToStrFmt = 'PMVC.Notify %s' + sLineBreak + 'Sender: %s' + sLineBreak + 'Body: %s' + sLineBreak + 'Type: %s';
+var
+  VSender: TValue;
 begin
-  Result := Format(ToStrFmt, [Name, Pointer(Sender), Body.AsString, Kind.AsString]);
+  VSender := Sender;
+  Result := Format(ToStrFmt, [name, VSender.ToString, Body.ToString, Kind.ToString]);
 end;
 
 end.

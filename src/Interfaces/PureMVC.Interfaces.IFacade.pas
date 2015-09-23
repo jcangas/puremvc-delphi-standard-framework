@@ -1,7 +1,7 @@
 {
- PureMVC Delphi Port by Jorge L. Cangas <jorge.cangas@puremvc.org>
- PureMVC - Copyright(c) 2006-11 Futurescale, Inc., Some rights reserved.
- Your reuse is governed by the Creative Commons Attribution 3.0 License
+  PureMVC Delphi Port by Jorge L. Cangas <jorge.cangas@puremvc.org>
+  PureMVC - Copyright(c) 2006-11 Futurescale, Inc., Some rights reserved.
+  Your reuse is governed by the Creative Commons Attribution 3.0 License
 }
 
 unit PureMVC.Interfaces.IFacade;
@@ -30,7 +30,7 @@ type
   IFacade = interface(INotifier)
     ['{7FFB8968-33D6-4636-9CD7-93EF9E3FB734}']
 
-{$REGION 'Proxy'}
+    {$REGION 'Proxy'}
     /// <summary>
     /// Register an <c>IProxy</c> with the <c>Model</c> by name
     /// </summary>
@@ -59,8 +59,8 @@ type
     /// <param name="ProxyName">The name of the <c>IProxy</c> instance to check</param>
     /// <returns>whether a Proxy is currently registered with the given <c>proxyName</c>.</returns>
     function HasProxy(ProxyName: string): Boolean;
-{$ENDREGION}
-{$REGION 'Command'}
+    {$ENDREGION}
+    {$REGION 'Command'}
     /// <summary>
     /// Register an <c>ICommand</c> with the <c>Controller</c>
     /// </summary>
@@ -81,8 +81,8 @@ type
     /// <returns>whether a Command is currently registered for the given <c>notificationName</c>.</returns>
     function HasCommand(NotificationName: string): Boolean;
 
-{$ENDREGION}
-{$REGION 'Mediator'}
+    {$ENDREGION}
+    {$REGION 'Mediator'}
     /// <summary>
     /// Register an <c>IMediator</c> instance with the <c>View</c>
     /// </summary>
@@ -110,8 +110,8 @@ type
     /// <returns>whether a Mediator is registered with the given <c>mediatorName</c>.</returns>
     function HasMediator(MediatorName: string): Boolean;
 
-{$ENDREGION}
-{$REGION 'Observer'}
+    {$ENDREGION}
+    {$REGION 'Observer'}
     /// <summary>
     /// Notify the <c>IObservers</c> for a particular <c>INotification</c>.
     /// <para>All previously attached <c>IObservers</c> for this <c>INotification</c>'s list are notified and are passed a reference to the <c>INotification</c> in the order in which they were registered.</para>
@@ -119,7 +119,7 @@ type
     /// </summary>
     /// <param name="Note">the <c>INotification</c> to notify <c>IObservers</c> of.</param>
     procedure NotifyObservers(Note: INotification);
-{$ENDREGION}
+    {$ENDREGION}
   end;
 
 implementation

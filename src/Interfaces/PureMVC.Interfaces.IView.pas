@@ -1,7 +1,7 @@
 {
- PureMVC Delphi Port by Jorge L. Cangas <jorge.cangas@puremvc.org>
- PureMVC - Copyright(c) 2006-11 Futurescale, Inc., Some rights reserved.
- Your reuse is governed by the Creative Commons Attribution 3.0 License
+  PureMVC Delphi Port by Jorge L. Cangas <jorge.cangas@puremvc.org>
+  PureMVC - Copyright(c) 2006-11 Futurescale, Inc., Some rights reserved.
+  Your reuse is governed by the Creative Commons Attribution 3.0 License
 }
 
 unit PureMVC.Interfaces.IView;
@@ -33,7 +33,7 @@ type
   /// <see cref="PureMVC.Interfaces.INotification"/>
   IView = interface
     ['{2D07C88E-A7BA-4045-A40C-E2D8F294CF94}']
-{$REGION 'Observer'}
+    {$REGION 'Observer'}
     /// <summary>
     /// Register an <c>IObserver</c> to be notified of <c>INotifications</c> with a given name
     /// </summary>
@@ -56,8 +56,8 @@ type
     /// <para>All previously attached <c>IObservers</c> for this <c>INotification</c>'s list are notified and are passed a reference to the <c>INotification</c> in the order in which they were registered</para>
     /// </remarks>
     procedure NotifyObservers(Note: INotification);
-{$ENDREGION}
-{$REGION 'Mediator'}
+    {$ENDREGION}
+    {$REGION 'Mediator'}
     /// <summary>
     /// Register an <c>IMediator</c> instance with the <c>View</c>
     /// </summary>
@@ -89,7 +89,7 @@ type
     /// <returns>whether a Mediator is registered with the given <c>mediatorName</c>.</returns>
     function HasMediator(MediatorName: string): Boolean;
 
-{$ENDREGION}
+    {$ENDREGION}
   end;
 
 implementation

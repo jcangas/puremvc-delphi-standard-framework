@@ -1,7 +1,7 @@
 {
- PureMVC Delphi Port by Jorge L. Cangas <jorge.cangas@puremvc.org>
- PureMVC - Copyright(c) 2006-11 Futurescale, Inc., Some rights reserved.
- Your reuse is governed by the Creative Commons Attribution 3.0 License
+  PureMVC Delphi Port by Jorge L. Cangas <jorge.cangas@puremvc.org>
+  PureMVC - Copyright(c) 2006-11 Futurescale, Inc., Some rights reserved.
+  Your reuse is governed by the Creative Commons Attribution 3.0 License
 }
 
 unit PureMVC.Interfaces.INotifier;
@@ -32,7 +32,7 @@ type
     /// <para>Convenience method to prevent having to construct new notification instances in our implementation code</para>
     /// </remarks>
     /// <param name="NotificationName">The name of the notification to send</param>
-    procedure SendNotification(NotificationName: string; Sender: TObject = nil);overload;
+    procedure SendNotification(NotificationName: string; Sender: TObject = nil); overload;
 
     /// <summary>
     /// Send a <c>INotification</c>
@@ -42,8 +42,7 @@ type
     /// </remarks>
     /// <param name="NotificationName">The name of the notification to send</param>
     /// <param name="Body">The body of the notification</param>
-    procedure SendNotification(NotificationName: string; Sender: TObject;
-        Body: TValue);overload;
+    procedure SendNotification(NotificationName: string; Sender: TObject; Body: TValue); overload;
 
     /// <summary>
     /// Send a <c>INotification</c>
@@ -54,8 +53,7 @@ type
     /// <param name="NotificationName">The name of the notification to send</param>
     /// <param name="Body">The body of the notification</param>
     /// <param name="Kind">The 'kind' of the notification</param>
-    procedure SendNotification(NotificationName: string; Sender: TObject; Body: TValue;
-        Kind: TValue);overload;
+    procedure SendNotification(NotificationName: string; Sender: TObject; Body: TValue; Kind: TValue); overload;
   end;
 
 implementation

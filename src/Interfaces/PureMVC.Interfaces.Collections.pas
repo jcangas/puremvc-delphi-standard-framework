@@ -1,10 +1,10 @@
-{********************************************************************* 
-This file is a major copy from Generics.Collections oficial Delphi unit.
- We reintroduce IEnumarable<T> in orde to define IList<T> 
- compatible with the Genercis.Collections TList<T>.
- This way, we don't need reimplement all Collections from sracht.
- Here only the minimum to export IList.
-*********************************************************************}
+{ *********************************************************************
+  This file is a major copy from Generics.Collections oficial Delphi unit.
+  We reintroduce IEnumarable<T> in orde to define IList<T>
+  compatible with the Genercis.Collections TList<T>.
+  This way, we don't need reimplement all Collections from sracht.
+  Here only the minimum to export IList.
+  ********************************************************************* }
 
 unit PureMVC.Interfaces.Collections;
 
@@ -35,7 +35,7 @@ type
   end;
 
   TEnumerable<T> = class abstract(TInterfacedObject, IEnumerable<T>)
-  private
+  protected
     {$HINTS OFF}
     function ToArrayImpl(Count: Integer): TArray<T>; // used by descendants
     {$HINTS ON}
@@ -49,7 +49,7 @@ type
     function ToArray: TArray<T>; virtual;
   end;
 
-  TCollectionNotification   = (cnAdded, cnRemoved, cnExtracted);
+  TCollectionNotification = (cnAdded, cnRemoved, cnExtracted);
   TCollectionNotifyEvent<T> = procedure(Sender: TObject; const Item: T; Action: TCollectionNotification) of object;
 
   IList<T> = interface(IEnumerable<T>)

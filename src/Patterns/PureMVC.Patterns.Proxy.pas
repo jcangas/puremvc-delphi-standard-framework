@@ -19,7 +19,7 @@ type
   /// </remarks>
   /// <see cref="PureMVC.Core.Model"/>
   TProxy = class(TNotifier, IProxy, INotifier)
-{$REGION 'Members'}
+    {$REGION 'Members'}
   protected
     /// <summary>
     /// The name of the proxy
@@ -31,16 +31,16 @@ type
     /// </summary>
     FData: TValue;
 
-{$ENDREGION}
-{$REGION 'Constants'}
+    {$ENDREGION}
+    {$REGION 'Constants'}
   public
   /// <summary>
   /// The default proxy name
   /// </summary>
     const
-    NAME = 'Proxy';
-{$ENDREGION}
-{$REGION 'Constructors'}
+    name = 'Proxy';
+    {$ENDREGION}
+    {$REGION 'Constructors'}
     /// <summary>
     /// Constructs a new proxy with the specified name and data
     /// </summary>
@@ -48,9 +48,9 @@ type
     /// <param name="Data">The data to be managed</param>
     constructor Create(ProxyName: string; Data: TValue); overload;
     constructor Create(ProxyName: string = NAME); overload;
-{$ENDREGION}
-{$REGION 'Methods'}
-{$REGION 'IProxy Members'}
+    {$ENDREGION}
+    {$REGION 'Methods'}
+    {$REGION 'IProxy Members'}
   public
     /// <summary>
     /// Called by the Model when the Proxy is registered
@@ -62,12 +62,14 @@ type
     procedure OnRemove; virtual;
 
     function GetProxyName: string;
-    function GetData: TValue;virtual;
-    procedure SetData(Value: TValue);virtual;
-    property Data: TValue read GetData write SetData;
+    function GetData: TValue; virtual;
+    procedure SetData(Value: TValue); virtual;
+    property Data: TValue
+      read GetData
+      write SetData;
 
-{$ENDREGION}
-{$ENDREGION}
+    {$ENDREGION}
+    {$ENDREGION}
   end;
 
   TProxy<T: class> = class(TProxy, IProxy<T>)
@@ -78,7 +80,9 @@ type
     function GetDataObject: T;
     procedure SetDataObject(const Value: T);
     procedure SetData(Value: TValue); override;
-    property OwnsData: Boolean read FOwnsData write SetOwnsData;
+    property OwnsData: Boolean
+      read FOwnsData
+      write SetOwnsData;
     property DataObject: T
       read GetDataObject
       write SetDataObject;
@@ -95,8 +99,7 @@ constructor TProxy.Create(ProxyName: string; Data: TValue);
 begin
   inherited Create;
   FProxyName := ProxyName;
-  if FProxyName = '' then
-    FProxyName := NAME;
+  if FProxyName = '' then FProxyName := name;
 
   FData := Data;
 end;
@@ -143,7 +146,7 @@ procedure TProxy<T>.SetData(Value: TValue);
 begin
   if Data.AsObject = Value.AsObject then Exit;
   if not Data.IsEmpty and OwnsData then Data.AsObject.DisposeOf;
-  if not Value.IsType<T> then Exit;
+  if not Value.IsEmpty and not(Value.AsObject is T) then Exit;
   inherited;
 end;
 
@@ -157,8 +160,7 @@ begin
   FOwnsData := Value;
 end;
 
-constructor TProxy<T>.Create(ProxyName: string; Data: TValue;
-  const OwnsData: Boolean);
+constructor TProxy<T>.Create(ProxyName: string; Data: TValue; const OwnsData: Boolean);
 begin
   inherited Create(ProxyName, Data);
   FOwnsData := OwnsData;
