@@ -1,7 +1,7 @@
 {
- PureMVC Delphi Port by Jorge L. Cangas <jorge.cangas@puremvc.org>
- PureMVC - Copyright(c) 2006-11 Futurescale, Inc., Some rights reserved.
- Your reuse is governed by the Creative Commons Attribution 3.0 License
+  PureMVC Delphi Port by Jorge L. Cangas <jorge.cangas@puremvc.org>
+  PureMVC - Copyright(c) 2006-11 Futurescale, Inc., Some rights reserved.
+  Your reuse is governed by the Creative Commons Attribution 3.0 License
 }
 
 unit PureMVC.Interfaces.IObserver;
@@ -38,14 +38,16 @@ type
     /// </summary>
     /// <remarks>The notification method should take one parameter of type <c>INotification</c></remarks>
     procedure SetNotifyMethod(const Value: string);
-    property NotifyMethod: string write SetNotifyMethod;
+    property NotifyMethod: string
+      write SetNotifyMethod;
 
     /// <summary>
     /// The notification context (this) of the interested object
     /// </summary>
 
     procedure SetNotifyContext(Value: TObject);
-    property NotifyContext: TObject write SetNotifyContext;
+    property NotifyContext: TObject
+      write SetNotifyContext;
 
     /// <summary>
     /// Notify the interested object

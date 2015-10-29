@@ -24,8 +24,7 @@ uses
   Test.PureMVC.Patterns.Mediator in '..\Patterns\Mediator\Test.PureMVC.Patterns.Mediator.pas',
   Test.PureMVC.Patterns.Observer in '..\Patterns\Observer\Test.PureMVC.Patterns.Observer.pas',
   Test.PureMVC.Patterns.Notification in '..\Patterns\Observer\Test.PureMVC.Patterns.Notification.pas',
-  Test.PureMVC.Patterns.Proxy in '..\Patterns\Proxy\Test.PureMVC.Patterns.Proxy.pas',
-  PureMVC.Patterns.Mediator in '..\..\src\Patterns\PureMVC.Patterns.Mediator.pas';
+  Test.PureMVC.Patterns.Proxy in '..\Patterns\Proxy\Test.PureMVC.Patterns.Proxy.pas';
 
 {$R *.RES}
 

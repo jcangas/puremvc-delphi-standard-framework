@@ -37,7 +37,7 @@
         <BuildGroupProject Include="PureMVC.dproj">
             <ProjectGuid>{25811770-0120-4D90-ABD3-A47020842BE6}</ProjectGuid>
             <Configurations>Debug;Release</Configurations>
-            <Platforms>Android;Win32;Win64</Platforms>
+            <Platforms>Android;iOSDevice;iOSSimulator;OSX32;Win32;Win64</Platforms>
             <Enabled>True</Enabled>
         </BuildGroupProject>
     </ItemGroup>

@@ -1,7 +1,7 @@
 {
- PureMVC Delphi Port by Jorge L. Cangas <jorge.cangas@puremvc.org>
- PureMVC - Copyright(c) 2006-11 Futurescale, Inc., Some rights reserved.
- Your reuse is governed by the Creative Commons Attribution 3.0 License
+  PureMVC Delphi Port by Jorge L. Cangas <jorge.cangas@puremvc.org>
+  PureMVC - Copyright(c) 2006-11 Futurescale, Inc., Some rights reserved.
+  Your reuse is governed by the Creative Commons Attribution 3.0 License
 }
 
 unit PureMVC.Core.Controller;
@@ -120,13 +120,13 @@ type
     /// and override the <c>InitializeController</c> method in the following way:
     /// </para>
     /// <example>
-    ///   <code lang="Delphi">
+    /// <code lang="Delphi">
     /// // ensure that the Controller is talking to my IView implementation
     /// procedure TSampleController.InitializeController;override;
     /// begin
-    ///  FView = MyView.Instance;
+    /// FView = MyView.Instance;
     /// end
-    ///   </code>
+    /// </code>
     /// </example>
     /// </remarks>
     procedure InitializeController; virtual;

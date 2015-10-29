@@ -1,7 +1,7 @@
 {
- PureMVC Delphi Port by Jorge L. Cangas <jorge.cangas@puremvc.org>
- PureMVC - Copyright(c) 2006-11 Futurescale, Inc., Some rights reserved.
- Your reuse is governed by the Creative Commons Attribution 3.0 License
+  PureMVC Delphi Port by Jorge L. Cangas <jorge.cangas@puremvc.org>
+  PureMVC - Copyright(c) 2006-11 Futurescale, Inc., Some rights reserved.
+  Your reuse is governed by the Creative Commons Attribution 3.0 License
 }
 
 unit PureMVC.Interfaces.IMediator;
@@ -39,15 +39,17 @@ type
     /// Tthe <c>IMediator</c> instance name
     /// </summary>
     function GetMediatorName: string;
-    property MediatorName: string read GetMediatorName;
+    property MediatorName: string
+      read GetMediatorName;
 
     /// <summary>
     /// The <c>IMediator</c>'s view component
     /// </summary>
     function GetViewComponent: TObject;
     procedure SetViewComponent(Value: TObject);
-    property ViewComponent: TObject read GetViewComponent
-        write SetViewComponent;
+    property ViewComponent: TObject
+      read GetViewComponent
+      write SetViewComponent;
 
     /// <summary>
     /// List <c>INotification interests</c>

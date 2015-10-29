@@ -1,10 +1,10 @@
-{********************************************************************* 
-This file is a major copy from Generics.Collections oficial Delphi unit.
- We reintroduce IEnumarable<T> in orde to define IList<T> 
- compatible with the Genercis.Collections TList<T>.
- This way, we don't need reimplement all Collections from srcacht.
- Here the collection classes implmentation.
-*********************************************************************}
+{ *********************************************************************
+  This file is a major copy from Generics.Collections oficial Delphi unit.
+  We reintroduce IEnumarable<T> in orde to define IList<T>
+  compatible with the Genercis.Collections TList<T>.
+  This way, we don't need reimplement all Collections from srcacht.
+  Here the collection classes implmentation.
+  ********************************************************************* }
 unit PureMVC.Patterns.Collections;
 
 {$R-,T-,X+,H+,B-}
@@ -12,28 +12,26 @@ unit PureMVC.Patterns.Collections;
 interface
 
 uses
-  System.Types, System.SysUtils, System.Generics.Defaults, System.SyncObjs,
+  System.Types,
+  System.SysUtils,
+  System.Generics.Defaults,
+  System.SyncObjs,
   PureMVC.Interfaces.Collections;
 
 type
   TArray = class
   private
-    class procedure QuickSort<T>(var Values: array of T; const Comparer: IComparer<T>;
-      L, R: Integer);
+    class procedure QuickSort<T>(var Values: array of T; const Comparer: IComparer<T>; L, R: Integer);
   public
     class procedure Sort<T>(var Values: array of T); overload;
-    class procedure Sort<T>(var Values: array of T;
-      const Comparer: IComparer<T>); overload;
-    class procedure Sort<T>(var Values: array of T;
-      const Comparer: IComparer<T>; Index, Count: Integer); overload;
+    class procedure Sort<T>(var Values: array of T; const Comparer: IComparer<T>); overload;
+    class procedure Sort<T>(var Values: array of T; const Comparer: IComparer<T>; Index, Count: Integer); overload;
 
-    class function BinarySearch<T>(const Values: array of T; const Item: T;
-      out FoundIndex: Integer; const Comparer: IComparer<T>;
+    class function BinarySearch<T>(const Values: array of T; const Item: T; out FoundIndex: Integer; const Comparer: IComparer<T>;
       Index, Count: Integer): Boolean; overload;
-    class function BinarySearch<T>(const Values: array of T; const Item: T;
-      out FoundIndex: Integer; const Comparer: IComparer<T>): Boolean; overload;
-    class function BinarySearch<T>(const Values: array of T; const Item: T;
-      out FoundIndex: Integer): Boolean; overload;
+    class function BinarySearch<T>(const Values: array of T; const Item: T; out FoundIndex: Integer; const Comparer: IComparer<T>)
+      : Boolean; overload;
+    class function BinarySearch<T>(const Values: array of T; const Item: T; out FoundIndex: Integer): Boolean; overload;
   end;
 
   TArrayManager<T> = class abstract
@@ -50,19 +48,20 @@ type
     procedure Finalize(var AArray: array of T; Index, Count: Integer); override;
   end;
 
-{$IF Defined(WEAKREF)}
+  {$IF Defined(WEAKREF)}
+
   TManualArrayManager<T> = class(TArrayManager<T>)
   public
     procedure Move(var AArray: array of T; FromIndex, ToIndex, Count: Integer); overload; override;
     procedure Move(var FromArray, ToArray: array of T; FromIndex, ToIndex, Count: Integer); overload; override;
     procedure Finalize(var AArray: array of T; Index, Count: Integer); override;
   end;
-{$ENDIF}
+  {$ENDIF}
 
   TList<T> = class(TEnumerable<T>, IList<T>)
-  private
-  type
+  private type
     arrayofT = array of T;
+
   var
     FItems: arrayofT;
     FCount: Integer;
@@ -85,93 +84,102 @@ type
     function ItemValue(const Item: T): NativeInt;
     function DoGetEnumerator: TEnumerator<T>; override;
     procedure Notify(const Item: T; Action: TCollectionNotification); virtual;
-  public
-  type
+  public type
     TDirection = System.Types.TDirection;
-    TEmptyFunc = reference to function (const L, R: T): Boolean;
-    TListCompareFunc = reference to function (const L, R: T): Integer;
+    TEmptyFunc = reference to function(const L, R: T): Boolean;
+    TListCompareFunc = reference to function(const L, R: T): Integer;
 
-    constructor Create; overload;
-    constructor Create(const AComparer: IComparer<T>); overload;
-    constructor Create(const Collection: IEnumerable<T>); overload;
-    destructor Destroy; override;
+  constructor Create; overload;
+  constructor Create(const AComparer: IComparer<T>); overload;
+  constructor Create(const Collection: IEnumerable<T>); overload;
+  destructor Destroy; override;
 
-    class procedure Error(const Msg: string; Data: NativeInt); overload; virtual;
-{$IFNDEF NEXTGEN}
-    class procedure Error(Msg: PResStringRec; Data: NativeInt); overload;
-{$ENDIF  NEXTGEN}
+  class procedure Error(const Msg: string; Data: NativeInt); overload; virtual;
+  {$IFNDEF NEXTGEN}
+  class procedure Error(Msg: PResStringRec; Data: NativeInt); overload;
+  {$ENDIF  NEXTGEN}
+  function Add(const Value: T): Integer;
 
-    function Add(const Value: T): Integer;
+  procedure AddRange(const Values: array of T); overload;
+  procedure AddRange(const Collection: IEnumerable<T>); overload;
+  procedure AddRange(const Collection: TEnumerable<T>); overload;
 
-    procedure AddRange(const Values: array of T); overload;
-    procedure AddRange(const Collection: IEnumerable<T>); overload;
-    procedure AddRange(const Collection: TEnumerable<T>); overload;
+  procedure Insert(Index: Integer; const Value: T);
 
-    procedure Insert(Index: Integer; const Value: T);
+  procedure InsertRange(Index: Integer; const Values: array of T); overload;
+  procedure InsertRange(Index: Integer; const Collection: IEnumerable<T>); overload;
+  procedure InsertRange(Index: Integer; const Collection: TEnumerable<T>); overload;
 
-    procedure InsertRange(Index: Integer; const Values: array of T); overload;
-    procedure InsertRange(Index: Integer; const Collection: IEnumerable<T>); overload;
-    procedure InsertRange(Index: Integer; const Collection: TEnumerable<T>); overload;
+  procedure Pack; overload;
+  procedure Pack(const IsEmpty: TEmptyFunc); overload;
 
-    procedure Pack; overload;
-    procedure Pack(const IsEmpty: TEmptyFunc); overload;
+  function Remove(const Value: T): Integer;
+  function RemoveItem(const Value: T; Direction: TDirection): Integer;
+  procedure Delete(Index: Integer);
+  procedure DeleteRange(AIndex, ACount: Integer);
+  function Extract(const Value: T): T;
+  function ExtractItem(const Value: T; Direction: TDirection): T;
 
-    function Remove(const Value: T): Integer;
-    function RemoveItem(const Value: T; Direction: TDirection): Integer;
-    procedure Delete(Index: Integer);
-    procedure DeleteRange(AIndex, ACount: Integer);
-    function Extract(const Value: T): T;
-    function ExtractItem(const Value: T; Direction: TDirection): T;
+  procedure Exchange(Index1, Index2: Integer);
+  procedure Move(CurIndex, NewIndex: Integer);
 
-    procedure Exchange(Index1, Index2: Integer);
-    procedure Move(CurIndex, NewIndex: Integer);
+  function First: T;
+  function Last: T;
 
-    function First: T;
-    function Last: T;
+  procedure Clear;
 
-    procedure Clear;
+  function Expand: TList<T>;
 
-    function Expand: TList<T>;
+  function Contains(const Value: T): Boolean;
+  function IndexOf(const Value: T): Integer;
+  function IndexOfItem(const Value: T; Direction: TDirection): Integer;
+  function LastIndexOf(const Value: T): Integer;
 
-    function Contains(const Value: T): Boolean;
-    function IndexOf(const Value: T): Integer;
-    function IndexOfItem(const Value: T; Direction: TDirection): Integer;
-    function LastIndexOf(const Value: T): Integer;
+  procedure Reverse;
 
-    procedure Reverse;
+  procedure Sort; overload;
+  procedure Sort(const AComparer: IComparer<T>); overload;
+  function BinarySearch(const Item: T; out Index: Integer): Boolean; overload;
+  function BinarySearch(const Item: T; out Index: Integer; const AComparer: IComparer<T>): Boolean; overload;
 
-    procedure Sort; overload;
-    procedure Sort(const AComparer: IComparer<T>); overload;
-    function BinarySearch(const Item: T; out Index: Integer): Boolean; overload;
-    function BinarySearch(const Item: T; out Index: Integer; const AComparer: IComparer<T>): Boolean; overload;
+  procedure TrimExcess;
 
-    procedure TrimExcess;
+  function ToArray: TArray<T>; override; final;
 
-    function ToArray: TArray<T>; override; final;
+  property Capacity: Integer
+    read GetCapacity
+    write SetCapacity;
+  property Count: Integer
+    read GetCount
+    write SetCount;
+  property Items[index: Integer]: T
+    read GetItem
+    write SetItem;
+    default;
+  property List: arrayofT
+    read FItems;
 
-    property Capacity: Integer read GetCapacity write SetCapacity;
-    property Count: Integer read GetCount write SetCount;
-    property Items[Index: Integer]: T read GetItem write SetItem; default;
-    property List: arrayofT read FItems;
+  property OnNotify: TCollectionNotifyEvent<T>
+    read GetOnNotify
+    write SetOnNotify;
 
-    property OnNotify: TCollectionNotifyEvent<T> read GetOnNotify write SetOnNotify;
+  type
+    TEnumerator = class(TEnumerator<T>)
+    private
+      FList: TList<T>;
+      FIndex: Integer;
+      function GetCurrent: T;
+    protected
+      function DoGetCurrent: T; override;
+      function DoMoveNext: Boolean; override;
+    public
+      constructor Create(const AList: TList<T>);
+      property Current: T
+        read GetCurrent;
+      function MoveNext: Boolean;
+    end;
 
-    type
-      TEnumerator = class(TEnumerator<T>)
-      private
-        FList: TList<T>;
-        FIndex: Integer;
-        function GetCurrent: T;
-      protected
-        function DoGetCurrent: T; override;
-        function DoMoveNext: Boolean; override;
-      public
-        constructor Create(const AList: TList<T>);
-        property Current: T read GetCurrent;
-        function MoveNext: Boolean;
-      end;
-
-    function GetEnumerator: TEnumerator; reintroduce;
+  function GetEnumerator: TEnumerator; reintroduce;
   end;
 
   TThreadList<T> = class
@@ -188,7 +196,9 @@ type
     procedure Remove(const Item: T); inline;
     procedure RemoveItem(const Item: T; Direction: TDirection);
     procedure UnlockList; inline;
-    property Duplicates: TDuplicates read FDuplicates write FDuplicates;
+    property Duplicates: TDuplicates
+      read FDuplicates
+      write FDuplicates;
   end;
 
   // Queue implemented over array, using wrapping.
@@ -218,27 +228,33 @@ type
     function Peek: T;
     procedure Clear;
     procedure TrimExcess;
-    property Count: Integer read FCount;
-    property Capacity: Integer read GetCapacity write DoSetCapacity;
-    property OnNotify: TCollectionNotifyEvent<T> read FOnNotify write FOnNotify;
+    property Count: Integer
+      read FCount;
+    property Capacity: Integer
+      read GetCapacity
+      write DoSetCapacity;
+    property OnNotify: TCollectionNotifyEvent<T>
+      read FOnNotify
+      write FOnNotify;
     function ToArray: TArray<T>; override; final;
 
-    type
-      TEnumerator = class(TEnumerator<T>)
-      private
-        FQueue: TQueue<T>;
-        FIndex: Integer;
-        function GetCurrent: T;
-      protected
-        function DoGetCurrent: T; override;
-        function DoMoveNext: Boolean; override;
-      public
-        constructor Create(const AQueue: TQueue<T>);
-        property Current: T read GetCurrent;
-        function MoveNext: Boolean;
-      end;
+  type
+    TEnumerator = class(TEnumerator<T>)
+    private
+      FQueue: TQueue<T>;
+      FIndex: Integer;
+      function GetCurrent: T;
+    protected
+      function DoGetCurrent: T; override;
+      function DoMoveNext: Boolean; override;
+    public
+      constructor Create(const AQueue: TQueue<T>);
+      property Current: T
+        read GetCurrent;
+      function MoveNext: Boolean;
+    end;
 
-    function GetEnumerator: TEnumerator; reintroduce;
+  function GetEnumerator: TEnumerator; reintroduce;
   end;
 
   TStack<T> = class(TEnumerable<T>)
@@ -263,44 +279,50 @@ type
     function Extract: T;
     procedure TrimExcess;
     function ToArray: TArray<T>; override; final;
-    property Count: Integer read FCount;
-    property Capacity: Integer read GetCapacity write DoSetCapacity;
-    property OnNotify: TCollectionNotifyEvent<T> read FOnNotify write FOnNotify;
+    property Count: Integer
+      read FCount;
+    property Capacity: Integer
+      read GetCapacity
+      write DoSetCapacity;
+    property OnNotify: TCollectionNotifyEvent<T>
+      read FOnNotify
+      write FOnNotify;
 
-    type
-      TEnumerator = class(TEnumerator<T>)
-      private
-        FStack: TStack<T>;
-        FIndex: Integer;
-        function GetCurrent: T;
-      protected
-        function DoGetCurrent: T; override;
-        function DoMoveNext: Boolean; override;
-      public
-        constructor Create(const AStack: TStack<T>);
-        property Current: T read GetCurrent;
-        function MoveNext: Boolean;
-      end;
+  type
+    TEnumerator = class(TEnumerator<T>)
+    private
+      FStack: TStack<T>;
+      FIndex: Integer;
+      function GetCurrent: T;
+    protected
+      function DoGetCurrent: T; override;
+      function DoMoveNext: Boolean; override;
+    public
+      constructor Create(const AStack: TStack<T>);
+      property Current: T
+        read GetCurrent;
+      function MoveNext: Boolean;
+    end;
 
-    function GetEnumerator: TEnumerator; reintroduce;
+  function GetEnumerator: TEnumerator; reintroduce;
   end;
 
-  TPair<TKey,TValue> = record
+  TPair<TKey, TValue> = record
     Key: TKey;
     Value: TValue;
     constructor Create(const AKey: TKey; const AValue: TValue);
   end;
 
   // Hash table using linear probing
-  TDictionary<TKey,TValue> = class(TEnumerable<TPair<TKey,TValue>>)
-  private
-    type
-      TItem = record
-        HashCode: Integer;
-        Key: TKey;
-        Value: TValue;
-      end;
-      TItemArray = array of TItem;
+  TDictionary<TKey, TValue> = class(TEnumerable < TPair < TKey, TValue >> )
+  private type
+    TItem = record
+      HashCode: Integer;
+      Key: TKey;
+      Value: TValue;
+    end;
+
+    TItemArray = array of TItem;
   private
     FItems: TItemArray;
     FCount: Integer;
@@ -319,99 +341,110 @@ type
     procedure DoSetValue(Index: Integer; const Value: TValue);
     function DoRemove(const Key: TKey; HashCode: Integer; Notification: TCollectionNotification): TValue;
   protected
-    function DoGetEnumerator: TEnumerator<TPair<TKey,TValue>>; override;
+    function DoGetEnumerator: TEnumerator<TPair<TKey, TValue>>; override;
     procedure KeyNotify(const Key: TKey; Action: TCollectionNotification); virtual;
     procedure ValueNotify(const Value: TValue; Action: TCollectionNotification); virtual;
   public
     constructor Create(ACapacity: Integer = 0); overload;
     constructor Create(const AComparer: IEqualityComparer<TKey>); overload;
     constructor Create(ACapacity: Integer; const AComparer: IEqualityComparer<TKey>); overload;
-    constructor Create(const Collection: TEnumerable<TPair<TKey,TValue>>); overload;
-    constructor Create(const Collection: TEnumerable<TPair<TKey,TValue>>; const AComparer: IEqualityComparer<TKey>); overload;
+    constructor Create(const Collection: TEnumerable < TPair < TKey, TValue >> ); overload;
+    constructor Create(const Collection: TEnumerable<TPair<TKey, TValue>>; const AComparer: IEqualityComparer<TKey>); overload;
     destructor Destroy; override;
 
     procedure Add(const Key: TKey; const Value: TValue);
     procedure Remove(const Key: TKey);
-    function ExtractPair(const Key: TKey): TPair<TKey,TValue>;
+    function ExtractPair(const Key: TKey): TPair<TKey, TValue>;
     procedure Clear;
     procedure TrimExcess;
     function TryGetValue(const Key: TKey; out Value: TValue): Boolean;
     procedure AddOrSetValue(const Key: TKey; const Value: TValue);
     function ContainsKey(const Key: TKey): Boolean;
     function ContainsValue(const Value: TValue): Boolean;
-    function ToArray: TArray<TPair<TKey,TValue>>; override; final;
+    function ToArray: TArray<TPair<TKey, TValue>>; override; final;
 
-    property Items[const Key: TKey]: TValue read GetItem write SetItem; default;
-    property Count: Integer read FCount;
+    property Items[const Key: TKey]: TValue
+      read GetItem
+      write SetItem;
+      default;
+    property Count: Integer
+      read FCount;
 
-    type
-      TPairEnumerator = class(TEnumerator<TPair<TKey,TValue>>)
-      private
-        FDictionary: TDictionary<TKey,TValue>;
-        FIndex: Integer;
-        function GetCurrent: TPair<TKey,TValue>;
-      protected
-        function DoGetCurrent: TPair<TKey,TValue>; override;
-        function DoMoveNext: Boolean; override;
-      public
-        constructor Create(const ADictionary: TDictionary<TKey,TValue>);
-        property Current: TPair<TKey,TValue> read GetCurrent;
-        function MoveNext: Boolean;
-      end;
+  type
+    TPairEnumerator = class(TEnumerator < TPair < TKey, TValue >> )
+    private
+      FDictionary: TDictionary<TKey, TValue>;
+      FIndex: Integer;
+      function GetCurrent: TPair<TKey, TValue>;
+    protected
+      function DoGetCurrent: TPair<TKey, TValue>; override;
+      function DoMoveNext: Boolean; override;
+    public
+      constructor Create(const ADictionary: TDictionary<TKey, TValue>);
+      property Current: TPair<TKey, TValue>
+        read GetCurrent;
+      function MoveNext: Boolean;
+    end;
 
-      TKeyEnumerator = class(TEnumerator<TKey>)
-      private
-        FDictionary: TDictionary<TKey,TValue>;
-        FIndex: Integer;
-        function GetCurrent: TKey;
-      protected
-        function DoGetCurrent: TKey; override;
-        function DoMoveNext: Boolean; override;
-      public
-        constructor Create(const ADictionary: TDictionary<TKey,TValue>);
-        property Current: TKey read GetCurrent;
-        function MoveNext: Boolean;
-      end;
+    TKeyEnumerator = class(TEnumerator<TKey>)
+    private
+      FDictionary: TDictionary<TKey, TValue>;
+      FIndex: Integer;
+      function GetCurrent: TKey;
+    protected
+      function DoGetCurrent: TKey; override;
+      function DoMoveNext: Boolean; override;
+    public
+      constructor Create(const ADictionary: TDictionary<TKey, TValue>);
+      property Current: TKey
+        read GetCurrent;
+      function MoveNext: Boolean;
+    end;
 
-      TValueEnumerator = class(TEnumerator<TValue>)
-      private
-        FDictionary: TDictionary<TKey,TValue>;
-        FIndex: Integer;
-        function GetCurrent: TValue;
-      protected
-        function DoGetCurrent: TValue; override;
-        function DoMoveNext: Boolean; override;
-      public
-        constructor Create(const ADictionary: TDictionary<TKey,TValue>);
-        property Current: TValue read GetCurrent;
-        function MoveNext: Boolean;
-      end;
+    TValueEnumerator = class(TEnumerator<TValue>)
+    private
+      FDictionary: TDictionary<TKey, TValue>;
+      FIndex: Integer;
+      function GetCurrent: TValue;
+    protected
+      function DoGetCurrent: TValue; override;
+      function DoMoveNext: Boolean; override;
+    public
+      constructor Create(const ADictionary: TDictionary<TKey, TValue>);
+      property Current: TValue
+        read GetCurrent;
+      function MoveNext: Boolean;
+    end;
 
-      TValueCollection = class(TEnumerable<TValue>)
-      private
-        [Weak] FDictionary: TDictionary<TKey,TValue>;
-        function GetCount: Integer;
-      protected
-        function DoGetEnumerator: TEnumerator<TValue>; override;
-      public
-        constructor Create(const ADictionary: TDictionary<TKey,TValue>);
-        function GetEnumerator: TValueEnumerator; reintroduce;
-        function ToArray: TArray<TValue>; override; final;
-        property Count: Integer read GetCount;
-      end;
+    TValueCollection = class(TEnumerable<TValue>)
+    private
+      [Weak]
+      FDictionary: TDictionary<TKey, TValue>;
+      function GetCount: Integer;
+    protected
+      function DoGetEnumerator: TEnumerator<TValue>; override;
+    public
+      constructor Create(const ADictionary: TDictionary<TKey, TValue>);
+      function GetEnumerator: TValueEnumerator; reintroduce;
+      function ToArray: TArray<TValue>; override; final;
+      property Count: Integer
+        read GetCount;
+    end;
 
-      TKeyCollection = class(TEnumerable<TKey>)
-      private
-        [Weak] FDictionary: TDictionary<TKey,TValue>;
-        function GetCount: Integer;
-      protected
-        function DoGetEnumerator: TEnumerator<TKey>; override;
-      public
-        constructor Create(const ADictionary: TDictionary<TKey,TValue>);
-        function GetEnumerator: TKeyEnumerator; reintroduce;
-        function ToArray: TArray<TKey>; override; final;
-        property Count: Integer read GetCount;
-      end;
+    TKeyCollection = class(TEnumerable<TKey>)
+    private
+      [Weak]
+      FDictionary: TDictionary<TKey, TValue>;
+      function GetCount: Integer;
+    protected
+      function DoGetEnumerator: TEnumerator<TKey>; override;
+    public
+      constructor Create(const ADictionary: TDictionary<TKey, TValue>);
+      function GetEnumerator: TKeyEnumerator; reintroduce;
+      function ToArray: TArray<TKey>; override; final;
+      property Count: Integer
+        read GetCount;
+    end;
 
   private
     FOnKeyNotify: TCollectionNotifyEvent<TKey>;
@@ -422,10 +455,16 @@ type
     function GetValues: TValueCollection;
   public
     function GetEnumerator: TPairEnumerator; reintroduce;
-    property Keys: TKeyCollection read GetKeys;
-    property Values: TValueCollection read GetValues;
-    property OnKeyNotify: TCollectionNotifyEvent<TKey> read FOnKeyNotify write FOnKeyNotify;
-    property OnValueNotify: TCollectionNotifyEvent<TValue> read FOnValueNotify write FOnValueNotify;
+    property Keys: TKeyCollection
+      read GetKeys;
+    property Values: TValueCollection
+      read GetValues;
+    property OnKeyNotify: TCollectionNotifyEvent<TKey>
+      read FOnKeyNotify
+      write FOnKeyNotify;
+    property OnValueNotify: TCollectionNotifyEvent<TValue>
+      read FOnValueNotify
+      write FOnValueNotify;
   end;
 
   TObjectList<T: class> = class(TList<T>)
@@ -437,7 +476,9 @@ type
     constructor Create(AOwnsObjects: Boolean = True); overload;
     constructor Create(const AComparer: IComparer<T>; AOwnsObjects: Boolean = True); overload;
     constructor Create(const Collection: TEnumerable<T>; AOwnsObjects: Boolean = True); overload;
-    property OwnsObjects: Boolean read FOwnsObjects write FOwnsObjects;
+    property OwnsObjects: Boolean
+      read FOwnsObjects
+      write FOwnsObjects;
   end;
 
   TObjectQueue<T: class> = class(TQueue<T>)
@@ -449,7 +490,9 @@ type
     constructor Create(AOwnsObjects: Boolean = True); overload;
     constructor Create(const Collection: TEnumerable<T>; AOwnsObjects: Boolean = True); overload;
     procedure Dequeue;
-    property OwnsObjects: Boolean read FOwnsObjects write FOwnsObjects;
+    property OwnsObjects: Boolean
+      read FOwnsObjects
+      write FOwnsObjects;
   end;
 
   TObjectStack<T: class> = class(TStack<T>)
@@ -461,12 +504,14 @@ type
     constructor Create(AOwnsObjects: Boolean = True); overload;
     constructor Create(const Collection: TEnumerable<T>; AOwnsObjects: Boolean = True); overload;
     procedure Pop;
-    property OwnsObjects: Boolean read FOwnsObjects write FOwnsObjects;
+    property OwnsObjects: Boolean
+      read FOwnsObjects
+      write FOwnsObjects;
   end;
 
   TDictionaryOwnerships = set of (doOwnsKeys, doOwnsValues);
 
-  TObjectDictionary<TKey,TValue> = class(TDictionary<TKey,TValue>)
+  TObjectDictionary<TKey, TValue> = class(TDictionary<TKey, TValue>)
   private
     FOwnerships: TDictionaryOwnerships;
   protected
@@ -474,18 +519,15 @@ type
     procedure ValueNotify(const Value: TValue; Action: TCollectionNotification); override;
   public
     constructor Create(Ownerships: TDictionaryOwnerships; ACapacity: Integer = 0); overload;
-    constructor Create(Ownerships: TDictionaryOwnerships;
-      const AComparer: IEqualityComparer<TKey>); overload;
-    constructor Create(Ownerships: TDictionaryOwnerships; ACapacity: Integer;
-      const AComparer: IEqualityComparer<TKey>); overload;
+    constructor Create(Ownerships: TDictionaryOwnerships; const AComparer: IEqualityComparer<TKey>); overload;
+    constructor Create(Ownerships: TDictionaryOwnerships; ACapacity: Integer; const AComparer: IEqualityComparer<TKey>); overload;
   end;
 
   TThreadedQueue<T> = class
   private
     FQueue: array of T;
     FQueueSize, FQueueOffset: Integer;
-    FQueueNotEmpty,
-    FQueueNotFull: TObject;
+    FQueueNotEmpty, FQueueNotFull: TObject;
     FQueueLock: TObject;
     FShutDown: Boolean;
     FPushTimeout, FPopTimeout: LongWord;
@@ -503,10 +545,14 @@ type
     function PopItem(var AItem: T): TWaitResult; overload;
     procedure DoShutDown;
 
-    property QueueSize: Integer read FQueueSize;
-    property ShutDown: Boolean read FShutDown;
-    property TotalItemsPushed: LongWord read FTotalItemsPushed;
-    property TotalItemsPopped: LongWord read FTotalItemsPopped;
+    property QueueSize: Integer
+      read FQueueSize;
+    property ShutDown: Boolean
+      read FShutDown;
+    property TotalItemsPushed: LongWord
+      read FTotalItemsPushed;
+    property TotalItemsPopped: LongWord
+      read FTotalItemsPopped;
   end;
 
   PObject = ^TObject;
@@ -515,81 +561,67 @@ function InCircularRange(Bottom, Item, TopInc: Integer): Boolean; inline;
 
 implementation
 
-uses System.TypInfo, System.SysConst, System.RTLConsts;
+uses
+  System.TypInfo,
+  System.SysConst,
+  System.RTLConsts;
 
 { TArray }
 
-class function TArray.BinarySearch<T>(const Values: array of T; const Item: T;
-  out FoundIndex: Integer; const Comparer: IComparer<T>; Index,
-  Count: Integer): Boolean;
+class function TArray.BinarySearch<T>(const Values: array of T; const Item: T; out FoundIndex: Integer;
+  const Comparer: IComparer<T>; Index, Count: Integer): Boolean;
 var
   L, H: Integer;
   mid, cmp: Integer;
 begin
-  if (Index < Low(Values)) or ((Index > High(Values)) and (Count > 0))
-    or (Index + Count - 1 > High(Values)) or (Count < 0)
-    or (Index + Count < 0) then
-    raise EArgumentOutOfRangeException.CreateRes(@SArgumentOutOfRange);
-  if Count = 0 then
-  begin
-    FoundIndex := Index;
+  if (index < low(Values)) or ((index > high(Values)) and (Count > 0)) or (index + Count - 1 > high(Values)) or (Count < 0) or
+    (index + Count < 0) then raise EArgumentOutOfRangeException.CreateRes(@SArgumentOutOfRange);
+  if Count = 0 then begin
+    FoundIndex := index;
     Exit(False);
   end;
 
   Result := False;
-  L := Index;
-  H := Index + Count - 1;
-  while L <= H do
-  begin
+  L := index;
+  H := index + Count - 1;
+  while L <= H do begin
     mid := L + (H - L) shr 1;
     cmp := Comparer.Compare(Values[mid], Item);
-    if cmp < 0 then
-      L := mid + 1
-    else
-    begin
+    if cmp < 0 then L := mid + 1
+    else begin
       H := mid - 1;
-      if cmp = 0 then
-        Result := True;
+      if cmp = 0 then Result := True;
     end;
   end;
   FoundIndex := L;
 end;
 
-class function TArray.BinarySearch<T>(const Values: array of T; const Item: T;
-  out FoundIndex: Integer; const Comparer: IComparer<T>): Boolean;
+class function TArray.BinarySearch<T>(const Values: array of T; const Item: T; out FoundIndex: Integer;
+  const Comparer: IComparer<T>): Boolean;
 begin
-  Result := BinarySearch<T>(Values, Item, FoundIndex, Comparer,
-    Low(Values), Length(Values));
+  Result := BinarySearch<T>(Values, Item, FoundIndex, Comparer, low(Values), Length(Values));
 end;
 
-class function TArray.BinarySearch<T>(const Values: array of T; const Item: T;
-  out FoundIndex: Integer): Boolean;
+class function TArray.BinarySearch<T>(const Values: array of T; const Item: T; out FoundIndex: Integer): Boolean;
 begin
-  Result := BinarySearch<T>(Values, Item, FoundIndex, TComparer<T>.Default,
-    Low(Values), Length(Values));
+  Result := BinarySearch<T>(Values, Item, FoundIndex, TComparer<T>.Default, low(Values), Length(Values));
 end;
 
-class procedure TArray.QuickSort<T>(var Values: array of T; const Comparer: IComparer<T>;
-  L, R: Integer);
+class procedure TArray.QuickSort<T>(var Values: array of T; const Comparer: IComparer<T>; L, R: Integer);
 var
   I, J: Integer;
   pivot, temp: T;
 begin
-  if (Length(Values) = 0) or ((R - L) <= 0) then
-    Exit;
+  if (Length(Values) = 0) or ((R - L) <= 0) then Exit;
   repeat
     I := L;
     J := R;
     pivot := Values[L + (R - L) shr 1];
     repeat
-      while Comparer.Compare(Values[I], pivot) < 0 do
-        Inc(I);
-      while Comparer.Compare(Values[J], pivot) > 0 do
-        Dec(J);
-      if I <= J then
-      begin
-        if I <> J then
-        begin
+      while Comparer.Compare(Values[I], pivot) < 0 do Inc(I);
+      while Comparer.Compare(Values[J], pivot) > 0 do Dec(J);
+      if I <= J then begin
+        if I <> J then begin
           temp := Values[I];
           Values[I] := Values[J];
           Values[J] := temp;
@@ -598,32 +630,27 @@ begin
         Dec(J);
       end;
     until I > J;
-    if L < J then
-      QuickSort<T>(Values, Comparer, L, J);
+    if L < J then QuickSort<T>(Values, Comparer, L, J);
     L := I;
   until I >= R;
 end;
 
 class procedure TArray.Sort<T>(var Values: array of T);
 begin
-  QuickSort<T>(Values, TComparer<T>.Default, Low(Values), High(Values));
+  QuickSort<T>(Values, TComparer<T>.Default, low(Values), high(Values));
 end;
 
 class procedure TArray.Sort<T>(var Values: array of T; const Comparer: IComparer<T>);
 begin
-  QuickSort<T>(Values, Comparer, Low(Values), High(Values));
+  QuickSort<T>(Values, Comparer, low(Values), high(Values));
 end;
 
-class procedure TArray.Sort<T>(var Values: array of T; const Comparer: IComparer<T>;
-  Index, Count: Integer);
+class procedure TArray.Sort<T>(var Values: array of T; const Comparer: IComparer<T>; Index, Count: Integer);
 begin
-  if (Index < Low(Values)) or ((Index > High(Values)) and (Count > 0))
-    or (Index + Count - 1 > High(Values)) or (Count < 0)
-    or (Index + Count < 0) then
-    raise EArgumentOutOfRangeException.CreateRes(@SArgumentOutOfRange);
-  if Count <= 1 then
-    Exit;
-  QuickSort<T>(Values, Comparer, Index, Index + Count - 1);
+  if (index < low(Values)) or ((index > high(Values)) and (Count > 0)) or (index + Count - 1 > high(Values)) or (Count < 0) or
+    (index + Count < 0) then raise EArgumentOutOfRangeException.CreateRes(@SArgumentOutOfRange);
+  if Count <= 1 then Exit;
+  QuickSort<T>(Values, Comparer, index, index + Count - 1);
 end;
 
 { TList<T> }
@@ -640,43 +667,37 @@ end;
 
 procedure TList<T>.SetCapacity(Value: Integer);
 begin
-  if Value < Count then
-    Count := Value;
+  if Value < Count then Count := Value;
   SetLength(FItems, Value);
 end;
 
 procedure TList<T>.SetCount(Value: Integer);
 begin
-  if Value < 0 then
-    raise EArgumentOutOfRangeException.CreateRes(@SArgumentOutOfRange);
-  if Value > Capacity then
-    SetCapacity(Value);
-  if Value < Count then
-    DeleteRange(Value, Count - Value);
+  if Value < 0 then raise EArgumentOutOfRangeException.CreateRes(@SArgumentOutOfRange);
+  if Value > Capacity then SetCapacity(Value);
+  if Value < Count then DeleteRange(Value, Count - Value);
   FCount := Value;
 end;
 
 function TList<T>.GetItem(Index: Integer): T;
 begin
-  if (Index < 0) or (Index >= Count) then
-    raise EArgumentOutOfRangeException.CreateRes(@SArgumentOutOfRange);
-  Result := FItems[Index];
+  if (index < 0) or (index >= Count) then raise EArgumentOutOfRangeException.CreateRes(@SArgumentOutOfRange);
+  Result := FItems[index];
 end;
 
 function TList<T>.GetOnNotify: TCollectionNotifyEvent<T>;
 begin
-  Result :=  FOnNotify;
+  Result := FOnNotify;
 end;
 
 procedure TList<T>.SetItem(Index: Integer; const Value: T);
 var
   oldItem: T;
 begin
-  if (Index < 0) or (Index >= Count) then
-    raise EArgumentOutOfRangeException.CreateRes(@SArgumentOutOfRange);
+  if (index < 0) or (index >= Count) then raise EArgumentOutOfRangeException.CreateRes(@SArgumentOutOfRange);
 
-  oldItem := FItems[Index];
-  FItems[Index] := Value;
+  oldItem := FItems[index];
+  FItems[index] := Value;
 
   Notify(oldItem, cnRemoved);
   Notify(Value, cnAdded);
@@ -692,34 +713,30 @@ var
   newCount: Integer;
 begin
   newCount := Length(FItems);
-  if newCount = 0 then
-    newCount := ACount
+  if newCount = 0 then newCount := ACount
   else
     repeat
       newCount := newCount * 2;
-      if newCount < 0 then
-        OutOfMemoryError;
+      if newCount < 0 then OutOfMemoryError;
     until newCount >= ACount;
   Capacity := newCount;
 end;
 
 procedure TList<T>.GrowCheck(ACount: Integer);
 begin
-  if ACount > Length(FItems) then
-    Grow(ACount)
-  else if ACount < 0 then
-    OutOfMemoryError;
+  if ACount > Length(FItems) then Grow(ACount)
+  else if ACount < 0 then OutOfMemoryError;
 end;
 
 procedure TList<T>.Notify(const Item: T; Action: TCollectionNotification);
 begin
-  if Assigned(FOnNotify) then
-    FOnNotify(Self, Item, Action);
+  if Assigned(FOnNotify) then FOnNotify(Self, Item, Action);
 end;
 
 procedure TList<T>.Pack;
 begin
-  Pack(function (const Left, Right: T): Boolean
+  Pack(
+    function(const Left, Right: T): Boolean
     begin
       Result := FComparer.Compare(Left, Right) = 0;
     end);
@@ -727,35 +744,31 @@ end;
 
 procedure TList<T>.Pack(const IsEmpty: TEmptyFunc);
 var
-  PackedCount : Integer;
-  StartIndex : Integer;
-  EndIndex : Integer;
+  PackedCount: Integer;
+  StartIndex: Integer;
+  EndIndex: Integer;
 begin
-  if FCount = 0 then
-    Exit;
+  if FCount = 0 then Exit;
 
   PackedCount := 0;
   StartIndex := 0;
   repeat
     // Locate the first/next non-nil element in the list
-//    while (StartIndex < FCount) and (FComparer.Compare(FItems[StartIndex], Default(T)) = 0) do
-    while (StartIndex < FCount) and (IsEmpty(FItems[StartIndex], Default(T))) do
-      Inc(StartIndex);
+    // while (StartIndex < FCount) and (FComparer.Compare(FItems[StartIndex], Default(T)) = 0) do
+    while (StartIndex < FCount) and (IsEmpty(FItems[StartIndex], default (T))) do Inc(StartIndex);
 
     if StartIndex < FCount then // There is nothing more to do
     begin
       // Locate the next nil pointer
       EndIndex := StartIndex;
-//      while (EndIndex < FCount) and (FComparer.Compare(FItems[EndIndex], Default(T)) <> 0) do
-      while (EndIndex < FCount) and not IsEmpty(FItems[EndIndex], Default(T)) do
-        Inc(EndIndex);
+      // while (EndIndex < FCount) and (FComparer.Compare(FItems[EndIndex], Default(T)) <> 0) do
+      while (EndIndex < FCount) and not IsEmpty(FItems[EndIndex], default (T)) do Inc(EndIndex);
       Dec(EndIndex);
 
       // Move this block of non-null items to the index recorded in PackedToCount:
       // If this is a contiguous non-nil block at the start of the list then
       // StartIndex and PackedToCount will be equal (and 0) so don't bother with the move.
-      if StartIndex > PackedCount then
-        FArrayManager.Move(FItems, StartIndex, PackedCount, EndIndex - StartIndex + 1);
+      if StartIndex > PackedCount then FArrayManager.Move(FItems, StartIndex, PackedCount, EndIndex - StartIndex + 1);
 
       // Set the PackedToCount to reflect the number of items in the list
       // that have now been packed.
@@ -778,26 +791,23 @@ end;
 constructor TList<T>.Create(const AComparer: IComparer<T>);
 begin
   inherited Create;
-{$IF Defined(WEAKREF)}
-  if HasWeakRef then
-    FArrayManager := TManualArrayManager<T>.Create
+  {$IF Defined(WEAKREF)}
+  if HasWeakRef then FArrayManager := TManualArrayManager<T>.Create
   else
-{$ENDIF}
-    FArrayManager := TMoveArrayManager<T>.Create;
+    {$ENDIF}
+      FArrayManager := TMoveArrayManager<T>.Create;
   FComparer := AComparer;
-  if FComparer = nil then
-    FComparer := TComparer<T>.Default;
+  if FComparer = nil then FComparer := TComparer<T>.Default;
 end;
 
 constructor TList<T>.Create(const Collection: IEnumerable<T>);
 begin
   inherited Create;
-{$IF Defined(WEAKREF)}
-  if HasWeakRef then
-    FArrayManager := TManualArrayManager<T>.Create
+  {$IF Defined(WEAKREF)}
+  if HasWeakRef then FArrayManager := TManualArrayManager<T>.Create
   else
-{$ENDIF}
-    FArrayManager := TMoveArrayManager<T>.Create;
+    {$ENDIF}
+      FArrayManager := TMoveArrayManager<T>.Create;
   FComparer := TComparer<T>.Default;
   InsertRange(0, Collection);
 end;
@@ -811,13 +821,14 @@ end;
 
 class procedure TList<T>.Error(const Msg: string; Data: NativeInt);
 begin
-  raise EListError.CreateFmt(Msg, [Data]) at ReturnAddress;
+  raise EListError.CreateFmt(Msg, [Data])at ReturnAddress;
 end;
 
 {$IFNDEF NEXTGEN}
+
 class procedure TList<T>.Error(Msg: PResStringRec; Data: NativeInt);
 begin
-  raise EListError.CreateFmt(LoadResString(Msg), [Data]) at ReturnAddress;
+  raise EListError.CreateFmt(LoadResString(Msg), [Data])at ReturnAddress;
 end;
 {$ENDIF  NEXTGEN}
 
@@ -852,27 +863,24 @@ end;
 
 function TList<T>.BinarySearch(const Item: T; out Index: Integer): Boolean;
 begin
-  Result := TArray.BinarySearch<T>(FItems, Item, Index, FComparer, 0, Count);
+  Result := TArray.BinarySearch<T>(FItems, Item, index, FComparer, 0, Count);
 end;
 
-function TList<T>.BinarySearch(const Item: T; out Index: Integer;
-  const AComparer: IComparer<T>): Boolean;
+function TList<T>.BinarySearch(const Item: T; out Index: Integer; const AComparer: IComparer<T>): Boolean;
 begin
-  Result := TArray.BinarySearch<T>(FItems, Item, Index, AComparer, 0, Count);
+  Result := TArray.BinarySearch<T>(FItems, Item, index, AComparer, 0, Count);
 end;
 
 procedure TList<T>.Insert(Index: Integer; const Value: T);
 begin
-  if (Index < 0) or (Index > Count) then
-    raise EArgumentOutOfRangeException.CreateRes(@SArgumentOutOfRange);
+  if (index < 0) or (index > Count) then raise EArgumentOutOfRangeException.CreateRes(@SArgumentOutOfRange);
 
   GrowCheck(Count + 1);
-  if Index <> Count then
-  begin
-    FArrayManager.Move(FItems, Index, Index + 1, Count - Index);
-    FArrayManager.Finalize(FItems, Index, 1);
+  if index <> Count then begin
+    FArrayManager.Move(FItems, index, index + 1, Count - index);
+    FArrayManager.Finalize(FItems, index, 1);
   end;
-  FItems[Index] := Value;
+  FItems[index] := Value;
   Inc(FCount);
   Notify(Value, cnAdded);
 end;
@@ -881,44 +889,38 @@ procedure TList<T>.InsertRange(Index: Integer; const Values: array of T);
 var
   I: Integer;
 begin
-  if (Index < 0) or (Index > Count) then
-    raise EArgumentOutOfRangeException.CreateRes(@SArgumentOutOfRange);
+  if (index < 0) or (index > Count) then raise EArgumentOutOfRangeException.CreateRes(@SArgumentOutOfRange);
 
   GrowCheck(Count + Length(Values));
-  if Index <> Count then
-  begin
-    FArrayManager.Move(FItems, Index, Index + Length(Values), Count - Index);
-    FArrayManager.Finalize(FItems, Index, Length(Values));
+  if index <> Count then begin
+    FArrayManager.Move(FItems, index, index + Length(Values), Count - index);
+    FArrayManager.Finalize(FItems, index, Length(Values));
   end;
 
-  for I := 0 to Length(Values) - 1 do
-    FItems[Index + I] := Values[I];
+  for I := 0 to Length(Values) - 1 do FItems[index + I] := Values[I];
 
   Inc(FCount, Length(Values));
 
-  for I := 0 to Length(Values) - 1 do
-    Notify(Values[I], cnAdded);
+  for I := 0 to Length(Values) - 1 do Notify(Values[I], cnAdded);
 end;
 
 procedure TList<T>.InsertRange(Index: Integer; const Collection: IEnumerable<T>);
 var
-  item: T;
+  Item: T;
 begin
-  for item in Collection do
-  begin
-    Insert(Index, item);
-    Inc(Index);
+  for Item in Collection do begin
+    Insert(index, Item);
+    Inc(index);
   end;
 end;
 
 procedure TList<T>.InsertRange(Index: Integer; const Collection: TEnumerable<T>);
 var
-  item: T;
+  Item: T;
 begin
-  for item in Collection do
-  begin
-    Insert(Index, item);
-    Inc(Index);
+  for Item in Collection do begin
+    Insert(index, Item);
+    Inc(index);
   end;
 end;
 
@@ -928,21 +930,20 @@ begin
     1: Result := PByte(@Item)[0] shl 0;
     2: Result := PByte(@Item)[0] shl 0 + PByte(@Item)[1] shl 8;
     3: Result := PByte(@Item)[0] shl 0 + PByte(@Item)[1] shl 8 + PByte(@Item)[2] shl 16;
-{$IF SizeOf(IntPtr) <= 4}
-  else
-    Result := PByte(@Item)[0] shl 0 + PByte(@Item)[1] shl 8 + PByte(@Item)[2] shl 16 + PByte(@Item)[3] shl 24;
-{$ELSE}
+    {$IF SizeOf(IntPtr) <= 4}
+  else Result := PByte(@Item)[0] shl 0 + PByte(@Item)[1] shl 8 + PByte(@Item)[2] shl 16 + PByte(@Item)[3] shl 24;
+    {$ELSE}
     4: Result := PByte(@Item)[0] shl 0 + PByte(@Item)[1] shl 8 + PByte(@Item)[2] shl 16 + PByte(@Item)[3] shl 24;
     5: Result := PByte(@Item)[0] shl 0 + PByte(@Item)[1] shl 8 + PByte(@Item)[2] shl 16 + PByte(@Item)[3] shl 24 +
-                 IntPtr(PByte(@Item)[4]) shl 32;
+        IntPtr(PByte(@Item)[4]) shl 32;
     6: Result := PByte(@Item)[0] shl 0 + PByte(@Item)[1] shl 8 + PByte(@Item)[2] shl 16 + PByte(@Item)[3] shl 24 +
-                 IntPtr(PByte(@Item)[4]) shl 32 + IntPtr(PByte(@Item)[5]) shl 40;
+        IntPtr(PByte(@Item)[4]) shl 32 + IntPtr(PByte(@Item)[5]) shl 40;
     7: Result := PByte(@Item)[0] shl 0 + PByte(@Item)[1] shl 8 + PByte(@Item)[2] shl 16 + PByte(@Item)[3] shl 24 +
-                 IntPtr(PByte(@Item)[4]) shl 32 + IntPtr(PByte(@Item)[5]) shl 40 + IntPtr(PByte(@Item)[6]) shl 48;
- else
-    Result := PByte(@Item)[0] shl 0 + PByte(@Item)[1] shl 8 + PByte(@Item)[2] shl 16 + PByte(@Item)[3] shl 24 +
-              IntPtr(PByte(@Item)[4]) shl 32 + IntPtr(PByte(@Item)[5]) shl 40 + IntPtr(PByte(@Item)[6]) shl 48 + IntPtr(PByte(@Item)[7]) shl 56;
-{$ENDIF}
+        IntPtr(PByte(@Item)[4]) shl 32 + IntPtr(PByte(@Item)[5]) shl 40 + IntPtr(PByte(@Item)[6]) shl 48;
+  else Result := PByte(@Item)[0] shl 0 + PByte(@Item)[1] shl 8 + PByte(@Item)[2] shl 16 + PByte(@Item)[3] shl 24 +
+      IntPtr(PByte(@Item)[4]) shl 32 + IntPtr(PByte(@Item)[5]) shl 40 + IntPtr(PByte(@Item)[6]) shl 48 +
+      IntPtr(PByte(@Item)[7]) shl 56;
+    {$ENDIF}
   end;
 end;
 
@@ -962,13 +963,11 @@ end;
 
 function TList<T>.ExtractItem(const Value: T; Direction: TDirection): T;
 var
-  index: Integer;
+  Index: Integer;
 begin
   index := IndexOfItem(Value, Direction);
-  if index < 0 then
-    Result := Default(T)
-  else
-  begin
+  if index < 0 then Result := default (T)
+  else begin
     Result := FItems[index];
     DoDelete(index, cnExtracted);
   end;
@@ -982,29 +981,25 @@ end;
 function TList<T>.Remove(const Value: T): Integer;
 begin
   Result := IndexOf(Value);
-  if Result >= 0 then
-    Delete(Result);
+  if Result >= 0 then Delete(Result);
 end;
 
 function TList<T>.RemoveItem(const Value: T; Direction: TDirection): Integer;
 begin
   Result := IndexOfItem(Value, Direction);
-  if Result >= 0 then
-    Delete(Result);
+  if Result >= 0 then Delete(Result);
 end;
 
 procedure TList<T>.DoDelete(Index: Integer; Notification: TCollectionNotification);
 var
   oldItem: T;
 begin
-  if (Index < 0) or (Index >= Count) then
-    raise EArgumentOutOfRangeException.CreateRes(@SArgumentOutOfRange);
-  oldItem := FItems[Index];
-  FItems[Index] := Default(T);
+  if (index < 0) or (index >= Count) then raise EArgumentOutOfRangeException.CreateRes(@SArgumentOutOfRange);
+  oldItem := FItems[index];
+  FItems[index] := default (T);
   Dec(FCount);
-  if Index <> Count then
-  begin
-    FArrayManager.Move(FItems, Index + 1, Index, Count - Index);
+  if index <> Count then begin
+    FArrayManager.Move(FItems, index + 1, index, Count - index);
     FArrayManager.Finalize(FItems, Count, 1);
   end;
   Notify(oldItem, Notification);
@@ -1012,7 +1007,7 @@ end;
 
 procedure TList<T>.Delete(Index: Integer);
 begin
-  DoDelete(Index, cnRemoved);
+  DoDelete(index, cnRemoved);
 end;
 
 procedure TList<T>.DeleteRange(AIndex, ACount: Integer);
@@ -1020,27 +1015,23 @@ var
   oldItems: array of T;
   tailCount, I: Integer;
 begin
-  if (AIndex < 0) or (ACount < 0) or (AIndex + ACount > Count)
-    or (AIndex + ACount < 0) then
-    raise EArgumentOutOfRangeException.CreateRes(@SArgumentOutOfRange);
-  if ACount = 0 then
-    Exit;
+  if (AIndex < 0) or (ACount < 0) or (AIndex + ACount > Count) or (AIndex + ACount < 0) then
+      raise EArgumentOutOfRangeException.CreateRes(@SArgumentOutOfRange);
+  if ACount = 0 then Exit;
 
   SetLength(oldItems, ACount);
   FArrayManager.Move(FItems, oldItems, AIndex, 0, ACount);
 
   tailCount := Count - (AIndex + ACount);
-  if tailCount > 0 then
-  begin
+  if tailCount > 0 then begin
     FArrayManager.Move(FItems, AIndex + ACount, AIndex, tailCount);
     FArrayManager.Finalize(FItems, Count - ACount, ACount);
-  end else
-    FArrayManager.Finalize(FItems, AIndex, ACount);
+  end
+  else FArrayManager.Finalize(FItems, AIndex, ACount);
 
   Dec(FCount, ACount);
 
-  for I := 0 to Length(oldItems) - 1 do
-    Notify(oldItems[I], cnRemoved);
+  for I := 0 to Length(oldItems) - 1 do Notify(oldItems[I], cnRemoved);
 end;
 
 procedure TList<T>.Clear;
@@ -1051,8 +1042,7 @@ end;
 
 function TList<T>.Expand: TList<T>;
 begin
-  if FCount = Length(FItems) then
-    GrowCheck(FCount + 1);
+  if FCount = Length(FItems) then GrowCheck(FCount + 1);
   Result := Self;
 end;
 
@@ -1063,28 +1053,23 @@ end;
 
 function TList<T>.IndexOf(const Value: T): Integer;
 var
-  i: Integer;
+  I: Integer;
 begin
-  for i := 0 to Count - 1 do
-    if FComparer.Compare(FItems[i], Value) = 0 then
-      Exit(i);
+  for I := 0 to Count - 1 do
+    if FComparer.Compare(FItems[I], Value) = 0 then Exit(I);
   Result := -1;
 end;
 
 function TList<T>.IndexOfItem(const Value: T; Direction: TDirection): Integer;
 var
   P: T;
-  i: Integer;
+  I: Integer;
 begin
-  if Direction = TDirection.FromBeginning then
-    Result := IndexOf(Value)
-  else
-  begin
-    if Count > 0 then
-    begin
-      for i := Count - 1 downto 0 do
-        if FComparer.Compare(FItems[i], Value) = 0 then
-          Exit(i);
+  if Direction = TDirection.FromBeginning then Result := IndexOf(Value)
+  else begin
+    if Count > 0 then begin
+      for I := Count - 1 downto 0 do
+        if FComparer.Compare(FItems[I], Value) = 0 then Exit(I);
     end;
     Result := -1;
   end;
@@ -1097,11 +1082,10 @@ end;
 
 function TList<T>.LastIndexOf(const Value: T): Integer;
 var
-  i: Integer;
+  I: Integer;
 begin
-  for i := Count - 1 downto 0 do
-    if FComparer.Compare(FItems[i], Value) = 0 then
-      Exit(i);
+  for I := Count - 1 downto 0 do
+    if FComparer.Compare(FItems[I], Value) = 0 then Exit(I);
   Result := -1;
 end;
 
@@ -1109,17 +1093,13 @@ procedure TList<T>.Move(CurIndex, NewIndex: Integer);
 var
   temp: T;
 begin
-  if CurIndex = NewIndex then
-    Exit;
-  if (NewIndex < 0) or (NewIndex >= FCount) then
-    raise EArgumentOutOfRangeException.CreateRes(@SArgumentOutOfRange);
+  if CurIndex = NewIndex then Exit;
+  if (NewIndex < 0) or (NewIndex >= FCount) then raise EArgumentOutOfRangeException.CreateRes(@SArgumentOutOfRange);
 
   temp := FItems[CurIndex];
-  FItems[CurIndex] := Default(T);
-  if CurIndex < NewIndex then
-    FArrayManager.Move(FItems, CurIndex + 1, CurIndex, NewIndex - CurIndex)
-  else
-    FArrayManager.Move(FItems, NewIndex, NewIndex + 1, CurIndex - NewIndex);
+  FItems[CurIndex] := default (T);
+  if CurIndex < NewIndex then FArrayManager.Move(FItems, CurIndex + 1, CurIndex, NewIndex - CurIndex)
+  else FArrayManager.Move(FItems, NewIndex, NewIndex + 1, CurIndex - NewIndex);
 
   FArrayManager.Finalize(FItems, NewIndex, 1);
   FItems[NewIndex] := temp;
@@ -1132,8 +1112,7 @@ var
 begin
   b := 0;
   e := Count - 1;
-  while b < e do
-  begin
+  while b < e do begin
     tmp := FItems[b];
     FItems[b] := FItems[e];
     FItems[e] := tmp;
@@ -1154,11 +1133,10 @@ end;
 
 function TList<T>.ToArray: TArray<T>;
 var
-  i: Integer;
+  I: Integer;
 begin
   SetLength(Result, Count);
-  for i := 0 to Count - 1 do
-    Result[i] := Items[i];
+  for I := 0 to Count - 1 do Result[I] := Items[I];
 end;
 
 procedure TList<T>.TrimExcess;
@@ -1197,8 +1175,7 @@ end;
 
 function TList<T>.TEnumerator.MoveNext: Boolean;
 begin
-  if FIndex >= FList.Count then
-    Exit(False);
+  if FIndex >= FList.Count then Exit(False);
   Inc(FIndex);
   Result := FIndex < FList.Count;
 end;
@@ -1207,19 +1184,17 @@ end;
 
 procedure TQueue<T>.Notify(const Item: T; Action: TCollectionNotification);
 begin
-  if Assigned(FOnNotify) then
-    FOnNotify(Self, Item, Action);
+  if Assigned(FOnNotify) then FOnNotify(Self, Item, Action);
 end;
 
 constructor TQueue<T>.Create;
 begin
   inherited Create;
-{$IF Defined(WEAKREF)}
-  if HasWeakRef then
-    FArrayManager := TManualArrayManager<T>.Create
+  {$IF Defined(WEAKREF)}
+  if HasWeakRef then FArrayManager := TManualArrayManager<T>.Create
   else
-{$ENDIF}
-    FArrayManager := TMoveArrayManager<T>.Create;
+    {$ENDIF}
+      FArrayManager := TMoveArrayManager<T>.Create;
 end;
 
 function TQueue<T>.Dequeue: T;
@@ -1241,15 +1216,13 @@ end;
 
 procedure TQueue<T>.DoSetCapacity(Value: Integer);
 begin
-  if Value < Count then
-    raise EArgumentOutOfRangeException.CreateRes(@SArgumentOutOfRange);
+  if Value < Count then raise EArgumentOutOfRangeException.CreateRes(@SArgumentOutOfRange);
   SetCapacity(Value);
 end;
 
 procedure TQueue<T>.Enqueue(const Value: T);
 begin
-  if Count = Length(FItems) then
-    Grow;
+  if Count = Length(FItems) then Grow;
   FItems[FHead] := Value;
   FHead := (FHead + 1) mod Length(FItems);
   Inc(FCount);
@@ -1263,25 +1236,22 @@ end;
 
 constructor TQueue<T>.Create(const Collection: TEnumerable<T>);
 var
-  item: T;
+  Item: T;
 begin
   inherited Create;
-{$IF Defined(WEAKREF)}
-  if HasWeakRef then
-    FArrayManager := TManualArrayManager<T>.Create
+  {$IF Defined(WEAKREF)}
+  if HasWeakRef then FArrayManager := TManualArrayManager<T>.Create
   else
-{$ENDIF}
-    FArrayManager := TMoveArrayManager<T>.Create;
-  for item in Collection do
-    Enqueue(item);
+    {$ENDIF}
+      FArrayManager := TMoveArrayManager<T>.Create;
+  for Item in Collection do Enqueue(Item);
 end;
 
 function TQueue<T>.DoDequeue(Notification: TCollectionNotification): T;
 begin
-  if Count = 0 then
-    raise EListError.CreateRes(@SUnbalancedOperation);
+  if Count = 0 then raise EListError.CreateRes(@SUnbalancedOperation);
   Result := FItems[FTail];
-  FItems[FTail] := Default(T);
+  FItems[FTail] := default (T);
   FTail := (FTail + 1) mod Length(FItems);
   Dec(FCount);
   Notify(Result, Notification);
@@ -1289,15 +1259,13 @@ end;
 
 function TQueue<T>.Peek: T;
 begin
-  if Count = 0 then
-    raise EListError.CreateRes(@SUnbalancedOperation);
+  if Count = 0 then raise EListError.CreateRes(@SUnbalancedOperation);
   Result := FItems[FTail];
 end;
 
 procedure TQueue<T>.Clear;
 begin
-  while Count > 0 do
-    Dequeue;
+  while Count > 0 do Dequeue;
   FHead := 0;
   FTail := 0;
   FCount := 0;
@@ -1318,44 +1286,32 @@ var
   tailCount, offset: Integer;
 begin
   offset := Value - Length(FItems);
-  if offset = 0 then
-    Exit;
+  if offset = 0 then Exit;
 
   // If head <= tail, then part of the queue wraps around
   // the end of the array; don't introduce a gap in the queue.
-  if (FHead < FTail) or ((FHead = FTail) and (Count > 0)) then
-    tailCount := Length(FItems) - FTail
-  else
-    tailCount := 0;
+  if (FHead < FTail) or ((FHead = FTail) and (Count > 0)) then tailCount := Length(FItems) - FTail
+  else tailCount := 0;
 
-  if offset > 0 then
-    SetLength(FItems, Value);
-  if tailCount > 0 then
-  begin
+  if offset > 0 then SetLength(FItems, Value);
+  if tailCount > 0 then begin
     FArrayManager.Move(FItems, FTail, FTail + offset, tailCount);
-    if offset > 0 then
-      FArrayManager.Finalize(FItems, FTail, offset)
-    else if offset < 0 then
-      FArrayManager.Finalize(FItems, Count, (- offset));
+    if offset > 0 then FArrayManager.Finalize(FItems, FTail, offset)
+    else if offset < 0 then FArrayManager.Finalize(FItems, Count, (-offset));
     Inc(FTail, offset);
   end
-  else if FTail > 0 then
-  begin
-    if Count > 0 then
-    begin
+  else if FTail > 0 then begin
+    if Count > 0 then begin
       FArrayManager.Move(FItems, FTail, 0, Count);
       FArrayManager.Finalize(FItems, FCount, FTail);
     end;
     Dec(FHead, FTail);
     FTail := 0;
   end;
-  if offset < 0 then
-  begin
+  if offset < 0 then begin
     SetLength(FItems, Value);
-    if Value = 0 then
-      FHead := 0
-    else
-      FHead := FHead mod Length(FItems);
+    if Value = 0 then FHead := 0
+    else FHead := FHead mod Length(FItems);
   end;
 end;
 
@@ -1364,10 +1320,8 @@ var
   newCap: Integer;
 begin
   newCap := Length(FItems) * 2;
-  if newCap = 0 then
-    newCap := 4
-  else if newCap < 0 then
-    OutOfMemoryError;
+  if newCap = 0 then newCap := 4
+  else if newCap < 0 then OutOfMemoryError;
   SetCapacity(newCap);
 end;
 
@@ -1407,8 +1361,7 @@ end;
 
 function TQueue<T>.TEnumerator.MoveNext: Boolean;
 begin
-  if FIndex >= FQueue.Count then
-    Exit(False);
+  if FIndex >= FQueue.Count then Exit(False);
   Inc(FIndex);
   Result := FIndex < FQueue.Count;
 end;
@@ -1417,17 +1370,15 @@ end;
 
 procedure TStack<T>.Notify(const Item: T; Action: TCollectionNotification);
 begin
-  if Assigned(FOnNotify) then
-    FOnNotify(Self, Item, Action);
+  if Assigned(FOnNotify) then FOnNotify(Self, Item, Action);
 end;
 
 constructor TStack<T>.Create(const Collection: TEnumerable<T>);
 var
-  item: T;
+  Item: T;
 begin
   inherited Create;
-  for item in Collection do
-    Push(item);
+  for Item in Collection do Push(Item);
 end;
 
 destructor TStack<T>.Destroy;
@@ -1446,17 +1397,14 @@ var
   newCap: Integer;
 begin
   newCap := Length(FItems) * 2;
-  if newCap = 0 then
-    newCap := 4
-  else if newCap < 0 then
-    OutOfMemoryError;
+  if newCap = 0 then newCap := 4
+  else if newCap < 0 then OutOfMemoryError;
   SetLength(FItems, newCap);
 end;
 
 procedure TStack<T>.Push(const Value: T);
 begin
-  if Count = Length(FItems) then
-    Grow;
+  if Count = Length(FItems) then Grow;
   FItems[Count] := Value;
   Inc(FCount);
   Notify(Value, cnAdded);
@@ -1464,18 +1412,16 @@ end;
 
 function TStack<T>.DoPop(Notification: TCollectionNotification): T;
 begin
-  if Count = 0 then
-    raise EListError.CreateRes(@SUnbalancedOperation);
+  if Count = 0 then raise EListError.CreateRes(@SUnbalancedOperation);
   Dec(FCount);
   Result := FItems[Count];
-  FItems[Count] := Default(T);
+  FItems[Count] := default (T);
   Notify(Result, Notification);
 end;
 
 procedure TStack<T>.DoSetCapacity(Value: Integer);
 begin
-  if Value < Count then
-    raise EArgumentOutOfRangeException.CreateRes(@SArgumentOutOfRange);
+  if Value < Count then raise EArgumentOutOfRangeException.CreateRes(@SArgumentOutOfRange);
   SetLength(FItems, Value);
 end;
 
@@ -1486,8 +1432,7 @@ end;
 
 function TStack<T>.Peek: T;
 begin
-  if Count = 0 then
-    raise EListError.CreateRes(@SUnbalancedOperation);
+  if Count = 0 then raise EListError.CreateRes(@SUnbalancedOperation);
   Result := FItems[Count - 1];
 end;
 
@@ -1498,8 +1443,7 @@ end;
 
 procedure TStack<T>.Clear;
 begin
-  while Count > 0 do
-    Pop;
+  while Count > 0 do Pop;
   SetLength(FItems, 0);
 end;
 
@@ -1547,15 +1491,14 @@ end;
 
 function TStack<T>.TEnumerator.MoveNext: Boolean;
 begin
-  if FIndex >= FStack.Count then
-    Exit(False);
+  if FIndex >= FStack.Count then Exit(False);
   Inc(FIndex);
   Result := FIndex < FStack.Count;
 end;
 
 { TPair<TKey,TValue> }
 
-constructor TPair<TKey,TValue>.Create(const AKey: TKey; const AValue: TValue);
+constructor TPair<TKey, TValue>.Create(const AKey: TKey; const AValue: TValue);
 begin
   Key := AKey;
   Value := AValue;
@@ -1565,84 +1508,70 @@ end;
 const
   EMPTY_HASH = -1;
 
-procedure TDictionary<TKey,TValue>.Rehash(NewCapPow2: Integer);
+procedure TDictionary<TKey, TValue>.Rehash(NewCapPow2: Integer);
 var
   oldItems, newItems: TItemArray;
-  i: Integer;
+  I: Integer;
 begin
-  if NewCapPow2 = Length(FItems) then
-    Exit
-  else if NewCapPow2 < 0 then
-    OutOfMemoryError;
+  if NewCapPow2 = Length(FItems) then Exit
+  else if NewCapPow2 < 0 then OutOfMemoryError;
 
   oldItems := FItems;
   SetLength(newItems, NewCapPow2);
-  for i := 0 to Length(newItems) - 1 do
-    newItems[i].HashCode := EMPTY_HASH;
+  for I := 0 to Length(newItems) - 1 do newItems[I].HashCode := EMPTY_HASH;
   FItems := newItems;
   FGrowThreshold := NewCapPow2 shr 1 + NewCapPow2 shr 2; // 75%
 
-  for i := 0 to Length(oldItems) - 1 do
-    if oldItems[i].HashCode <> EMPTY_HASH then
-      RehashAdd(oldItems[i].HashCode, oldItems[i].Key, oldItems[i].Value);
+  for I := 0 to Length(oldItems) - 1 do
+    if oldItems[I].HashCode <> EMPTY_HASH then RehashAdd(oldItems[I].HashCode, oldItems[I].Key, oldItems[I].Value);
 end;
 
-procedure TDictionary<TKey,TValue>.SetCapacity(ACapacity: Integer);
+procedure TDictionary<TKey, TValue>.SetCapacity(ACapacity: Integer);
 var
   newCap: Integer;
 begin
-  if ACapacity < Count then
-    raise EArgumentOutOfRangeException.CreateRes(@SArgumentOutOfRange);
+  if ACapacity < Count then raise EArgumentOutOfRangeException.CreateRes(@SArgumentOutOfRange);
 
-  if ACapacity = 0 then
-    Rehash(0)
-  else
-  begin
+  if ACapacity = 0 then Rehash(0)
+  else begin
     newCap := 4;
-    while newCap < ACapacity do
-      newCap := newCap shl 1;
+    while newCap < ACapacity do newCap := newCap shl 1;
     Rehash(newCap);
   end
 end;
 
-procedure TDictionary<TKey,TValue>.Grow;
+procedure TDictionary<TKey, TValue>.Grow;
 var
   newCap: Integer;
 begin
   newCap := Length(FItems) * 2;
-  if newCap = 0 then
-    newCap := 4;
+  if newCap = 0 then newCap := 4;
   Rehash(newCap);
 end;
 
-function TDictionary<TKey,TValue>.GetBucketIndex(const Key: TKey; HashCode: Integer): Integer;
+function TDictionary<TKey, TValue>.GetBucketIndex(const Key: TKey; HashCode: Integer): Integer;
 var
   start, hc: Integer;
 begin
-  if Length(FItems) = 0 then
-    Exit(not High(Integer));
+  if Length(FItems) = 0 then Exit(not high(Integer));
 
   start := HashCode and (Length(FItems) - 1);
   Result := start;
-  while True do
-  begin
+  while True do begin
     hc := FItems[Result].HashCode;
 
     // Not found: return complement of insertion point.
-    if hc = EMPTY_HASH then
-      Exit(not Result);
+    if hc = EMPTY_HASH then Exit(not Result);
 
     // Found: return location.
-    if (hc = HashCode) and FComparer.Equals(FItems[Result].Key, Key) then
-      Exit(Result);
+    if (hc = HashCode) and FComparer.Equals(FItems[Result].Key, Key) then Exit(Result);
 
     Inc(Result);
-    if Result >= Length(FItems) then
-      Result := 0;
+    if Result >= Length(FItems) then Result := 0;
   end;
 end;
 
-function TDictionary<TKey,TValue>.Hash(const Key: TKey): Integer;
+function TDictionary<TKey, TValue>.Hash(const Key: TKey): Integer;
 const
   PositiveMask = not Integer($80000000);
 begin
@@ -1652,24 +1581,22 @@ begin
   Result := PositiveMask and ((PositiveMask and FComparer.GetHashCode(Key)) + 1);
 end;
 
-function TDictionary<TKey,TValue>.GetItem(const Key: TKey): TValue;
+function TDictionary<TKey, TValue>.GetItem(const Key: TKey): TValue;
 var
-  index: Integer;
+  Index: Integer;
 begin
   index := GetBucketIndex(Key, Hash(Key));
-  if index < 0 then
-    raise EListError.CreateRes(@SGenericItemNotFound);
+  if index < 0 then raise EListError.CreateRes(@SGenericItemNotFound);
   Result := FItems[index].Value;
 end;
 
-procedure TDictionary<TKey,TValue>.SetItem(const Key: TKey; const Value: TValue);
+procedure TDictionary<TKey, TValue>.SetItem(const Key: TKey; const Value: TValue);
 var
-  index: Integer;
+  Index: Integer;
   oldValue: TValue;
 begin
   index := GetBucketIndex(Key, Hash(Key));
-  if index < 0 then
-    raise EListError.CreateRes(@SGenericItemNotFound);
+  if index < 0 then raise EListError.CreateRes(@SGenericItemNotFound);
 
   oldValue := FItems[index].Value;
   FItems[index].Value := Value;
@@ -1678,9 +1605,9 @@ begin
   ValueNotify(Value, cnAdded);
 end;
 
-procedure TDictionary<TKey,TValue>.RehashAdd(HashCode: Integer; const Key: TKey; const Value: TValue);
+procedure TDictionary<TKey, TValue>.RehashAdd(HashCode: Integer; const Key: TKey; const Value: TValue);
 var
-  index: Integer;
+  Index: Integer;
 begin
   index := not GetBucketIndex(Key, HashCode);
   FItems[index].HashCode := HashCode;
@@ -1688,61 +1615,55 @@ begin
   FItems[index].Value := Value;
 end;
 
-procedure TDictionary<TKey,TValue>.KeyNotify(const Key: TKey; Action: TCollectionNotification);
+procedure TDictionary<TKey, TValue>.KeyNotify(const Key: TKey; Action: TCollectionNotification);
 begin
-  if Assigned(FOnKeyNotify) then
-    FOnKeyNotify(Self, Key, Action);
+  if Assigned(FOnKeyNotify) then FOnKeyNotify(Self, Key, Action);
 end;
 
-procedure TDictionary<TKey,TValue>.ValueNotify(const Value: TValue; Action: TCollectionNotification);
+procedure TDictionary<TKey, TValue>.ValueNotify(const Value: TValue; Action: TCollectionNotification);
 begin
-  if Assigned(FOnValueNotify) then
-    FOnValueNotify(Self, Value, Action);
+  if Assigned(FOnValueNotify) then FOnValueNotify(Self, Value, Action);
 end;
 
-constructor TDictionary<TKey,TValue>.Create(ACapacity: Integer = 0);
+constructor TDictionary<TKey, TValue>.Create(ACapacity: Integer = 0);
 begin
   Create(ACapacity, nil);
 end;
 
-constructor TDictionary<TKey,TValue>.Create(const AComparer: IEqualityComparer<TKey>);
+constructor TDictionary<TKey, TValue>.Create(const AComparer: IEqualityComparer<TKey>);
 begin
   Create(0, AComparer);
 end;
 
-constructor TDictionary<TKey,TValue>.Create(ACapacity: Integer; const AComparer: IEqualityComparer<TKey>);
+constructor TDictionary<TKey, TValue>.Create(ACapacity: Integer; const AComparer: IEqualityComparer<TKey>);
 var
   cap: Integer;
 begin
   inherited Create;
-  if ACapacity < 0 then
-    raise EArgumentOutOfRangeException.CreateRes(@SArgumentOutOfRange);
+  if ACapacity < 0 then raise EArgumentOutOfRangeException.CreateRes(@SArgumentOutOfRange);
   FComparer := AComparer;
-  if FComparer = nil then
-    FComparer := TEqualityComparer<TKey>.Default;
+  if FComparer = nil then FComparer := TEqualityComparer<TKey>.Default;
   SetCapacity(ACapacity);
 end;
 
-constructor TDictionary<TKey, TValue>.Create(const Collection: TEnumerable<TPair<TKey, TValue>>);
+constructor TDictionary<TKey, TValue>.Create(const Collection: TEnumerable < TPair < TKey, TValue >> );
 var
-  item: TPair<TKey,TValue>;
+  Item: TPair<TKey, TValue>;
 begin
   Create(0, nil);
-  for item in Collection do
-    AddOrSetValue(item.Key, item.Value);
+  for Item in Collection do AddOrSetValue(Item.Key, Item.Value);
 end;
 
 constructor TDictionary<TKey, TValue>.Create(const Collection: TEnumerable<TPair<TKey, TValue>>;
-  const AComparer: IEqualityComparer<TKey>);
+const AComparer: IEqualityComparer<TKey>);
 var
-  item: TPair<TKey,TValue>;
+  Item: TPair<TKey, TValue>;
 begin
   Create(0, AComparer);
-  for item in Collection do
-    AddOrSetValue(item.Key, item.Value);
+  for Item in Collection do AddOrSetValue(Item.Key, Item.Value);
 end;
 
-destructor TDictionary<TKey,TValue>.Destroy;
+destructor TDictionary<TKey, TValue>.Destroy;
 begin
   Clear;
   FKeyCollection.Free;
@@ -1750,17 +1671,15 @@ begin
   inherited;
 end;
 
-procedure TDictionary<TKey,TValue>.Add(const Key: TKey; const Value: TValue);
+procedure TDictionary<TKey, TValue>.Add(const Key: TKey; const Value: TValue);
 var
-  index, hc: Integer;
+  Index, hc: Integer;
 begin
-  if Count >= FGrowThreshold then
-    Grow;
+  if Count >= FGrowThreshold then Grow;
 
   hc := Hash(Key);
   index := GetBucketIndex(Key, hc);
-  if index >= 0 then
-    raise EListError.CreateRes(@SGenericDuplicateItem);
+  if index >= 0 then raise EListError.CreateRes(@SGenericDuplicateItem);
 
   DoAdd(hc, not index, Key, Value);
 end;
@@ -1772,14 +1691,12 @@ begin
     or (TopInc < Bottom) and (Item <= TopInc) // top and item wrapped
 end;
 
-function TDictionary<TKey,TValue>.DoRemove(const Key: TKey; HashCode: Integer;
-  Notification: TCollectionNotification): TValue;
+function TDictionary<TKey, TValue>.DoRemove(const Key: TKey; HashCode: Integer; Notification: TCollectionNotification): TValue;
 var
-  gap, index, hc, bucket: Integer;
+  gap, Index, hc, bucket: Integer;
 begin
   index := GetBucketIndex(Key, HashCode);
-  if index < 0 then
-    Exit(Default(TValue));
+  if index < 0 then Exit(default (TValue));
 
   // Removing item from linear probe hash table is moderately
   // tricky. We need to fill in gaps, which will involve moving items
@@ -1801,19 +1718,15 @@ begin
   Result := FItems[index].Value;
 
   gap := index;
-  while True do
-  begin
+  while True do begin
     Inc(index);
-    if index = Length(FItems) then
-      index := 0;
+    if index = Length(FItems) then index := 0;
 
     hc := FItems[index].HashCode;
-    if hc = EMPTY_HASH then
-      Break;
+    if hc = EMPTY_HASH then Break;
 
     bucket := hc and (Length(FItems) - 1);
-    if not InCircularRange(gap, bucket, index) then
-    begin
+    if not InCircularRange(gap, bucket, index) then begin
       FItems[gap] := FItems[index];
       gap := index;
       // The gap moved, but we still need to find it to terminate.
@@ -1822,34 +1735,33 @@ begin
   end;
 
   FItems[gap].HashCode := EMPTY_HASH;
-  FItems[gap].Key := Default(TKey);
-  FItems[gap].Value := Default(TValue);
+  FItems[gap].Key := default (TKey);
+  FItems[gap].Value := default (TValue);
   Dec(FCount);
 
   KeyNotify(Key, Notification);
   ValueNotify(Result, Notification);
 end;
 
-procedure TDictionary<TKey,TValue>.Remove(const Key: TKey);
+procedure TDictionary<TKey, TValue>.Remove(const Key: TKey);
 begin
   DoRemove(Key, Hash(Key), cnRemoved);
 end;
 
-function TDictionary<TKey,TValue>.ExtractPair(const Key: TKey): TPair<TKey,TValue>;
+function TDictionary<TKey, TValue>.ExtractPair(const Key: TKey): TPair<TKey, TValue>;
 var
-  hc, index: Integer;
+  hc, Index: Integer;
 begin
   hc := Hash(Key);
   index := GetBucketIndex(Key, hc);
-  if index < 0 then
-    Exit(TPair<TKey,TValue>.Create(Key, Default(TValue)));
+  if index < 0 then Exit(TPair<TKey, TValue>.Create(Key, default (TValue)));
 
-  Result := TPair<TKey,TValue>.Create(Key, DoRemove(Key, hc, cnExtracted));
+  Result := TPair<TKey, TValue>.Create(Key, DoRemove(Key, hc, cnExtracted));
 end;
 
-procedure TDictionary<TKey,TValue>.Clear;
+procedure TDictionary<TKey, TValue>.Clear;
 var
-  i: Integer;
+  I: Integer;
   oldItems: TItemArray;
 begin
   oldItems := FItems;
@@ -1858,43 +1770,39 @@ begin
   SetCapacity(0);
   FGrowThreshold := 0;
 
-  for i := 0 to Length(oldItems) - 1 do
-  begin
-    if oldItems[i].HashCode = EMPTY_HASH then
-      Continue;
-    KeyNotify(oldItems[i].Key, cnRemoved);
-    ValueNotify(oldItems[i].Value, cnRemoved);
+  for I := 0 to Length(oldItems) - 1 do begin
+    if oldItems[I].HashCode = EMPTY_HASH then Continue;
+    KeyNotify(oldItems[I].Key, cnRemoved);
+    ValueNotify(oldItems[I].Value, cnRemoved);
   end;
 end;
 
-function TDictionary<TKey, TValue>.ToArray: TArray<TPair<TKey,TValue>>;
+function TDictionary<TKey, TValue>.ToArray: TArray<TPair<TKey, TValue>>;
 begin
   Result := ToArrayImpl(Count);
 end;
 
-procedure TDictionary<TKey,TValue>.TrimExcess;
+procedure TDictionary<TKey, TValue>.TrimExcess;
 begin
   // Ensure at least one empty slot for GetBucketIndex to terminate.
   SetCapacity(Count + 1);
 end;
 
-function TDictionary<TKey,TValue>.TryGetValue(const Key: TKey; out Value: TValue): Boolean;
+function TDictionary<TKey, TValue>.TryGetValue(const Key: TKey; out Value: TValue): Boolean;
 var
-  index: Integer;
+  Index: Integer;
 begin
   index := GetBucketIndex(Key, Hash(Key));
   Result := index >= 0;
-  if Result then
-    Value := FItems[index].Value
-  else
-    Value := Default(TValue);
+  if Result then Value := FItems[index].Value
+  else Value := default (TValue);
 end;
 
-procedure TDictionary<TKey,TValue>.DoAdd(HashCode, Index: Integer; const Key: TKey; const Value: TValue);
+procedure TDictionary<TKey, TValue>.DoAdd(HashCode, Index: Integer; const Key: TKey; const Value: TValue);
 begin
-  FItems[Index].HashCode := HashCode;
-  FItems[Index].Key := Key;
-  FItems[Index].Value := Value;
+  FItems[index].HashCode := HashCode;
+  FItems[index].Key := Key;
+  FItems[index].Value := Value;
   Inc(FCount);
 
   KeyNotify(Key, cnAdded);
@@ -1906,31 +1814,28 @@ begin
   Result := GetEnumerator;
 end;
 
-procedure TDictionary<TKey,TValue>.DoSetValue(Index: Integer; const Value: TValue);
+procedure TDictionary<TKey, TValue>.DoSetValue(Index: Integer; const Value: TValue);
 var
   oldValue: TValue;
 begin
-  oldValue := FItems[Index].Value;
-  FItems[Index].Value := Value;
+  oldValue := FItems[index].Value;
+  FItems[index].Value := Value;
 
   ValueNotify(oldValue, cnRemoved);
   ValueNotify(Value, cnAdded);
 end;
 
-procedure TDictionary<TKey,TValue>.AddOrSetValue(const Key: TKey; const Value: TValue);
+procedure TDictionary<TKey, TValue>.AddOrSetValue(const Key: TKey; const Value: TValue);
 var
   hc: Integer;
-  index: Integer;
+  Index: Integer;
 begin
   hc := Hash(Key);
   index := GetBucketIndex(Key, hc);
-  if index >= 0 then
-    DoSetValue(index, Value)
-  else
-  begin
+  if index >= 0 then DoSetValue(index, Value)
+  else begin
     // We only grow if we are inserting a new value.
-    if Count >= FGrowThreshold then
-    begin
+    if Count >= FGrowThreshold then begin
       Grow;
       // We need a new Bucket Index because the array has grown.
       index := GetBucketIndex(Key, hc);
@@ -1939,46 +1844,43 @@ begin
   end;
 end;
 
-function TDictionary<TKey,TValue>.ContainsKey(const Key: TKey): Boolean;
+function TDictionary<TKey, TValue>.ContainsKey(const Key: TKey): Boolean;
 begin
   Result := GetBucketIndex(Key, Hash(Key)) >= 0;
 end;
 
-function TDictionary<TKey,TValue>.ContainsValue(const Value: TValue): Boolean;
+function TDictionary<TKey, TValue>.ContainsValue(const Value: TValue): Boolean;
 var
-  i: Integer;
+  I: Integer;
   c: IEqualityComparer<TValue>;
 begin
   c := TEqualityComparer<TValue>.Default;
 
-  for i := 0 to Length(FItems) - 1 do
-    if (FItems[i].HashCode <> EMPTY_HASH) and c.Equals(FItems[i].Value, Value) then
-      Exit(True);
+  for I := 0 to Length(FItems) - 1 do
+    if (FItems[I].HashCode <> EMPTY_HASH) and c.Equals(FItems[I].Value, Value) then Exit(True);
   Result := False;
 end;
 
-function TDictionary<TKey,TValue>.GetEnumerator: TPairEnumerator;
+function TDictionary<TKey, TValue>.GetEnumerator: TPairEnumerator;
 begin
   Result := TPairEnumerator.Create(Self);
 end;
 
-function TDictionary<TKey,TValue>.GetKeys: TKeyCollection;
+function TDictionary<TKey, TValue>.GetKeys: TKeyCollection;
 begin
-  if FKeyCollection = nil then
-    FKeyCollection := TKeyCollection.Create(Self);
+  if FKeyCollection = nil then FKeyCollection := TKeyCollection.Create(Self);
   Result := FKeyCollection;
 end;
 
-function TDictionary<TKey,TValue>.GetValues: TValueCollection;
+function TDictionary<TKey, TValue>.GetValues: TValueCollection;
 begin
-  if FValueCollection = nil then
-    FValueCollection := TValueCollection.Create(Self);
+  if FValueCollection = nil then FValueCollection := TValueCollection.Create(Self);
   Result := FValueCollection;
 end;
 
 // Pairs
 
-constructor TDictionary<TKey,TValue>.TPairEnumerator.Create(const ADictionary: TDictionary<TKey,TValue>);
+constructor TDictionary<TKey, TValue>.TPairEnumerator.Create(const ADictionary: TDictionary<TKey, TValue>);
 begin
   inherited Create;
   FIndex := -1;
@@ -1995,26 +1897,24 @@ begin
   Result := MoveNext;
 end;
 
-function TDictionary<TKey,TValue>.TPairEnumerator.GetCurrent: TPair<TKey,TValue>;
+function TDictionary<TKey, TValue>.TPairEnumerator.GetCurrent: TPair<TKey, TValue>;
 begin
   Result.Key := FDictionary.FItems[FIndex].Key;
   Result.Value := FDictionary.FItems[FIndex].Value;
 end;
 
-function TDictionary<TKey,TValue>.TPairEnumerator.MoveNext: Boolean;
+function TDictionary<TKey, TValue>.TPairEnumerator.MoveNext: Boolean;
 begin
-  while FIndex < Length(FDictionary.FItems) - 1 do
-  begin
+  while FIndex < Length(FDictionary.FItems) - 1 do begin
     Inc(FIndex);
-    if FDictionary.FItems[FIndex].HashCode <> EMPTY_HASH then
-      Exit(True);
+    if FDictionary.FItems[FIndex].HashCode <> EMPTY_HASH then Exit(True);
   end;
   Result := False;
 end;
 
 // Keys
 
-constructor TDictionary<TKey,TValue>.TKeyEnumerator.Create(const ADictionary: TDictionary<TKey,TValue>);
+constructor TDictionary<TKey, TValue>.TKeyEnumerator.Create(const ADictionary: TDictionary<TKey, TValue>);
 begin
   inherited Create;
   FIndex := -1;
@@ -2031,25 +1931,23 @@ begin
   Result := MoveNext;
 end;
 
-function TDictionary<TKey,TValue>.TKeyEnumerator.GetCurrent: TKey;
+function TDictionary<TKey, TValue>.TKeyEnumerator.GetCurrent: TKey;
 begin
   Result := FDictionary.FItems[FIndex].Key;
 end;
 
-function TDictionary<TKey,TValue>.TKeyEnumerator.MoveNext: Boolean;
+function TDictionary<TKey, TValue>.TKeyEnumerator.MoveNext: Boolean;
 begin
-  while FIndex < Length(FDictionary.FItems) - 1 do
-  begin
+  while FIndex < Length(FDictionary.FItems) - 1 do begin
     Inc(FIndex);
-    if FDictionary.FItems[FIndex].HashCode <> EMPTY_HASH then
-      Exit(True);
+    if FDictionary.FItems[FIndex].HashCode <> EMPTY_HASH then Exit(True);
   end;
   Result := False;
 end;
 
 // Values
 
-constructor TDictionary<TKey,TValue>.TValueEnumerator.Create(const ADictionary: TDictionary<TKey,TValue>);
+constructor TDictionary<TKey, TValue>.TValueEnumerator.Create(const ADictionary: TDictionary<TKey, TValue>);
 begin
   inherited Create;
   FIndex := -1;
@@ -2066,18 +1964,16 @@ begin
   Result := MoveNext;
 end;
 
-function TDictionary<TKey,TValue>.TValueEnumerator.GetCurrent: TValue;
+function TDictionary<TKey, TValue>.TValueEnumerator.GetCurrent: TValue;
 begin
   Result := FDictionary.FItems[FIndex].Value;
 end;
 
-function TDictionary<TKey,TValue>.TValueEnumerator.MoveNext: Boolean;
+function TDictionary<TKey, TValue>.TValueEnumerator.MoveNext: Boolean;
 begin
-  while FIndex < Length(FDictionary.FItems) - 1 do
-  begin
+  while FIndex < Length(FDictionary.FItems) - 1 do begin
     Inc(FIndex);
-    if FDictionary.FItems[FIndex].HashCode <> EMPTY_HASH then
-      Exit(True);
+    if FDictionary.FItems[FIndex].HashCode <> EMPTY_HASH then Exit(True);
   end;
   Result := False;
 end;
@@ -2105,8 +2001,7 @@ end;
 procedure TObjectList<T>.Notify(const Value: T; Action: TCollectionNotification);
 begin
   inherited;
-  if OwnsObjects and (Action = cnRemoved) then
-    Value.DisposeOf;
+  if OwnsObjects and (Action = cnRemoved) then Value.DisposeOf;
 end;
 
 { TObjectQueue<T> }
@@ -2131,8 +2026,7 @@ end;
 procedure TObjectQueue<T>.Notify(const Value: T; Action: TCollectionNotification);
 begin
   inherited;
-  if OwnsObjects and (Action = cnRemoved) then
-    Value.DisposeOf;
+  if OwnsObjects and (Action = cnRemoved) then Value.DisposeOf;
 end;
 
 { TObjectStack<T> }
@@ -2152,8 +2046,7 @@ end;
 procedure TObjectStack<T>.Notify(const Value: T; Action: TCollectionNotification);
 begin
   inherited;
-  if OwnsObjects and (Action = cnRemoved) then
-    Value.DisposeOf;
+  if OwnsObjects and (Action = cnRemoved) then Value.DisposeOf;
 end;
 
 procedure TObjectStack<T>.Pop;
@@ -2163,46 +2056,38 @@ end;
 
 { TObjectDictionary<TKey,TValue> }
 
-procedure TObjectDictionary<TKey,TValue>.KeyNotify(const Key: TKey; Action: TCollectionNotification);
+procedure TObjectDictionary<TKey, TValue>.KeyNotify(const Key: TKey; Action: TCollectionNotification);
 begin
   inherited;
-  if (Action = cnRemoved) and (doOwnsKeys in FOwnerships) then
-    PObject(@Key)^.DisposeOf;
+  if (Action = cnRemoved) and (doOwnsKeys in FOwnerships) then PObject(@Key)^.DisposeOf;
 end;
 
-procedure TObjectDictionary<TKey,TValue>.ValueNotify(const Value: TValue; Action: TCollectionNotification);
+procedure TObjectDictionary<TKey, TValue>.ValueNotify(const Value: TValue; Action: TCollectionNotification);
 begin
   inherited;
-  if (Action = cnRemoved) and (doOwnsValues in FOwnerships) then
-    PObject(@Value)^.DisposeOf;
+  if (Action = cnRemoved) and (doOwnsValues in FOwnerships) then PObject(@Value)^.DisposeOf;
 end;
 
-constructor TObjectDictionary<TKey,TValue>.Create(Ownerships: TDictionaryOwnerships;
-  ACapacity: Integer = 0);
+constructor TObjectDictionary<TKey, TValue>.Create(Ownerships: TDictionaryOwnerships; ACapacity: Integer = 0);
 begin
   Create(Ownerships, ACapacity, nil);
 end;
 
-constructor TObjectDictionary<TKey,TValue>.Create(Ownerships: TDictionaryOwnerships;
-  const AComparer: IEqualityComparer<TKey>);
+constructor TObjectDictionary<TKey, TValue>.Create(Ownerships: TDictionaryOwnerships; const AComparer: IEqualityComparer<TKey>);
 begin
   Create(Ownerships, 0, AComparer);
 end;
 
-constructor TObjectDictionary<TKey,TValue>.Create(Ownerships: TDictionaryOwnerships;
-  ACapacity: Integer; const AComparer: IEqualityComparer<TKey>);
+constructor TObjectDictionary<TKey, TValue>.Create(Ownerships: TDictionaryOwnerships; ACapacity: Integer;
+const AComparer: IEqualityComparer<TKey>);
 begin
   inherited Create(ACapacity, AComparer);
-  if doOwnsKeys in Ownerships then
-  begin
-    if (TypeInfo(TKey) = nil) or (PTypeInfo(TypeInfo(TKey))^.Kind <> tkClass) then
-      raise EInvalidCast.CreateRes(@SInvalidCast);
+  if doOwnsKeys in Ownerships then begin
+    if (TypeInfo(TKey) = nil) or (PTypeInfo(TypeInfo(TKey))^.Kind <> tkClass) then raise EInvalidCast.CreateRes(@SInvalidCast);
   end;
 
-  if doOwnsValues in Ownerships then
-  begin
-    if (TypeInfo(TValue) = nil) or (PTypeInfo(TypeInfo(TValue))^.Kind <> tkClass) then
-      raise EInvalidCast.CreateRes(@SInvalidCast);
+  if doOwnsValues in Ownerships then begin
+    if (TypeInfo(TValue) = nil) or (PTypeInfo(TypeInfo(TValue))^.Kind <> tkClass) then raise EInvalidCast.CreateRes(@SInvalidCast);
   end;
   FOwnerships := Ownerships;
 end;
@@ -2237,8 +2122,7 @@ end;
 
 { TDictionary<TKey, TValue>.TKeyCollection }
 
-constructor TDictionary<TKey, TValue>.TKeyCollection.Create(
-  const ADictionary: TDictionary<TKey, TValue>);
+constructor TDictionary<TKey, TValue>.TKeyCollection.Create(const ADictionary: TDictionary<TKey, TValue>);
 begin
   inherited Create;
   FDictionary := ADictionary;
@@ -2306,27 +2190,24 @@ end;
 
 function TThreadedQueue<T>.PopItem(var AQueueSize: Integer; var AItem: T): TWaitResult;
 begin
-  AItem := Default(T);
+  AItem := default (T);
   TMonitor.Enter(FQueueLock);
   try
     Result := wrSignaled;
     while (Result = wrSignaled) and (FQueueSize = 0) and not FShutDown do
-      if not TMonitor.Wait(FQueueNotEmpty, FQueueLock, FPopTimeout) then
-        Result := wrTimeout;
+      if not TMonitor.Wait(FQueueNotEmpty, FQueueLock, FPopTimeout) then Result := wrTimeout;
 
-    if (FShutDown and (FQueueSize = 0)) or (Result <> wrSignaled) then
-      Exit;
+    if (FShutDown and (FQueueSize = 0)) or (Result <> wrSignaled) then Exit;
 
     AItem := FQueue[FQueueOffset];
 
-    FQueue[FQueueOffset] := Default(T);
+    FQueue[FQueueOffset] := default (T);
 
     Dec(FQueueSize);
     Inc(FQueueOffset);
     Inc(FTotalItemsPopped);
 
-    if FQueueOffset = Length(FQueue) then
-      FQueueOffset := 0;
+    if FQueueOffset = Length(FQueue) then FQueueOffset := 0;
 
   finally
     AQueueSize := FQueueSize;
@@ -2361,11 +2242,9 @@ begin
   try
     Result := wrSignaled;
     while (Result = wrSignaled) and (FQueueSize = Length(FQueue)) and not FShutDown do
-      if not TMonitor.Wait(FQueueNotFull, FQueueLock, FPushTimeout) then
-        Result := wrTimeout;
+      if not TMonitor.Wait(FQueueNotFull, FQueueLock, FPushTimeout) then Result := wrTimeout;
 
-    if FShutDown or (Result <> wrSignaled) then
-      Exit;
+    if FShutDown or (Result <> wrSignaled) then Exit;
 
     FQueue[(FQueueOffset + FQueueSize) mod Length(FQueue)] := AItem;
     Inc(FQueueSize);
@@ -2397,11 +2276,8 @@ procedure TThreadList<T>.Add(const Item: T);
 begin
   LockList;
   try
-    if (Duplicates = dupAccept) or
-       (FList.IndexOf(Item) = -1) then
-      FList.Add(Item)
-    else if Duplicates = dupError then
-      raise EListError.CreateFmt(SDuplicateItem, [FList.ItemValue(Item)]);
+    if (Duplicates = dupAccept) or (FList.IndexOf(Item) = -1) then FList.Add(Item)
+    else if Duplicates = dupError then raise EListError.CreateFmt(SDuplicateItem, [FList.ItemValue(Item)]);
   finally
     UnlockList;
   end;
@@ -2427,7 +2303,7 @@ end;
 
 destructor TThreadList<T>.Destroy;
 begin
-  LockList;    // Make sure nobody else is inside the list.
+  LockList; // Make sure nobody else is inside the list.
   try
     FList.Free;
     inherited Destroy;
@@ -2467,7 +2343,7 @@ end;
 
 procedure TMoveArrayManager<T>.Finalize(var AArray: array of T; Index, Count: Integer);
 begin
-  System.FillChar(AArray[Index], Count * SizeOf(T), 0);
+  System.FillChar(AArray[index], Count * SizeOf(T), 0);
 end;
 
 procedure TMoveArrayManager<T>.Move(var AArray: array of T; FromIndex, ToIndex, Count: Integer);
@@ -2481,10 +2357,11 @@ begin
 end;
 
 {$IF Defined(WEAKREF)}
+
 procedure TManualArrayManager<T>.Finalize(var AArray: array of T; Index, Count: Integer);
 begin
-  System.Finalize(AArray[Index], Count);
-  System.FillChar(AArray[Index], Count * SizeOf(T), 0);
+  System.Finalize(AArray[index], Count);
+  System.FillChar(AArray[index], Count * SizeOf(T), 0);
 end;
 
 procedure TManualArrayManager<T>.Move(var AArray: array of T; FromIndex, ToIndex, Count: Integer);
@@ -2493,11 +2370,9 @@ var
 begin
   if Count > 0 then
     if FromIndex < ToIndex then
-      for I := Count - 1 downto 0 do
-        AArray[ToIndex + I] := AArray[FromIndex + I]
+      for I := Count - 1 downto 0 do AArray[ToIndex + I] := AArray[FromIndex + I]
     else if FromIndex > ToIndex then
-      for I := 0 to Count - 1 do
-        AArray[ToIndex + I] := AArray[FromIndex + I];
+      for I := 0 to Count - 1 do AArray[ToIndex + I] := AArray[FromIndex + I];
 end;
 
 procedure TManualArrayManager<T>.Move(var FromArray, ToArray: array of T; FromIndex, ToIndex, Count: Integer);
@@ -2506,13 +2381,10 @@ var
 begin
   if Count > 0 then
     if FromIndex < ToIndex then
-      for I := Count - 1 downto 0 do
-        ToArray[ToIndex + I] := FromArray[FromIndex + I]
+      for I := Count - 1 downto 0 do ToArray[ToIndex + I] := FromArray[FromIndex + I]
     else if FromIndex > ToIndex then
-      for I := 0 to Count - 1 do
-        ToArray[ToIndex + I] := FromArray[FromIndex + I];
+      for I := 0 to Count - 1 do ToArray[ToIndex + I] := FromArray[FromIndex + I];
 end;
 {$ENDIF}
 
 end.
-

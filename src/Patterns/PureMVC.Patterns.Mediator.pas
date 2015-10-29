@@ -1,7 +1,7 @@
 {
- PureMVC Delphi Port by Jorge L. Cangas <jorge.cangas@puremvc.org>
- PureMVC - Copyright(c) 2006-11 Futurescale, Inc., Some rights reserved.
- Your reuse is governed by the Creative Commons Attribution 3.0 License
+  PureMVC Delphi Port by Jorge L. Cangas <jorge.cangas@puremvc.org>
+  PureMVC - Copyright(c) 2006-11 Futurescale, Inc., Some rights reserved.
+  Your reuse is governed by the Creative Commons Attribution 3.0 License
 }
 
 unit PureMVC.Patterns.Mediator;
@@ -35,7 +35,8 @@ type
     property NotificationName: string
       read FNotificationName;
   end;
-  //Short alias
+
+  // Short alias
   PureMVCAttribute = PureMVCNotifyAttribute;
 
   /// <summary>
@@ -86,6 +87,7 @@ uses
 type
   TAttributeClass = class of TCustomAttribute;
   TCollectStrategy = (csAll, csFirstWins, csLastWins);
+
   TRttiObjectHelper = class helper for TRttiObject
   public
     function CollectAttributes(AttrClass: TAttributeClass; Strategy: TCollectStrategy = csAll): TObjectList<TCustomAttribute>;
@@ -97,6 +99,7 @@ type
       RTTI: T;
       Attrs: TCustomAttribute;
     end;
+
     TClassAttrInfo = TAttrInfo<TRttiInstanceType>;
     TMethodAttrInfo = TAttrInfo<TRttiMethod>;
 
@@ -120,11 +123,13 @@ type
     procedure Explore(ExploredClass: TClass);
     procedure ClassFilter(ClassAttr: TAttributeClass);
     procedure MethodFilter(MethodAttr: TAttributeClass; Filter: TPredicate<TRttiMethod> = nil);
-    property ClassAttrInfo: TClassAttrInfo read FAttrClassInfo;
-    property MethodsAttrInfo: TMethodsInfoDict read FAttrMethodsInfo;
+    property ClassAttrInfo: TClassAttrInfo
+      read FAttrClassInfo;
+    property MethodsAttrInfo: TMethodsInfoDict
+      read FAttrMethodsInfo;
   end;
 
-{ TRttiObjectHelper }
+  { TRttiObjectHelper }
 
 function TRttiObjectHelper.CollectAttributes(AttrClass: TAttributeClass; Strategy: TCollectStrategy): TObjectList<TCustomAttribute>;
 var
@@ -133,13 +138,13 @@ begin
   Result := TObjectList<TCustomAttribute>.Create(False);
   for Attr in GetAttributes do begin
     if (AttrClass = nil) or not Attr.InheritsFrom(AttrClass) then Continue;
-    case strategy of
+    case Strategy of
       csAll: Result.Add(Attr as AttrClass);
       csFirstWins: if (Result.Count = 0) then Result.Add(Attr as AttrClass);
       csLastWins: begin
-        Result.Clear;
-        Result.Add(Attr as AttrClass);
-      end;
+          Result.Clear;
+          Result.Add(Attr as AttrClass);
+        end;
     end;
   end;
 end;
@@ -179,11 +184,10 @@ begin
   FAttrClassInfo.RTTI := InstanceType;
   CollectedAttrs := InstanceType.CollectAttributes(FClassAttr, csLastWins);
   try
-    if (CollectedAttrs <> nil) and (CollectedAttrs.Count > 0) then
-      FAttrClassInfo.Attrs := CollectedAttrs.First;
+    if (CollectedAttrs <> nil) and (CollectedAttrs.Count > 0) then FAttrClassInfo.Attrs := CollectedAttrs.First;
 
     for Method in InstanceType.GetDeclaredMethods do begin
-        CollectMethodInfo(Method);
+      CollectMethodInfo(Method);
     end;
   finally
     CollectedAttrs.Free;
@@ -205,11 +209,9 @@ begin
   Info.RTTI := Method;
   CollectedAttrs := Method.CollectAttributes(FMethodAttr, csLastWins);
   try
-    if not (CollectedAttrs.Count = 0) then
-      Info.Attrs := CollectedAttrs.First;
+    if not(CollectedAttrs.Count = 0) then Info.Attrs := CollectedAttrs.First;
 
-    if Assigned(Info.Attrs) then
-      FAttrMethodsInfo.AddOrSetValue(GetInfoKey(Info), Info);
+    if Assigned(Info.Attrs) then FAttrMethodsInfo.AddOrSetValue(GetInfoKey(Info), Info);
   finally
     CollectedAttrs.Free;
   end;
@@ -219,8 +221,7 @@ procedure TAttributeCollector.Explore(ExploredClass: TClass);
 var
   RType: TRttiInstanceType;
 begin
-  if ExploredClass.ClassParent <> nil then
-    Explore(ExploredClass.ClassParent);
+  if ExploredClass.ClassParent <> nil then Explore(ExploredClass.ClassParent);
   RType := RC.GetType(ExploredClass) as TRttiInstanceType;
   CollectClassInfo(RType);
 end;
@@ -253,9 +254,11 @@ var
 begin
   Collector := TAttributeCollector.Create;
   try
-    Collector.MethodFilter(PureMVCNotifyAttribute, function(Method: TRttiMethod): Boolean begin
-      Result := Method.Visibility in [mvProtected, mvPublic, mvPublished];
-    end);
+    Collector.MethodFilter(PureMVCNotifyAttribute,
+      function(Method: TRttiMethod): Boolean
+      begin
+        Result := Method.Visibility in [mvProtected, mvPublic, mvPublished];
+      end);
     Collector.Explore(Self.ClassType);
     for MethodInfo in Collector.MethodsAttrInfo.Values do begin
       MethodInfo.RTTI.Invoke(Self, Args);
@@ -274,9 +277,11 @@ begin
   Result := TList<string>.Create;
   Collector := TAttributeCollector.Create;
   try
-    Collector.MethodFilter(PureMVCNotifyAttribute, function(Method: TRttiMethod): Boolean begin
-      Result := Method.Visibility in [mvProtected, mvPublic, mvPublished];
-    end);
+    Collector.MethodFilter(PureMVCNotifyAttribute,
+      function(Method: TRttiMethod): Boolean
+      begin
+        Result := Method.Visibility in [mvProtected, mvPublic, mvPublished];
+      end);
     Collector.Explore(Self.ClassType);
     for MethodInfo in Collector.MethodsAttrInfo.Values do begin
       Attr := MethodInfo.Attrs as PureMVCNotifyAttribute;

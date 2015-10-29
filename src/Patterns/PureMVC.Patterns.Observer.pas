@@ -1,7 +1,7 @@
 {
- PureMVC Delphi Port by Jorge L. Cangas <jorge.cangas@puremvc.org>
- PureMVC - Copyright(c) 2006-11 Futurescale, Inc., Some rights reserved.
- Your reuse is governed by the Creative Commons Attribution 3.0 License
+  PureMVC Delphi Port by Jorge L. Cangas <jorge.cangas@puremvc.org>
+  PureMVC - Copyright(c) 2006-11 Futurescale, Inc., Some rights reserved.
+  Your reuse is governed by the Creative Commons Attribution 3.0 License
 }
 
 unit PureMVC.Patterns.Observer;
@@ -24,19 +24,23 @@ type
     function CompareNotifyContext(Other: TObject): Boolean;
 
     procedure SetNotifyMethod(const Value: string);
-    property NotifyMethod: string write SetNotifyMethod;
+    property NotifyMethod: string
+      write SetNotifyMethod;
 
     procedure SetNotifyContext(Value: TObject);
-    property NotifyContext: TObject write SetNotifyContext;
+    property NotifyContext: TObject
+      write SetNotifyContext;
   end;
 
   TObserverList = TObjectList<TObserver>;
 
 implementation
-uses RTTI;
+
+uses
+  RTTI;
 
 type
-  TObserverHelper = class Helper for TObject
+  TObserverHelper = class helper for TObject
   protected
     procedure InvokeByRTTI(MethodName: string; Args: array of TValue);
   public

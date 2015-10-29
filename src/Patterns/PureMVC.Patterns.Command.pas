@@ -1,7 +1,7 @@
 {
- PureMVC Delphi Port by Jorge L. Cangas <jorge.cangas@puremvc.org>
- PureMVC - Copyright(c) 2006-11 Futurescale, Inc., Some rights reserved.
- Your reuse is governed by the Creative Commons Attribution 3.0 License
+  PureMVC Delphi Port by Jorge L. Cangas <jorge.cangas@puremvc.org>
+  PureMVC - Copyright(c) 2006-11 Futurescale, Inc., Some rights reserved.
+  Your reuse is governed by the Creative Commons Attribution 3.0 License
 }
 
 unit PureMVC.Patterns.Command;
@@ -17,9 +17,10 @@ uses
 
 type
   TCommandClass = class of TCommand;
+
   TCommand = class(TNotifier, ICommand, INotifier)
   public
-    constructor Create;virtual;
+    constructor Create; virtual;
     procedure Execute(Notification: INotification); virtual;
   end;
 
@@ -57,7 +58,7 @@ type
   /// <see cref="PureMVC.Patterns.SimpleCommand"/>
   TMacroCommand = class(TCommand, ICommand, INotifier)
 
-{$REGION 'Constructors'}
+    {$REGION 'Constructors'}
   public
     /// <summary>
     /// Constructs a new macro command
@@ -66,11 +67,11 @@ type
     /// <para>You should not need to define a constructor, instead, override the <c>initializeMacroCommand</c> method</para>
     /// <para>If your subclass does define a constructor, be sure to call <c>super()</c></para>
     /// </remarks>
-    constructor Create;override;
-{$ENDREGION}
-{$REGION 'Public Methods'}
+    constructor Create; override;
+    {$ENDREGION}
+    {$REGION 'Public Methods'}
   public
-{$REGION 'ICommand Members'}
+    {$REGION 'ICommand Members'}
     /// <summary>
     /// Execute this <c>MacroCommand</c>'s <i>SubCommands</i>
     /// </summary>
@@ -78,10 +79,10 @@ type
     /// <remarks>
     /// <para>The <i>SubCommands</i> will be called in First In/First Out (FIFO) order</para>
     /// </remarks>
-    procedure Execute(Notification: INotification);override;final;
-{$ENDREGION}
-{$ENDREGION}
-{$REGION 'Protected & Internal Methods'}
+    procedure Execute(Notification: INotification); override; final;
+    {$ENDREGION}
+    {$ENDREGION}
+    {$REGION 'Protected & Internal Methods'}
   protected
 
     /// <summary>
@@ -112,11 +113,11 @@ type
     /// <para>The <i>SubCommands</i> will be called in First In/First Out (FIFO) order</para>
     /// </remarks>
     procedure AddSubCommand(CommandType: TCommandClass);
-{$ENDREGION}
-{$REGION 'Members'}
+    {$ENDREGION}
+    {$REGION 'Members'}
   private
     FSubCommands: IList<TCommandClass>;
-{$ENDREGION}
+    {$ENDREGION}
   end;
 
 implementation
@@ -172,8 +173,7 @@ var
 begin
   for CommandType in FSubCommands do begin
     CommandInstance := CommandType.Create;
-    if Supports(CommandInstance, ICommand, CommandIntf) then
-      CommandIntf.Execute(Notification);
+    if Supports(CommandInstance, ICommand, CommandIntf) then CommandIntf.Execute(Notification);
 
   end;
   FSubCommands.Clear;

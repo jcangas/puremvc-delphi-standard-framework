@@ -110,7 +110,7 @@
     <Import Project="..\source.optset" Condition="'$(Base)'!='' And Exists('..\source.optset')"/>
     <PropertyGroup Condition="'$(Base)'!=''">
         <RuntimeOnlyPackage>true</RuntimeOnlyPackage>
-        <DllSuffix>D210</DllSuffix>
+        <DllSuffix>210</DllSuffix>
         <SanitizedProjectName>PureMVC</SanitizedProjectName>
         <DCC_OutputNeverBuildDcps>true</DCC_OutputNeverBuildDcps>
         <GenPackage>true</GenPackage>
