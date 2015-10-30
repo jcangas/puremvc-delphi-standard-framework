@@ -29,6 +29,8 @@ type
     procedure SetBody(Value: TValue);
     procedure SetKind(const Value: TValue);
   public
+  const
+    ToStrFmt = 'PMVC.Notify %s' + sLineBreak + 'Sender: %s' + sLineBreak + 'Body: %s' + sLineBreak + 'Type: %s';
     constructor Create(Name: string; Sender: TObject; Body: TValue; Kind: TValue); overload;
     constructor Create(Name: string; Sender: TObject; Body: TValue); overload;
     constructor Create(Name: string; Sender: TObject = nil); overload;
@@ -108,8 +110,6 @@ begin
 end;
 
 function TNotification.ToString: string;
-const
-  ToStrFmt = 'PMVC.Notify %s' + sLineBreak + 'Sender: %s' + sLineBreak + 'Body: %s' + sLineBreak + 'Type: %s';
 var
   VSender: TValue;
 begin

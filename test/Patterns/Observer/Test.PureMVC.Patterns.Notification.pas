@@ -62,14 +62,12 @@ begin
 end;
 
 procedure TestTNotification.TestToString;
-const
-  ToStrFmt = 'Notification{Name:%s\nSender:%p\nBody:%s\nType:%s}';
 var
   Note: INotification;
   ToStr: string;
 begin
   Note := TNotification.Create('TestNote', Self, '1,3,5', 'TestType');
-  ToStr := Format(ToStrFmt, ['TestNote', Pointer(Self), '1,3,5', 'TestType']);
+  ToStr := Format(TNotification.ToStrFmt, ['TestNote', Format('(%s @ %p)', [Self.ClassName, Pointer(Self)]), '1,3,5', 'TestType']);
   CheckEquals(ToStr, Note.ToString);
 end;
 
