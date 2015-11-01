@@ -1,13 +1,28 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <PropertyGroup>
         <DCC_Define>DEBUG;$(DCC_Define)</DCC_Define>
-        <DCC_ExeOutput>$(DVM_PRJDIR)\out\$(DVM_IDETAG)\$(Platform)\$(Config)\bin</DCC_ExeOutput>
-        <DCC_BplOutput>$(DVM_PRJDIR)\out\$(DVM_IDETAG)\$(Platform)\$(Config)\bin</DCC_BplOutput>
-        <DCC_UnitSearchPath>$(DVM_PRJDIR)\out\$(DVM_IDETAG)\$(Platform)\$(Config)\lib;$(DVM_PRJDIR)\out\$(DVM_IDETAG)\$(Platform)\Debug\lib;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
+        <DCC_IntegerOverflowCheck>true</DCC_IntegerOverflowCheck>
+        <DCC_Optimize>false</DCC_Optimize>
+        <DCC_LongStrings>true</DCC_LongStrings>
+        <DCC_StrictVarStrings>true</DCC_StrictVarStrings>
+        <DCC_DebugInformation>true</DCC_DebugInformation>
+        <DCC_LocalDebugSymbols>true</DCC_LocalDebugSymbols>
+        <DCC_RangeChecking>true</DCC_RangeChecking>
+        <DCC_DebugDCUs>true</DCC_DebugDCUs>
+        <DCC_AssertionsAtRuntime>true</DCC_AssertionsAtRuntime>
+        <DCC_ExtendedSyntax>true</DCC_ExtendedSyntax>
+        <DCC_OpenStringParams>true</DCC_OpenStringParams>
+        <DCC_ImportedDataReferences>true</DCC_ImportedDataReferences>
+        <DCC_SymbolReferenceInfo>2</DCC_SymbolReferenceInfo>
+        <DCC_IOChecking>true</DCC_IOChecking>
+        <DCC_GenerateStackFrames>true</DCC_GenerateStackFrames>
+        <DCC_ExeOutput>$(DVM_PRJDIR)\out\$(DVM_IDETAG)\$(Platform)\samples\bin</DCC_ExeOutput>
+        <DCC_BplOutput>$(DVM_PRJDIR)\out\$(DVM_IDETAG)\$(Platform)\samples\bin</DCC_BplOutput>
+        <DCC_UnitSearchPath>$(DVM_PRJDIR)\out\$(DVM_IDETAG)\$(Platform)\Debug\lib;$(DVM_PRJDIR)\out\$(DVM_IDETAG)\$(Platform)\Release\lib;$(DVM_PRJIMPORTS)\$(DVM_IDETAG)\$(Platform)\Debug\lib;$(DVM_PRJIMPORTS)\$(DVM_IDETAG)\$(Platform)\Release\lib;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
         <DCC_UnitAlias>WinTypes=Windows;WinProcs=Windows;DbiTypes=BDE;DbiProcs=BDE;$(DCC_UnitAlias)</DCC_UnitAlias>
-        <DCC_DcpOutput>$(DVM_PRJDIR)\out\$(DVM_IDETAG)\$(Platform)\$(Config)\lib</DCC_DcpOutput>
-        <DCC_DcuOutput>$(DVM_PRJDIR)\out\$(DVM_IDETAG)\$(Platform)\$(Config)\lib</DCC_DcuOutput>
-        <BRCC_OutputDir>$(DVM_PRJDIR)\out\$(DVM_IDETAG)\$(Platform)\$(Config)\lib</BRCC_OutputDir>
+        <DCC_DcpOutput>$(DVM_PRJDIR)\out\$(DVM_IDETAG)\$(Platform)\samples\lib</DCC_DcpOutput>
+        <DCC_DcuOutput>$(DVM_PRJDIR)\out\$(DVM_IDETAG)\$(Platform)\samples\lib</DCC_DcuOutput>
+        <BRCC_OutputDir>$(DVM_PRJDIR)\out\$(DVM_IDETAG)\$(Platform)\samples\lib</BRCC_OutputDir>
     </PropertyGroup>
     <ProjectExtensions>
         <Borland.Personality>Delphi.Personality.12</Borland.Personality>
