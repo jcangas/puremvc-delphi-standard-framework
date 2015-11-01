@@ -1,4 +1,4 @@
-<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <PropertyGroup>
         <DCC_Define>DEBUG;$(DCC_Define)</DCC_Define>
         <DCC_IntegerOverflowCheck>true</DCC_IntegerOverflowCheck>
@@ -16,13 +16,13 @@
         <DCC_SymbolReferenceInfo>2</DCC_SymbolReferenceInfo>
         <DCC_IOChecking>true</DCC_IOChecking>
         <DCC_GenerateStackFrames>true</DCC_GenerateStackFrames>
-        <DCC_ExeOutput>$(DVM_PRJDIR)\out\$(DVM_IDETAG)\$(Platform)\samples\bin</DCC_ExeOutput>
-        <DCC_BplOutput>$(DVM_PRJDIR)\out\$(DVM_IDETAG)\$(Platform)\samples\bin</DCC_BplOutput>
-        <DCC_UnitSearchPath>$(DVM_PRJDIR)\out\$(DVM_IDETAG)\$(Platform)\Debug\lib;$(DVM_PRJDIR)\out\$(DVM_IDETAG)\$(Platform)\Release\lib;$(DVM_PRJIMPORTS)\$(DVM_IDETAG)\$(Platform)\Debug\lib;$(DVM_PRJIMPORTS)\$(DVM_IDETAG)\$(Platform)\Release\lib;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
+        <DCC_ExeOutput>$(DVM_PRJDIR)\out\$(DVM_IDETAG)\$(Platform)\test\bin</DCC_ExeOutput>
+        <DCC_BplOutput>$(DVM_PRJDIR)\out\$(DVM_IDETAG)\$(Platform)\test\bin</DCC_BplOutput>
+        <DCC_UnitSearchPath>$(BDS)\Source\DUnit\src;$(DVM_PRJDIR)\out\$(DVM_IDETAG)\$(Platform)\Debug\lib;$(DVM_PRJDIR)\out\$(DVM_IDETAG)\$(Platform)\Release\lib;$(DVM_PRJIMPORTS)\$(DVM_IDETAG)\$(Platform)\Debug\lib;$(DVM_PRJIMPORTS)\$(DVM_IDETAG)\$(Platform)\Release\lib;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
         <DCC_UnitAlias>WinTypes=Windows;WinProcs=Windows;DbiTypes=BDE;DbiProcs=BDE;$(DCC_UnitAlias)</DCC_UnitAlias>
-        <DCC_DcpOutput>$(DVM_PRJDIR)\out\$(DVM_IDETAG)\$(Platform)\samples\lib</DCC_DcpOutput>
-        <DCC_DcuOutput>$(DVM_PRJDIR)\out\$(DVM_IDETAG)\$(Platform)\samples\lib</DCC_DcuOutput>
-        <BRCC_OutputDir>$(DVM_PRJDIR)\out\$(DVM_IDETAG)\$(Platform)\samples\lib</BRCC_OutputDir>
+        <DCC_DcpOutput>$(DVM_PRJDIR)\out\$(DVM_IDETAG)\$(Platform)\test\lib</DCC_DcpOutput>
+        <DCC_DcuOutput>$(DVM_PRJDIR)\out\$(DVM_IDETAG)\$(Platform)\test\lib</DCC_DcuOutput>
+        <BRCC_OutputDir>$(DVM_PRJDIR)\out\$(DVM_IDETAG)\$(Platform)\test\lib</BRCC_OutputDir>
     </PropertyGroup>
     <ProjectExtensions>
         <Borland.Personality>Delphi.Personality.12</Borland.Personality>
