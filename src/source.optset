@@ -2,7 +2,6 @@
     <PropertyGroup>
         <DCC_BpiOutput>$(DVM_PRJDIR)\out\$(DVM_IDETAG)\$(Platform)\$(Config)\lib</DCC_BpiOutput>
         <DCC_ObjOutput>$(DVM_PRJDIR)\out\$(DVM_IDETAG)\$(Platform)\$(Config)\lib</DCC_ObjOutput>
-        <DCC_HppOutput>$(DVM_PRJDIR)\out\$(DVM_IDETAG)\$(Platform)\hpp</DCC_HppOutput>
         <DCC_ExeOutput>$(DVM_PRJDIR)\out\$(DVM_IDETAG)\$(Platform)\$(Config)\bin</DCC_ExeOutput>
         <DCC_BplOutput>$(DVM_PRJDIR)\out\$(DVM_IDETAG)\$(Platform)\$(Config)\bin</DCC_BplOutput>
         <DCC_UnitSearchPath>$(DVM_PRJDIR)\out\$(DVM_IDETAG)\$(Platform)\$(Config)\lib;$(DVM_PRJIMPORTS)\$(DVM_IDETAG)\$(Platform)\$(Config)\lib;$(DVM_PRJIMPORTS)\$(DVM_IDETAG)\$(Platform)\Release\lib;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
