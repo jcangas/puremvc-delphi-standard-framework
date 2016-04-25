@@ -251,6 +251,7 @@ procedure TPureMVCNotifyHelper.InvokeByPureMVCNotify(NotificationName: string; A
 var
   Collector: TAttributeCollector;
   MethodInfo: TAttributeCollector.TMethodAttrInfo;
+  Attr: PureMVCNotifyAttribute;
 begin
   Collector := TAttributeCollector.Create;
   try
@@ -260,9 +261,8 @@ begin
         Result := Method.Visibility in [mvProtected, mvPublic, mvPublished];
       end);
     Collector.Explore(Self.ClassType);
-    for MethodInfo in Collector.MethodsAttrInfo.Values do begin
-      MethodInfo.RTTI.Invoke(Self, Args);
-    end;
+    if Collector.MethodsAttrInfo.TryGetValue(NotificationName, MethodInfo) then
+        MethodInfo.RTTI.Invoke(Self, Args);
   finally
     Collector.Free;
   end;
@@ -283,10 +283,13 @@ begin
         Result := Method.Visibility in [mvProtected, mvPublic, mvPublished];
       end);
     Collector.Explore(Self.ClassType);
+    Result.AddRange(Collector.MethodsAttrInfo.Keys);
+    (*
     for MethodInfo in Collector.MethodsAttrInfo.Values do begin
       Attr := MethodInfo.Attrs as PureMVCNotifyAttribute;
       Result.Add(Attr.NotificationName);
     end;
+    *)
   finally
     Collector.Free;
   end;
