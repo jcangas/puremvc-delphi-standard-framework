@@ -72,8 +72,16 @@ begin
 end;
 
 procedure TRolePanelMediator.NewUser(Note: INotification);
+var
+  User: TUserVO;
+  UserName: string;
 begin
+  UserName := '';
+  User := Note.Body.AsType<TUserVO>;
+  if User <> nil then
+    UserName := User.UserName;
   RolePanel.ClearForm;
+  RolePanel.ShowUser(User, RoleProxy.GetUserRoles(UserName));
 end;
 
 procedure TRolePanelMediator.UserAdded(Note: INotification);
@@ -165,7 +173,6 @@ end;
 procedure TRolePanelMediator.RolePanel_RemoveRole(Sender: TObject);
 begin
   SendNotification(MSG.DELETE_ROLE, Self, RolePanel.SelectedRole);
-  //self.send_notification(NotificationName::SHOW_DELETE_ROLE_COFIRMATION, [self.view.selected_role, self.view.user])
 end;
 
 end.

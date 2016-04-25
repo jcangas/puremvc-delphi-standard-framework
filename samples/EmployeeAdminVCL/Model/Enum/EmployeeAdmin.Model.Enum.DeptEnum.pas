@@ -56,6 +56,8 @@ end;
 
 class function TDeptEnum.GetItems(Index: Integer): TDeptEnum;
 begin
+  if Index = -1 then
+  Exit(TDeptEnum.NONE_SELECTED);
   Result := FItems[Index];
 end;
 

@@ -80,7 +80,8 @@ procedure TUserProxy.UpdateItem(User: TUserVO);
 var
   i: Integer;
 begin
-  if Users.BinarySearch(User, i) then
+  i := Users.IndexOf(User);
+  if i > -1 then
     Users[i] := User;
 end;
 
@@ -88,7 +89,8 @@ procedure TUserProxy.DeleteItem(User: TUserVO);
 var
   i: Integer;
 begin
-  if Users.BinarySearch(User, i) then
+  i := Users.IndexOf(User);
+  if i > -1 then
       Users.Delete(i);
 end;
 
